@@ -2595,8 +2595,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade0374251007a94db7c8c3fb997a09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilities:
-  - {fileID: 0}
+  projectilePrefab: {fileID: 5758922140994373058, guid: 9d78e44e9bd1e3b4fa51b7fc79b64a31,
+    type: 3}
+  attack: {fileID: 11400000, guid: bc2686d313a430d4780a0acd91af4316, type: 2}
+  abilities: []
 --- !u!1 &1706615107
 GameObject:
   m_ObjectHideFlags: 0
