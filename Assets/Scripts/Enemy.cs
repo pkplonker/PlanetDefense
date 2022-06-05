@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats
+public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable
 {
 	private Player target;
 	private EnemyStats stats;
@@ -16,6 +18,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats
 	[SerializeField] private Projectile projectilePrefab;
 	private float lastShotTime = 0;
 	private bool isDead = false;
+	private List<Projectile> projectiles = new List<Projectile>();
+
 	public void Init(Player target, EnemyStats stats)
 	{
 		this.stats = stats;
@@ -52,6 +56,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats
 		if (target.GetIsDead()) return;
 		Projectile projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
 		projectile.Init(stats.projectileData, Stats.Team.Player, target.transform);
+		projectiles.Add(projectile);
 		Debug.Log("Spawned projectile");
 		lastShotTime = Time.time;
 	}
@@ -98,5 +103,14 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats
 	public Stats GetStats()
 	{
 		return stats;
+	}
+
+	public void DestroyEntity()
+	{
+		foreach (var p in projectiles.Where(p => p != null))
+		{
+			p.DestroyEntity();
+		}
+		Destroy(gameObject);
 	}
 }

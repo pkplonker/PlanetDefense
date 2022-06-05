@@ -15,8 +15,32 @@ public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats
 
 	private void Start()
 	{
+		SetInitialHealth();
+	}
+
+	private void OnEnable()
+	{
+		GameManager.onStateChange += HandleGameStateChange;
+	}
+
+	private void OnDisable()
+	{
+		GameManager.onStateChange -= HandleGameStateChange;
+	}
+
+	private void HandleGameStateChange(GameState state)
+	{
+		if (state == GameState.NewGame)
+		{
+			SetInitialHealth();
+		}
+	}
+
+	private void SetInitialHealth()
+	{
 		currentHealth = stats.maxHealth;
 		onHealthChanged?.Invoke(currentHealth);
+		isDead = false;
 	}
 
 	public void TakeDamage(float amount)
@@ -33,9 +57,11 @@ public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats
 
 	public void Die()
 	{
+		if (isDead) return;
 		isDead = true;
 		Debug.Log(stats.characterName + " died");
 		onDeath?.Invoke(this);
+		GameManager.ChangeState(GameState.Dead);
 	}
 
 	public void Heal(float amount)

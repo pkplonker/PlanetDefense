@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
 	private List<Enemy> spawnedEnemies = new List<Enemy>();
 	private Camera cam;
 	[SerializeField] private Player player;
+
 	private void Awake()
 	{
 		cam = Camera.main;
@@ -25,11 +27,35 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
+	private void OnEnable()
+	{
+		GameManager.onStateChange += HandleGameStateChange;
+	}
+
+	private void OnDisable()
+	{
+		GameManager.onStateChange -= HandleGameStateChange;
+	}
+
+	private void HandleGameStateChange(GameState state)
+	{
+		if (state == GameState.NewGame)
+		{
+			foreach (var enemy in spawnedEnemies)
+			{
+				if (enemy != null)
+				{
+					enemy.DestroyEntity();
+				}
+			}
+		}
+	}
+
 	private void SpawnEnemy()
 	{
 		Vector3 spawnPos = CalculateSpawnPosition();
 		Enemy enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
-		enemy.Init(player,enemyStats);
+		enemy.Init(player, enemyStats);
 		spawnedEnemies.Add(enemy);
 		enemy.onDeath += HandleEnemyDeath;
 	}
@@ -57,6 +83,6 @@ public class EnemySpawner : MonoBehaviour
 
 	void HandleEnemyDeath(Enemy entity)
 	{
-		spawnedEnemies.Remove( entity);
+		spawnedEnemies.Remove(entity);
 	}
 }

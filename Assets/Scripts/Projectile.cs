@@ -5,7 +5,7 @@ using Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour,IDestroyable
 {
   
    private Stats.Team targetTeam;
@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
    private bool init = false;
    public void Init(ProjectileData data, Stats.Team targetTeam, Transform target)
    {
-      Invoke(nameof(Kill),data.lifeTime);
+      Invoke(nameof(DestroyEntity),data.lifeTime);
       this.target = target;
       direction = (target.position - transform.position).normalized;
       init = true;
@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
       if (stats.GetStats().team == targetTeam)
       {
          other.GetComponent<IDamageable>().TakeDamage(data.damage);
-         Kill();
+         DestroyEntity();
       }
    }
 
@@ -52,9 +52,10 @@ public class Projectile : MonoBehaviour
       }
    }
 
-   private void Kill()
+
+
+   public void DestroyEntity()
    {
-      
       Destroy(gameObject);
    }
 }
