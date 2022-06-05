@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d3b2a226d4ee54093ad991ed71bc80, type: 3}
+  m_Name: TestEnemy
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  characterName: Test Enemy
+  team: 1
+  speed: 2
+  attackRange: 4
+  damage: 3
+  value: 3
+  projectileData: {fileID: 11400000, guid: a901f0b65e9876541b68e69d95301bf1, type: 2}
+  attackSpeed: 1.5

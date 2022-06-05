@@ -5,5 +5,10 @@ using UnityEngine;
 
 public class EnemyStats : Stats
 {
-
+	public float speed = 2f;
+	public float attackRange = 3f;
+	public float damage = 3f;
+	public float value = 3f;
+	public ProjectileData projectileData;
+	public float attackSpeed;
 }
