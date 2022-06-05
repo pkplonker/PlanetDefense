@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable
+public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable,ICheckAlive
 {
 	private Player target;
 	private EnemyStats stats;
@@ -113,4 +113,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 		}
 		Destroy(gameObject);
 	}
+
+	public bool GetIsDead() => isDead;
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats
+public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats,ICheckAlive
 {
 	[SerializeField] private PlayerStats stats;
 	private bool isDead = false;
