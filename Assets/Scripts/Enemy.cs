@@ -84,7 +84,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 	public void Die()
 	{
 		isDead = true;
-		Debug.Log(stats.characterName + " died");
 		onDeath?.Invoke(this);
 		Destroy(gameObject);
 	}

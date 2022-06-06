@@ -42,5 +42,10 @@ namespace UI
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
         }
+
+        public static void NextLevel()
+        {
+            GameManager.ChangeState(GameState.NewWave);
+        }
     }
 }

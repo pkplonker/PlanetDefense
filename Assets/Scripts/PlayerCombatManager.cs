@@ -52,18 +52,14 @@ public class PlayerCombatManager : MonoBehaviour
 		if (targetTransform.GetComponent<ICheckAlive>().GetIsDead()) return null;
 		Projectile projectile = Instantiate(projectilePrefab, shooter).GetComponent<Projectile>();
 		projectile.Init(attack, Stats.Team.Enemy, targetTransform);
-		Debug.Log("Spawned projectile");
 		lastShotTime = Time.time;
 		return projectile;
 	}
 	private Transform AcquireTarget(PlayerProjectileData playerProjectileData)
 	{
-		Debug.Log("Acquiring target");
-
 		RaycastHit2D hit = Physics2D.CircleCast(transform.position, playerProjectileData.range, Vector2.up, 0.1f);
 		if (hit.collider == null) return null;
 		if (!hit.collider.GetComponent<Enemy>()) return null;
-		Debug.Log("Target found" +hit.transform.name);
 		return hit.collider.transform;
 	}
 }

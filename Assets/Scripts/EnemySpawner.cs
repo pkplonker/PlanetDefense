@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
 		if (Input.GetMouseButtonDown(0))
 		{
-			SpawnEnemy();
+			SpawnEnemy(enemyStats);
 		}
 	}
 
@@ -51,16 +51,16 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
-	private void SpawnEnemy()
+	public void SpawnEnemy(EnemyStats stats)
 	{
 		Vector3 spawnPos = CalculateSpawnPosition();
 		Enemy enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
-		enemy.Init(player, enemyStats);
+		enemy.Init(player, stats);
 		spawnedEnemies.Add(enemy);
 		enemy.onDeath += HandleEnemyDeath;
 	}
 
-	private Vector3 CalculateSpawnPosition()
+	private  Vector3 CalculateSpawnPosition()
 	{
 		float x = 0;
 		float y = 0;

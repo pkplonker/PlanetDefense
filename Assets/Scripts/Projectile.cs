@@ -34,7 +34,6 @@ public class Projectile : MonoBehaviour,IDestroyable
 
       if (stats.GetStats().team == targetTeam)
       {
-         Debug.Log("hit " + other.name);
          other.GetComponent<IDamageable>().TakeDamage(data.damage);
          DestroyEntity();
       }

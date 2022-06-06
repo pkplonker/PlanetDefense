@@ -40,6 +40,15 @@ public class GameManager : MonoBehaviour
 		{
 			ChangeState(GameState.InGame);
 		}
+		if(state== GameState.WaveOver)
+		{
+			ChangeState(GameState.Shop);
+		}
+
+		if (state == GameState.NewWave)
+		{
+			ChangeState(GameState.InGame);
+		}
 	}
 
 	public static GameState GetCurrentState() => gameState;
@@ -54,5 +63,7 @@ public enum GameState
 	Paused,
 	GameOver,
 	NewGame,
-	Shop
+	WaveOver,
+	Shop,
+	NewWave
 }
