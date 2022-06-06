@@ -7,7 +7,7 @@ using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameState gameState = GameState.InGame;
+	private static GameState gameState = GameState.InGame;
 	public static GameManager instance;
 	public static event Action<GameState> onStateChange;
 	[SerializeField] private GameState defaultState;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 			ChangeState(GameState.InGame);
 		}
 	}
+
+	public static GameState GetCurrentState() => gameState;
 }
 
 
@@ -51,5 +53,6 @@ public enum GameState
 	Dead,
 	Paused,
 	GameOver,
-	NewGame
+	NewGame,
+	Shop
 }

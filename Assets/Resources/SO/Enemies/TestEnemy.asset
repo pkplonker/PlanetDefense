@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d3b2a226d4ee54093ad991ed71bc80, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 3
   characterName: Test Enemy
   team: 1
   speed: 2
-  attackRange: 4
-  damage: 3
+  attackRange: 3
+  damage: 2
   value: 3
   projectileData: {fileID: 11400000, guid: a901f0b65e9876541b68e69d95301bf1, type: 2}
   attackSpeed: 1.5

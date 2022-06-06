@@ -1,5 +1,5 @@
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,12 +8,11 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] private Enemy enemyPrefab;
-
 	[SerializeField] private EnemyStats enemyStats;
 	private List<Enemy> spawnedEnemies = new List<Enemy>();
 	private Camera cam;
 	[SerializeField] private Player player;
-
+	public static event Action<EnemyStats> OnEnemyDeath; 
 	private void Awake()
 	{
 		cam = Camera.main;
@@ -21,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Update()
 	{
+		if (GameManager.GetCurrentState() != GameState.InGame) return;
 		if (Input.GetMouseButtonDown(0))
 		{
 			SpawnEnemy();
@@ -84,5 +84,6 @@ public class EnemySpawner : MonoBehaviour
 	void HandleEnemyDeath(Enemy entity)
 	{
 		spawnedEnemies.Remove(entity);
+		OnEnemyDeath?.Invoke((EnemyStats)entity.GetStats());
 	}
 }

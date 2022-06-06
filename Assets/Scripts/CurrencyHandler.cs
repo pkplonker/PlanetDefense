@@ -8,7 +8,13 @@ public class CurrencyHandler : MonoBehaviour
 {
    [SerializeField] private PlayerStats stats;
    [SerializeField]private uint startingCurrency = 0;
-   public event Action<uint> onCurrencyChanged;
+   [SerializeField] private readonly uint DEFAULT_CURRENCY;
+   public static event Action<uint> onCurrencyChanged;
+
+   private void Awake()
+   {
+      stats.currency = DEFAULT_CURRENCY;
+   }
 
    private void Start()
    {
@@ -18,11 +24,13 @@ public class CurrencyHandler : MonoBehaviour
    private void OnEnable()
    {
       GameManager.onStateChange += HandleGameStateChange;
+      EnemySpawner.OnEnemyDeath += EnemyDeath;
    }
 
    private void OnDisable()
    {
       GameManager.onStateChange -= HandleGameStateChange;
+      EnemySpawner.OnEnemyDeath -= EnemyDeath;
 
    }
 
@@ -42,14 +50,15 @@ public class CurrencyHandler : MonoBehaviour
 
    public bool RemoveMoney(uint amount)
    {
-      if (stats.currency >= amount)
-      {
-         stats.currency -= amount;
-         onCurrencyChanged?.Invoke(stats.currency);
-         return true;
-      }
+      if (stats.currency < amount) return false;
+      stats.currency -= amount;
+      onCurrencyChanged?.Invoke(stats.currency);
+      return true;
 
-      return false;
+   }
 
+   private void EnemyDeath(EnemyStats stats)
+   {
+      AddMoney(stats.value);
    }
 }

@@ -7,16 +7,15 @@ namespace UI
 	public class PlayerCurrencyUI : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI tmp;
-		[SerializeField] private CurrencyHandler currencyHandler;
 
 		private void OnEnable()
 		{
-			currencyHandler.onCurrencyChanged += UpdateUI;
+			CurrencyHandler.onCurrencyChanged += UpdateUI;
 		}
 
 		private void OnDisable()
 		{
-			currencyHandler.onCurrencyChanged -= UpdateUI;
+			CurrencyHandler.onCurrencyChanged -= UpdateUI;
 		}
 		
 

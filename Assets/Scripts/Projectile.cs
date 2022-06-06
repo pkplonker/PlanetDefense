@@ -42,6 +42,8 @@ public class Projectile : MonoBehaviour,IDestroyable
 
    private void Update()
    {
+      if (GameManager.GetCurrentState() != GameState.InGame) return;
+
       if (!init) return;
       if (transform != null)
       {

@@ -32,7 +32,7 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (GameManager.gameState != GameState.InGame) return;
+		if (GameManager.GetCurrentState() != GameState.InGame) return;
 		Transform target = AcquireTarget(attack);
 		if (lastShotTime + attack.attackCooldown < Time.time && target!=null)
 		{

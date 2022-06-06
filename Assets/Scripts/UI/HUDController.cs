@@ -43,6 +43,11 @@ namespace UI
 			canvasGroup.interactable = true;
 			canvasGroup.blocksRaycasts = true;
 		}
+
+		public void Pause()
+		{
+			GameManager.ChangeState(GameState.Paused);
+		}
 	}
 }
 

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712a8ac4bc7288e40ab0ede6befbd20e, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 40
   characterName: Pkplonker
+  team: 0
+  currency: 0
