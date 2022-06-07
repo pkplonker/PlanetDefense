@@ -4140,6 +4140,7 @@ MonoBehaviour:
     type: 3}
   attack: {fileID: 11400000, guid: bc2686d313a430d4780a0acd91af4316, type: 2}
   abilities: []
+  enemySpawner: {fileID: 1265013037}
 --- !u!1 &1706615107
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] private Enemy enemyPrefab;
 	[SerializeField] private EnemyStats enemyStats;
-	private List<Enemy> spawnedEnemies = new List<Enemy>();
+	public List<Enemy> spawnedEnemies { get; private set; }= new List<Enemy>();
 	private Camera cam;
 	[SerializeField] private Player player;
 	public static event Action<EnemyStats> OnEnemyDeath;
