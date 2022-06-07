@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,19 +11,11 @@ public class EnemySpawner : MonoBehaviour
 	private List<Enemy> spawnedEnemies = new List<Enemy>();
 	private Camera cam;
 	[SerializeField] private Player player;
-	public static event Action<EnemyStats> OnEnemyDeath; 
+	public static event Action<EnemyStats> OnEnemyDeath;
+
 	private void Awake()
 	{
 		cam = Camera.main;
-	}
-
-	private void Update()
-	{
-		if (GameManager.GetCurrentState() != GameState.InGame) return;
-		if (Input.GetMouseButtonDown(0))
-		{
-			SpawnEnemy(enemyStats);
-		}
 	}
 
 	private void OnEnable()
@@ -43,10 +34,7 @@ public class EnemySpawner : MonoBehaviour
 		{
 			foreach (var enemy in spawnedEnemies)
 			{
-				if (enemy != null)
-				{
-					enemy.DestroyEntity();
-				}
+				if (enemy != null) enemy.DestroyEntity();
 			}
 		}
 	}
@@ -60,10 +48,10 @@ public class EnemySpawner : MonoBehaviour
 		enemy.onDeath += HandleEnemyDeath;
 	}
 
-	private  Vector3 CalculateSpawnPosition()
+	private Vector3 CalculateSpawnPosition()
 	{
-		float x = 0;
-		float y = 0;
+		float x;
+		float y;
 		if (Utility.RandomBool()) //spawn left or right
 		{
 			x = Utility.RandomBool() ? 1.1f : -0.1f;
@@ -84,6 +72,7 @@ public class EnemySpawner : MonoBehaviour
 	void HandleEnemyDeath(Enemy entity)
 	{
 		spawnedEnemies.Remove(entity);
-		OnEnemyDeath?.Invoke((EnemyStats)entity.GetStats());
+		entity.onDeath -= HandleEnemyDeath;
+		GameManager.instance.EnemyDeath(null);
 	}
 }

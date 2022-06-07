@@ -11,7 +11,7 @@ public class WaveUI : MonoBehaviour
 
     private void OnEnable()
     {
-        WaveSpawner.OnCurrentWaveChange += ChangeWave;
+        GameManager.onWaveStart += ChangeWave;
         WaveSpawner.OnMobCountChange += ChangeMob;
 
     }
@@ -23,7 +23,7 @@ public class WaveUI : MonoBehaviour
 
     private void OnDisable()
     {
-        WaveSpawner.OnCurrentWaveChange -= ChangeWave;
+        GameManager.onWaveStart -= ChangeWave;
         WaveSpawner.OnMobCountChange -= ChangeMob;
     }
 

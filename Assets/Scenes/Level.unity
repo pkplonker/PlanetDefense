@@ -1316,7 +1316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4eb83fbd784ff44dbf49344dd67da4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveContainer: {fileID: 11400000, guid: bc8300c9ad8f40746a6dd87efefdc34e, type: 2}
   defaultState: 0
+  waveSpawner: {fileID: 1940598621}
 --- !u!4 &797205585
 Transform:
   m_ObjectHideFlags: 0
@@ -4840,7 +4842,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveContainer: {fileID: 11400000, guid: bc8300c9ad8f40746a6dd87efefdc34e, type: 2}
   enemySpawner: {fileID: 1265013037}
-  currentWave: 0
 --- !u!1 &1947222766
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,19 +10,67 @@ public class GameManager : MonoBehaviour
 	private static GameState gameState = GameState.InGame;
 	public static GameManager instance;
 	public static event Action<GameState> onStateChange;
+	public static event Action<int> onWaveStart;
+	[SerializeField] private WaveContainer waveContainer;
 	[SerializeField] private GameState defaultState;
+	[SerializeField] private WaveSpawner waveSpawner;
+	static int currentWave = -1;
+	private int kills;
+
+
+
+	private void OnEnable()
+	{
+		onStateChange += GameStateChange;
+		EnemySpawner.OnEnemyDeath -= EnemyDeath;
+	}
+
+	private void Start()
+	{
+		currentWave = -1;
+		EnemySpawner.OnEnemyDeath -= EnemyDeath;
+
+	}
+
+	private void OnDisable()
+	{
+		onStateChange -= GameStateChange;
+		EnemySpawner.OnEnemyDeath += EnemyDeath;
+	}
+	
+	public void EnemyDeath(EnemyStats stats)
+	{
+		kills++;
+		Debug.Log("Kills = " + kills + ". Total mobs = " + waveContainer.GetWaveByIndex(currentWave).GetSpawnLength());
+
+		if (kills >= waveContainer.GetWaveByIndex(currentWave).GetSpawnLength())
+		{
+			//wave over
+			ChangeState(GameState.WaveOver);
+		}
+	}
+
+
+
+	private void GameStateChange(GameState state)
+	{
+		if (state == GameState.NewWave)
+		{
+			kills = 0;
+			IncrementWave();
+		}
+	}
+
 	private void Awake()
 	{
 		if (instance == null)
 		{
 			instance = this;
-		}
-		else if (instance != this)
+		}else if (instance != this)
 		{
 			Destroy(gameObject);
 			return;
 		}
-
 		DontDestroyOnLoad(gameObject);
 		SetDefaultState();
 	}
@@ -38,9 +86,11 @@ public class GameManager : MonoBehaviour
 		onStateChange?.Invoke(gameState);
 		if (state == GameState.NewGame)
 		{
-			ChangeState(GameState.InGame);
+			ChangeState(GameState.NewWave);
+			SetupNewGame();
 		}
-		if(state== GameState.WaveOver)
+
+		if (state == GameState.WaveOver)
 		{
 			ChangeState(GameState.Shop);
 		}
@@ -49,6 +99,23 @@ public class GameManager : MonoBehaviour
 		{
 			ChangeState(GameState.InGame);
 		}
+	}
+
+	private static void SetupNewGame()
+	{
+		currentWave = 0;
+	}
+	
+	private void IncrementWave()
+	{
+		currentWave++;
+		if (waveContainer.IsLastWave(currentWave))
+		{
+			ChangeState(GameState.Complete);
+			return;
+		}
+
+		onWaveStart?.Invoke(currentWave);
 	}
 
 	public static GameState GetCurrentState() => gameState;
@@ -65,5 +132,6 @@ public enum GameState
 	NewGame,
 	WaveOver,
 	Shop,
-	NewWave
+	NewWave,
+	Complete
 }

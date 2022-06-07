@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a266362b61cd242a89fa1c3ef7ba98, type: 3}
   m_Name: PlayerProjectile
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 2
   speed: 5
   lifeTime: 4
   weaponType: 1
-  attackCooldown: 0.05
-  range: 8
+  attackCooldown: 1
+  range: 6
