@@ -13,10 +13,8 @@ public class GameManager : MonoBehaviour
 	public static event Action<int> onWaveStart;
 	[SerializeField] private WaveContainer waveContainer;
 	[SerializeField] private GameState defaultState;
-	[SerializeField] private WaveSpawner waveSpawner;
 	static int currentWave = -1;
-	private int kills;
-
+	[SerializeField]private int kills;
 
 
 	private void OnEnable()
@@ -27,9 +25,8 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		currentWave = -1;
+		currentWave = 0;
 		EnemySpawner.OnEnemyDeath -= EnemyDeath;
-
 	}
 
 	private void OnDisable()
@@ -37,11 +34,12 @@ public class GameManager : MonoBehaviour
 		onStateChange -= GameStateChange;
 		EnemySpawner.OnEnemyDeath += EnemyDeath;
 	}
-	
+
 	public void EnemyDeath(EnemyStats stats)
 	{
 		kills++;
-		Debug.Log("Kills = " + kills + ". Total mobs = " + waveContainer.GetWaveByIndex(currentWave).GetSpawnLength());
+		Debug.Log("Kills = " + kills + ". Total mobs = " +
+		          waveContainer.GetWaveByIndex(currentWave).GetSpawnLength());
 
 		if (kills >= waveContainer.GetWaveByIndex(currentWave).GetSpawnLength())
 		{
@@ -51,14 +49,11 @@ public class GameManager : MonoBehaviour
 	}
 
 
-
 	private void GameStateChange(GameState state)
 	{
-		if (state == GameState.NewWave)
-		{
-			kills = 0;
-			IncrementWave();
-		}
+		if (state != GameState.NewWave) return;
+		kills = 0;
+		IncrementWave();
 	}
 
 	private void Awake()
@@ -66,11 +61,13 @@ public class GameManager : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
-		}else if (instance != this)
+		}
+		else if (instance != this)
 		{
 			Destroy(gameObject);
 			return;
 		}
+
 		DontDestroyOnLoad(gameObject);
 		SetDefaultState();
 	}
@@ -86,8 +83,8 @@ public class GameManager : MonoBehaviour
 		onStateChange?.Invoke(gameState);
 		if (state == GameState.NewGame)
 		{
-			ChangeState(GameState.NewWave);
 			SetupNewGame();
+			ChangeState(GameState.NewWave);
 		}
 
 		if (state == GameState.WaveOver)
@@ -103,11 +100,9 @@ public class GameManager : MonoBehaviour
 
 	private static void SetupNewGame()
 	{
-		currentWave = 0;
-		onWaveStart?.Invoke(currentWave);
-
+		currentWave = -1;
 	}
-	
+
 	private void IncrementWave()
 	{
 		currentWave++;
@@ -116,6 +111,7 @@ public class GameManager : MonoBehaviour
 			ChangeState(GameState.Complete);
 			return;
 		}
+
 		onWaveStart?.Invoke(currentWave);
 	}
 

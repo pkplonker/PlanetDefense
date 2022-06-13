@@ -1,34 +1,26 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WaveUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI waveText;
-    [SerializeField] private TextMeshProUGUI mobText;
-
-    private void OnEnable()
+    public class WaveUI : MonoBehaviour
     {
-        GameManager.onWaveStart += ChangeWave;
-        WaveSpawner.OnMobCountChange += ChangeMob;
+        [SerializeField] private TextMeshProUGUI waveText;
+        [SerializeField] private TextMeshProUGUI mobText;
 
-    }
+        private void OnEnable()
+        {
+            GameManager.onWaveStart += ChangeWave;
+        }
+    
+        private void OnDisable()
+        {
+            GameManager.onWaveStart -= ChangeWave;
+        }
 
-    private void ChangeMob(int current, int total)
-    {
-        mobText.text = current + "/" +total;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.onWaveStart -= ChangeWave;
-        WaveSpawner.OnMobCountChange -= ChangeMob;
-    }
-
-    private void ChangeWave(int currentWave)
-    {
-        waveText.text = "Wave: " + (currentWave+1) + " ("+currentWave+")";
+        private void ChangeWave(int currentWave)
+        {
+            waveText.text = "Wave: " + (currentWave+1) + " ("+currentWave+")";
+        }
     }
 }

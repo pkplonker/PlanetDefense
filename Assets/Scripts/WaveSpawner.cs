@@ -7,54 +7,59 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
 	[SerializeField] private WaveContainer waveContainer;
-	private int currentSpawnIndex;
+	private int currentMobIndex;
 	[SerializeField] private EnemySpawner enemySpawner;
-	private readonly float INITIAL_WAVE_DELAY = 1f;
-	public static event Action<int, int> OnMobCountChange;
-	private int kills;
+	Coroutine waveCoroutine;
 
 	private void OnEnable()
 	{
-		GameManager.onWaveStart += StartNewWave;
+		GameManager.onWaveStart += OnWaveStart;
+		GameManager.onStateChange += OnStateChange;
+		waveCoroutine = null;
 	}
 
+	private void OnStateChange(GameState state)
+	{
+		if (waveCoroutine == null) return;
+		if (state == GameState.Dead || state == GameState.Complete || state == GameState.Shop ||
+		    state == GameState.WaveOver)
+		{
+			StopCoroutine(waveCoroutine);
+		}
+	}
+
+	private void OnWaveStart(int waveIndex)
+	{
+		if (waveCoroutine == null)
+		{
+			waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
+		}
+		else
+		{
+			StopCoroutine(waveCoroutine);
+			waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
+		}
+
+		currentMobIndex = 0;
+	}
 
 	private void OnDisable()
 	{
-		GameManager.onWaveStart -= StartNewWave;
+		GameManager.onWaveStart += OnWaveStart;
+		if (waveCoroutine != null)
+		{
+			StopCoroutine(waveCoroutine);
+		}
 	}
 
-
-	private void StartNewWave(int wave)
+	private IEnumerator WaveCoroutine(int waveIndex)
 	{
-		currentSpawnIndex = 0;
-		StartCoroutine(SpawnCycle(INITIAL_WAVE_DELAY, wave));
-		OnMobCountChange?.Invoke(currentSpawnIndex, waveContainer.GetWaveByIndex(wave).GetNumberOfSpawns());
-	}
-
-	private IEnumerator SpawnCycle(float delay, int currentWave)
-	{
-		var timer = 0f;
-		while (timer < delay)
+		currentMobIndex = 0;
+		while (currentMobIndex != waveContainer.waves[waveIndex].GetSpawnLength())
 		{
-			while (GameManager.GetCurrentState() == GameState.Paused)
-			{
-				yield return null;
-			}
-			timer += Time.deltaTime;
-			yield return null;
-		}
-
-		Spawn spawn = waveContainer.GetWaveByIndex(currentWave).GetSpawnByIndex(currentSpawnIndex);
-		if (spawn != null)
-		{
-			enemySpawner.SpawnEnemy(spawn.enemy);
-			currentSpawnIndex++;
-			OnMobCountChange?.Invoke(currentSpawnIndex, waveContainer.GetWaveByIndex(currentWave).GetNumberOfSpawns());
-		}
-		if (!waveContainer.GetWaveByIndex(currentWave).IsLastMob(currentSpawnIndex))
-		{
-			StartCoroutine(SpawnCycle(spawn.nextMobDelay, currentWave));
+			yield return new WaitForSeconds(waveContainer.waves[waveIndex].spawns[currentMobIndex].nextMobDelay);
+			enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].enemy);
+			currentMobIndex++;
 		}
 	}
 }

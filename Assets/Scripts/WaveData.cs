@@ -13,11 +13,6 @@ public class WaveData : ScriptableObject
 	{
 		return index >= spawns.Count ? null : spawns[index];
 	}
-
-
-	public bool IsLastMob(int currentIndex) => currentIndex >= spawns.Count;
-
-	public int GetNumberOfSpawns() => spawns.Count;
 }
 [Serializable]
 public class Spawn
