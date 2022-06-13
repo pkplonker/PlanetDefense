@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 		this.targetTeam = targetTeam;
 		init = true;
 		this.data = data;
+
 	}
 
 	private void OnEnable()
@@ -70,12 +71,17 @@ public class Projectile : MonoBehaviour, IDestroyable
 					transform.Translate(direction * data.speed * Time.deltaTime);
 					break;
 			}
+
 		}
 		else
 		{
 			transform.Translate(direction * data.speed * Time.deltaTime);
 		}
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, target.position - transform.position);
+
 	}
+
+
 
 
 	public void DestroyEntity()

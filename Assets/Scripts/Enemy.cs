@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable,ICheckAlive
+public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable, ICheckAlive
 {
 	private Player target;
 	private EnemyStats stats;
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 	private void Update()
 	{
 		if (GameManager.GetCurrentState() == GameState.Paused) return;
-		
+
 		if (inRange)
 		{
 			if (lastShotTime + stats.attackSpeed < Time.time)
@@ -45,6 +45,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 			{
 				transform.position =
 					Vector3.MoveTowards(transform.position, target.transform.position, stats.speed * Time.deltaTime);
+				
+				transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
 			}
 			else
 			{
@@ -112,6 +114,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 		{
 			p.DestroyEntity();
 		}
+
 		Destroy(gameObject);
 	}
 

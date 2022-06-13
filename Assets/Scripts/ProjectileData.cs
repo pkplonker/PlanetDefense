@@ -9,8 +9,7 @@ public class ProjectileData : ScriptableObject
    public float speed;
    public float lifeTime;
    public WeaponType weaponType = WeaponType.NonLockOn;
-
-
+   public float rotationSpeed=360f;
 }
 
 public enum WeaponType

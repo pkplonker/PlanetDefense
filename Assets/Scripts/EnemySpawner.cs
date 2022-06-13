@@ -31,8 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state == GameState.NewGame || state == GameState.NewWave || state == GameState.Complete ||
-		    state == GameState.GameOver|| state == GameState.Menu)
+		if (state is GameState.NewGame or GameState.NewWave or GameState.Complete or GameState.GameOver or GameState.Menu)
 		{
 			DestroyOldEnemies();
 		}
@@ -89,5 +88,6 @@ public class EnemySpawner : MonoBehaviour
 		spawnedEnemies.Remove(entity);
 		entity.onDeath -= HandleEnemyDeath;
 		GameManager.instance.EnemyDeath(null);
+		OnEnemyDeath?.Invoke(enemyStats);
 	}
 }

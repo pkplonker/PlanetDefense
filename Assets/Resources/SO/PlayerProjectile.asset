@@ -16,5 +16,6 @@ MonoBehaviour:
   speed: 5
   lifeTime: 4
   weaponType: 1
+  rotationSpeed: 360
   attackCooldown: 1
   range: 6

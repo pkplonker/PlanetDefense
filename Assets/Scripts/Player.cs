@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 
 	private void Awake()
 	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.enabled = false;
 	}
 
