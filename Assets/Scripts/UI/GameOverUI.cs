@@ -12,6 +12,7 @@ namespace UI
         private void OnEnable()
         {
             GameManager.onStateChange += GameManagerOnonStateChange;
+            Hide();
         }
 
       
@@ -24,9 +25,7 @@ namespace UI
         {
             if (state == GameState.Dead)
             {
-                canvasGroup.alpha = 1f;
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
+                Show();
                 GameManager.ChangeState(GameState.GameOver);
             }
             else if(state ==GameState.GameOver)
@@ -35,11 +34,23 @@ namespace UI
             }
             else
             {
-                canvasGroup.alpha = 0f;
-                canvasGroup.interactable = false;
-                canvasGroup.blocksRaycasts = false;
+                Hide();
             }
           
+        }
+
+        private void Show()
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        private void Hide()
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         }
 
         public void Restart()

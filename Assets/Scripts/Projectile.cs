@@ -80,6 +80,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 
 	public void DestroyEntity()
 	{
+		if (gameObject == null) return;
 		Destroy(gameObject);
 	}
 }

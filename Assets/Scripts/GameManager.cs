@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
 	private static void SetupNewGame()
 	{
 		currentWave = 0;
+		onWaveStart?.Invoke(currentWave);
+
 	}
 	
 	private void IncrementWave()
@@ -114,7 +116,6 @@ public class GameManager : MonoBehaviour
 			ChangeState(GameState.Complete);
 			return;
 		}
-
 		onWaveStart?.Invoke(currentWave);
 	}
 

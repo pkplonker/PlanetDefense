@@ -9,6 +9,7 @@ namespace UI
       private void OnEnable()
       {
          GameManager.onStateChange += GameManagerOnonStateChange;
+         HidePause();
       }
 
 

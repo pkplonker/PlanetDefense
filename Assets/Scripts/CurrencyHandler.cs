@@ -39,6 +39,8 @@ public class CurrencyHandler : MonoBehaviour
       if (state == GameState.GameOver)
       {
          stats.currency = startingCurrency;
+         onCurrencyChanged?.Invoke(stats.currency);
+
       }
    }
 

@@ -10,6 +10,7 @@ namespace UI
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
+			HideHud();
 		}
 
 
@@ -50,4 +51,3 @@ namespace UI
 		}
 	}
 }
-

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] private Enemy enemyPrefab;
 	[SerializeField] private EnemyStats enemyStats;
-	public List<Enemy> spawnedEnemies { get; private set; }= new List<Enemy>();
+	public List<Enemy> spawnedEnemies { get; private set; } = new List<Enemy>();
 	private Camera cam;
 	[SerializeField] private Player player;
 	public static event Action<EnemyStats> OnEnemyDeath;
@@ -30,12 +31,26 @@ public class EnemySpawner : MonoBehaviour
 
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state == GameState.NewGame)
+		if (state == GameState.NewGame || state == GameState.NewWave || state == GameState.Complete ||
+		    state == GameState.GameOver)
 		{
-			foreach (var enemy in spawnedEnemies)
-			{
-				if (enemy != null) enemy.DestroyEntity();
-			}
+			DestroyOldEnemies();
+		}
+
+		spawnedEnemies = new List<Enemy>();
+	}
+
+	private void DestroyOldEnemies()
+	{
+		foreach (var enemy in spawnedEnemies.Where(enemy => enemy != null))
+		{
+			enemy.DestroyEntity();
+		}
+
+		foreach (var x in GetComponentsInChildren<Transform>())
+		{
+			if (x == transform) continue;
+			Destroy(x.gameObject);
 		}
 	}
 

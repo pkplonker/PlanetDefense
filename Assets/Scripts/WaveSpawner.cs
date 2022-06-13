@@ -12,6 +12,7 @@ public class WaveSpawner : MonoBehaviour
 	private readonly float INITIAL_WAVE_DELAY = 1f;
 	public static event Action<int, int> OnMobCountChange;
 	private int kills;
+
 	private void OnEnable()
 	{
 		GameManager.onWaveStart += StartNewWave;
@@ -21,7 +22,6 @@ public class WaveSpawner : MonoBehaviour
 	private void OnDisable()
 	{
 		GameManager.onWaveStart -= StartNewWave;
-
 	}
 
 
@@ -41,20 +41,20 @@ public class WaveSpawner : MonoBehaviour
 			{
 				yield return null;
 			}
-
 			timer += Time.deltaTime;
 			yield return null;
 		}
 
 		Spawn spawn = waveContainer.GetWaveByIndex(currentWave).GetSpawnByIndex(currentSpawnIndex);
-		enemySpawner.SpawnEnemy(spawn.enemy);
-		currentSpawnIndex++;
-		OnMobCountChange?.Invoke(currentSpawnIndex, waveContainer.GetWaveByIndex(currentWave).GetNumberOfSpawns());
-
+		if (spawn != null)
+		{
+			enemySpawner.SpawnEnemy(spawn.enemy);
+			currentSpawnIndex++;
+			OnMobCountChange?.Invoke(currentSpawnIndex, waveContainer.GetWaveByIndex(currentWave).GetNumberOfSpawns());
+		}
 		if (!waveContainer.GetWaveByIndex(currentWave).IsLastMob(currentSpawnIndex))
 		{
-			 StartCoroutine(SpawnCycle(spawn.nextMobDelay, currentWave));
+			StartCoroutine(SpawnCycle(spawn.nextMobDelay, currentWave));
 		}
-
 	}
 }

@@ -17,7 +17,7 @@ namespace UI
 			UpdateTime();
 			UpdateUI();
 		}
-		
+
 		public void Toggle()
 		{
 			currentSpeed++;
@@ -29,7 +29,24 @@ namespace UI
 			UpdateCurrentSpeed(currentSpeed);
 		}
 
-	
+		private void OnEnable()
+		{
+			GameManager.onStateChange += StateChange;
+		}
+
+		private void StateChange(GameState state)
+		{
+			if (state == GameState.NewGame)
+			{
+				currentSpeed = GameSpeed.Normal;
+				UpdateCurrentSpeed(GameSpeed.Normal);
+			}
+		}
+
+		private void OnDisable()
+		{
+			GameManager.onStateChange -= StateChange;
+		}
 
 		private void UpdateCurrentSpeed(GameSpeed requestedSpeed)
 		{
@@ -41,20 +58,18 @@ namespace UI
 		{
 			switch (currentSpeed)
 			{
-				
 				case GameSpeed.Half:
 					Time.timeScale = 0.5f;
-
 					break;
 				case GameSpeed.Normal:
 					Time.timeScale = 1f;
-
 					break;
 				case GameSpeed.TwoTimes:
 					Time.timeScale = 2f;
-
 					break;
-				
+				case GameSpeed.FourTimes:
+					Time.timeScale = 4f;
+					break;
 			}
 		}
 
@@ -64,7 +79,6 @@ namespace UI
 			{
 				case GameSpeed.Half:
 					text.text = "50%";
-
 					break;
 				case GameSpeed.Normal:
 					text.text = "100%";
@@ -72,6 +86,9 @@ namespace UI
 					break;
 				case GameSpeed.TwoTimes:
 					text.text = "200%";
+					break;
+				case GameSpeed.FourTimes:
+					text.text = "400%";
 					break;
 			}
 		}
@@ -81,7 +98,7 @@ namespace UI
 	{
 		Half,
 		Normal,
-		TwoTimes
-		
+		TwoTimes,
+		FourTimes
 	}
 }

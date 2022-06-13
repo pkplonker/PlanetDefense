@@ -11,7 +11,7 @@ public class WaveData : ScriptableObject
 	
 	public Spawn GetSpawnByIndex(int index)
 	{
-		return index > spawns.Count ? null : spawns[index];
+		return index >= spawns.Count ? null : spawns[index];
 	}
 
 

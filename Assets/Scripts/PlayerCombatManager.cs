@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Abilities;
 using UnityEngine;
@@ -16,6 +17,33 @@ public class PlayerCombatManager : MonoBehaviour
 	private void Awake()
 	{
 		stats = (PlayerStats) GetComponent<Player>().GetStats();
+	}
+
+	private void OnEnable()
+	{
+		GameManager.onStateChange += OnStateChange;
+	}
+
+	private void OnStateChange(GameState state)
+	{
+		if (state == GameState.NewGame || state == GameState.GameOver)
+		{
+			DestroyAllProjectiles();
+		}
+	}
+
+	private void DestroyAllProjectiles()
+	{
+		foreach (var p in projectiles)
+		{
+			if (p == null) continue;
+			p.DestroyEntity();
+		}
+	}
+
+	private void OnDisable()
+	{
+		GameManager.onStateChange -= OnStateChange;
 	}
 
 	private void Start()
@@ -52,13 +80,6 @@ public class PlayerCombatManager : MonoBehaviour
 		return projectile;
 	}
 
-	/*private Transform AcquireTarget(PlayerProjectileData playerProjectileData)
-	{
-		RaycastHit2D hit = Physics2D.CircleCast(transform.position, playerProjectileData.range, Vector2.up, 0.1f);
-		if (hit.collider == null) return null;
-		if (!hit.collider.GetComponent<Enemy>()) return null;
-		return hit.collider.transform;
-	}*/
 	private Enemy AcquireTarget(PlayerProjectileData playerProjectileData)
 	{
 		int count = enemySpawner.spawnedEnemies.Count;
