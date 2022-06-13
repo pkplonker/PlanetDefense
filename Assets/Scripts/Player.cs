@@ -4,14 +4,21 @@ using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats,ICheckAlive
+public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAlive
 {
 	[SerializeField] private PlayerStats stats;
 	private bool isDead = false;
 	private float currentHealth;
-	public event Action<float> onHealthChanged;
+	public event Action<float, float> onHealthChanged;
 	public event Action<Player> onDeath;
 	public float GetMaxHealth() => stats.maxHealth;
+	private SpriteRenderer spriteRenderer;
+
+	private void Awake()
+	{
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer.enabled = false;
+	}
 
 	private void Start()
 	{
@@ -33,13 +40,14 @@ public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats,ICheckAlive
 		if (state == GameState.NewGame)
 		{
 			SetInitialHealth();
+			spriteRenderer.enabled = true;
 		}
 	}
 
 	private void SetInitialHealth()
 	{
 		currentHealth = stats.maxHealth;
-		onHealthChanged?.Invoke(currentHealth);
+		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 		isDead = false;
 	}
 
@@ -52,7 +60,7 @@ public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats,ICheckAlive
 			Die();
 		}
 
-		onHealthChanged?.Invoke(currentHealth);
+		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 	}
 
 	public void Die()
@@ -72,7 +80,7 @@ public class Player : MonoBehaviour, IDamageable,IHealable,IGetStats,ICheckAlive
 			currentHealth = stats.maxHealth;
 		}
 
-		onHealthChanged?.Invoke(currentHealth);
+		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 	}
 
 	public Stats GetStats()

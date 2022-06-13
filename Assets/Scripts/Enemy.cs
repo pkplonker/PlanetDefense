@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 	private void Update()
 	{
+		if (GameManager.GetCurrentState() == GameState.Paused) return;
+		
 		if (inRange)
 		{
 			if (lastShotTime + stats.attackSpeed < Time.time)

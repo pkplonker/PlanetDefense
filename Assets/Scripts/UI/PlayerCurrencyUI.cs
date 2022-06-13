@@ -8,6 +8,11 @@ namespace UI
 	{
 		[SerializeField] private TextMeshProUGUI tmp;
 
+		private void Awake()
+		{
+			tmp = GetComponentInChildren<TextMeshProUGUI>();
+		}
+
 		private void OnEnable()
 		{
 			CurrencyHandler.onCurrencyChanged += UpdateUI;
@@ -21,6 +26,11 @@ namespace UI
 
 		private void UpdateUI(uint amount)
 		{
+			if (tmp == null)
+			{
+				Debug.LogWarning("Missing TextMeshProUGUI component on PlayerCurrencyUI");
+				return;
+			}
 			tmp.text = "$" + amount;
 		}
 	}

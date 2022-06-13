@@ -16,7 +16,7 @@ MonoBehaviour:
   characterName: Test Enemy
   team: 1
   speed: 2
-  attackRange: 3
+  attackRange: 4
   damage: 2
   value: 3
   projectileData: {fileID: 11400000, guid: a901f0b65e9876541b68e69d95301bf1, type: 2}

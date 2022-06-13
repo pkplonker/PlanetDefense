@@ -44,12 +44,17 @@ namespace UI
 			canvasGroup.blocksRaycasts = true;
 		}
 
-		public void NewGame()
+		public static void NewGame()
 		{
 			GameManager.ChangeState(GameState.NewGame);
 		}
 
-		public void Exit()
+		public static void Settings()
+		{
+			Debug.Log("Settings");
+		}
+
+		public static void Exit()
 		{
 			Debug.Log("Exit requested");
 			Application.Quit();

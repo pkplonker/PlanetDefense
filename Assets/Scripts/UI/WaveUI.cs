@@ -6,7 +6,6 @@ namespace UI
     public class WaveUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI waveText;
-        [SerializeField] private TextMeshProUGUI mobText;
 
         private void OnEnable()
         {

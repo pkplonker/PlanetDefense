@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
 	private void HandleGameStateChange(GameState state)
 	{
 		if (state == GameState.NewGame || state == GameState.NewWave || state == GameState.Complete ||
-		    state == GameState.GameOver)
+		    state == GameState.GameOver|| state == GameState.Menu)
 		{
 			DestroyOldEnemies();
 		}

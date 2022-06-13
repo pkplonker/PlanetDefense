@@ -75,6 +75,7 @@ public class PlayerCombatManager : MonoBehaviour
 
 		if (targetTransform.GetComponent<ICheckAlive>().GetIsDead()) return null;
 		Projectile projectile = Instantiate(projectilePrefab, shooter).GetComponent<Projectile>();
+		projectile.transform.localScale= Vector3.one;
 		projectile.Init(attack, Stats.Team.Enemy, targetTransform);
 		lastShotTime = Time.time;
 		return projectile;
