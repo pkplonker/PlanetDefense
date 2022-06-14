@@ -13,7 +13,7 @@ public class PlayerCombatManager : MonoBehaviour
 	private List<Projectile> projectiles = new List<Projectile>();
 	private float lastShotTime;
 	[SerializeField] private EnemySpawner enemySpawner;
-
+[SerializeField] Transform projectileContainer;
 	private void Awake()
 	{
 		stats = (PlayerStats) GetComponent<Player>().GetStats();
@@ -74,7 +74,7 @@ public class PlayerCombatManager : MonoBehaviour
 		}
 
 		if (targetTransform.GetComponent<ICheckAlive>().GetIsDead()) return null;
-		Projectile projectile = Instantiate(projectilePrefab, shooter).GetComponent<Projectile>();
+		Projectile projectile = Instantiate(projectilePrefab, projectileContainer).GetComponent<Projectile>();
 		projectile.transform.localScale= Vector3.one;
 		projectile.Init(attack, Stats.Team.Enemy, targetTransform);
 		lastShotTime = Time.time;

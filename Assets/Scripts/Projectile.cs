@@ -11,47 +11,45 @@ public class Projectile : MonoBehaviour, IDestroyable
 	private ProjectileData data;
 	private Transform target;
 	private Vector3 direction;
-	private bool init = false;
+	private bool init;
+	private AudioSource audioSource;
+	[SerializeField] private AudioClip impactSound;
 
 	public void Init(ProjectileData data, Stats.Team targetTeam, Transform target)
 	{
 		Invoke(nameof(DestroyEntity), data.lifeTime);
 		this.target = target;
 		direction = (target.position - transform.position).normalized;
+		transform.LookAt(target);
 		this.targetTeam = targetTeam;
 		init = true;
 		this.data = data;
-
+		audioSource = GetComponent<AudioSource>();
 	}
 
-	private void OnEnable()
-	{
-		GameManager.onStateChange += StateChange;
-	}
+	private void OnEnable() => GameManager.onStateChange += StateChange;
+	private void OnDisable() => GameManager.onStateChange -= StateChange;
+
 
 	private void StateChange(GameState state)
 	{
 		if (state == GameState.Paused) DestroyEntity();
 	}
 
-	private void OnDisable()
-	{
-		GameManager.onStateChange -= StateChange;
-	}
-
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		IGetStats stats = other.GetComponent<IGetStats>();
-		if (stats == null)
-		{
-			return;
-		}
+		if (stats == null) return;
+		if (stats.GetStats().team != targetTeam) return;
+		other.GetComponent<IDamageable>().TakeDamage(data.damage);
+		PlayImpactSound();
+		DestroyEntity();
+	}
 
-		if (stats.GetStats().team == targetTeam)
-		{
-			other.GetComponent<IDamageable>().TakeDamage(data.damage);
-			DestroyEntity();
-		}
+	private void PlayImpactSound()
+	{
+		if (audioSource == null || impactSound == null) return;
+		audioSource.PlayOneShot(impactSound);
 	}
 
 	private void Update()
@@ -59,7 +57,8 @@ public class Projectile : MonoBehaviour, IDestroyable
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
 
 		if (!init) return;
-		if (transform != null)
+		if (transform == null) transform.Translate(direction * data.speed * Time.deltaTime);
+		else
 		{
 			switch (data.weaponType)
 			{
@@ -71,17 +70,8 @@ public class Projectile : MonoBehaviour, IDestroyable
 					transform.Translate(direction * data.speed * Time.deltaTime);
 					break;
 			}
-
 		}
-		else
-		{
-			transform.Translate(direction * data.speed * Time.deltaTime);
-		}
-		transform.rotation = Quaternion.LookRotation(Vector3.forward, target.position - transform.position);
-
 	}
-
-
 
 
 	public void DestroyEntity()
