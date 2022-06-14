@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 	private float lastShotTime = 0;
 	private bool isDead = false;
 	private List<Projectile> projectiles = new List<Projectile>();
+	public Stats GetStats() => stats;
+	public bool GetIsDead() => isDead;
 
 	public void Init(Player target, EnemyStats stats)
 	{
@@ -34,10 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 		if (inRange)
 		{
-			if (lastShotTime + stats.attackSpeed < Time.time)
-			{
-				Shoot();
-			}
+		//	if (lastShotTime + stats.attackSpeed < Time.time) Shoot();
 		}
 		else
 		{
@@ -45,20 +44,17 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 			{
 				transform.position =
 					Vector3.MoveTowards(transform.position, target.transform.position, stats.speed * Time.deltaTime);
-				
-				transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
+				transform.rotation =
+					Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
 			}
-			else
-			{
-				inRange = true;
-			}
+			else inRange = true;
 		}
 	}
 
 	private void Shoot()
 	{
 		if (target.GetIsDead()) return;
-		Projectile projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
+		var projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
 		projectile.Init(stats.projectileData, Stats.Team.Player, target.transform);
 		projectiles.Add(projectile);
 		Debug.Log("Spawned projectile");
@@ -67,10 +63,10 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Player player = other.GetComponent<Player>();
+		var player = other.GetComponent<Player>();
 		if (player == null) return;
 		TakeDamage(stats.maxHealth);
-		player.TakeDamage(stats.damage);
+		player.TakeDamage(stats.impactDamage);
 	}
 
 	public void TakeDamage(float amount)
@@ -95,18 +91,10 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 	public void Heal(float amount)
 	{
 		currentHealth += amount;
-		if (currentHealth > stats.maxHealth)
-		{
-			currentHealth = stats.maxHealth;
-		}
-
+		if (currentHealth > stats.maxHealth) currentHealth = stats.maxHealth;
 		onHealthChanged?.Invoke(currentHealth);
 	}
 
-	public Stats GetStats()
-	{
-		return stats;
-	}
 
 	public void DestroyEntity()
 	{
@@ -117,6 +105,4 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 		Destroy(gameObject);
 	}
-
-	public bool GetIsDead() => isDead;
 }

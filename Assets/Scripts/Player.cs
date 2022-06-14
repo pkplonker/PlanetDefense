@@ -18,30 +18,19 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 	{
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.enabled = false;
+		
 	}
-
-	private void Start()
-	{
-		SetInitialHealth();
-	}
-
-	private void OnEnable()
-	{
-		GameManager.onStateChange += HandleGameStateChange;
-	}
-
-	private void OnDisable()
-	{
-		GameManager.onStateChange -= HandleGameStateChange;
-	}
+	private void Start() => SetInitialHealth();
+	private void OnEnable() => GameManager.onStateChange += HandleGameStateChange;
+	private void OnDisable() => GameManager.onStateChange -= HandleGameStateChange;
+	public Stats GetStats() => stats;
+	public bool GetIsDead() => isDead;
 
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state == GameState.NewGame)
-		{
-			SetInitialHealth();
-			spriteRenderer.enabled = true;
-		}
+		if (state != GameState.NewGame) return;
+		SetInitialHealth();
+		spriteRenderer.enabled = true;
 	}
 
 	private void SetInitialHealth()
@@ -59,7 +48,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 			currentHealth = 0;
 			Die();
 		}
-
+//
 		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 	}
 
@@ -82,11 +71,4 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 
 		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 	}
-
-	public Stats GetStats()
-	{
-		return stats;
-	}
-
-	public bool GetIsDead() => isDead;
 }

@@ -2,66 +2,45 @@ using UnityEngine;
 
 namespace UI
 {
-	public class PauseMenu : MonoBehaviour
+	public class PauseMenu : UICanvas
 	{
-		[SerializeField] private CanvasGroup canvasGroup;
-
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
-			HidePause();
-		}
-
-
-		private void OnDisable()
-		{
-			GameManager.onStateChange -= GameManagerOnonStateChange;
-		}
-
-		private void GameManagerOnonStateChange(GameState state)
-		{
-			if (state == GameState.Paused)
-			{
-				ShowPause();
-			}
-			else
-			{
-				HidePause();
-			}
-		}
-
-		private void HidePause()
-		{
-			canvasGroup.alpha = 0f;
-			canvasGroup.interactable = false;
-			canvasGroup.blocksRaycasts = false;
-		}
-
-		private void ShowPause()
-		{
-			canvasGroup.alpha = 1f;
-			canvasGroup.interactable = true;
-			canvasGroup.blocksRaycasts = true;
+			Hide();
 		}
 
 		public void Resume()
 		{
+			SFXController.instance.PlayUIClick();
 			GameManager.ChangeState(GameState.InGame);
 		}
 
 		public void Restart()
 		{
+			SFXController.instance.PlayUIClick();
 			MainMenu.NewGame();
 		}
 
 		public void Giveup()
 		{
+			SFXController.instance.PlayUIClick();
 			GameManager.ChangeState(GameState.Menu);
 		}
 
 		public void Settings()
 		{
+			SFXController.instance.PlayUIClick();
 			MainMenu.Settings();
+		}
+
+		private void OnDisable() => GameManager.onStateChange -= GameManagerOnonStateChange;
+
+
+		private void GameManagerOnonStateChange(GameState state)
+		{
+			if (state == GameState.Paused) Show();
+			else Hide();
 		}
 	}
 }

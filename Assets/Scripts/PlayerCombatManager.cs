@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Abilities;
 using UnityEngine;
 
@@ -13,20 +14,12 @@ public class PlayerCombatManager : MonoBehaviour
 	private List<Projectile> projectiles = new List<Projectile>();
 	private float lastShotTime;
 	[SerializeField] private EnemySpawner enemySpawner;
-[SerializeField] Transform projectileContainer;
-	private void Awake()
-	{
-		stats = (PlayerStats) GetComponent<Player>().GetStats();
-	}
-
-	private void OnEnable()
-	{
-		GameManager.onStateChange += OnStateChange;
-	}
-
+	private void Awake() => stats = (PlayerStats) GetComponent<Player>().GetStats();
+	private void OnEnable() => GameManager.onStateChange += OnStateChange;
+	private void OnDisable() => GameManager.onStateChange -= OnStateChange;
 	private void OnStateChange(GameState state)
 	{
-		if (state == GameState.NewGame || state == GameState.GameOver)
+		if (state is GameState.NewGame or GameState.GameOver)
 		{
 			DestroyAllProjectiles();
 		}
@@ -34,17 +27,12 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private void DestroyAllProjectiles()
 	{
-		foreach (var p in projectiles)
+		foreach (var p in projectiles.Where(p => p != null))
 		{
-			if (p == null) continue;
 			p.DestroyEntity();
 		}
 	}
 
-	private void OnDisable()
-	{
-		GameManager.onStateChange -= OnStateChange;
-	}
 
 	private void Start()
 	{
@@ -74,8 +62,9 @@ public class PlayerCombatManager : MonoBehaviour
 		}
 
 		if (targetTransform.GetComponent<ICheckAlive>().GetIsDead()) return null;
-		Projectile projectile = Instantiate(projectilePrefab, projectileContainer).GetComponent<Projectile>();
-		projectile.transform.localScale= Vector3.one;
+		var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+		projectile.transform.localEulerAngles = -Quaternion.LookRotation(targetTransform.position-transform.position).eulerAngles;
+		projectile.transform.localScale = Vector3.one;
 		projectile.Init(attack, Stats.Team.Enemy, targetTransform);
 		lastShotTime = Time.time;
 		return projectile;
@@ -83,7 +72,7 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private Enemy AcquireTarget(PlayerProjectileData playerProjectileData)
 	{
-		int count = enemySpawner.spawnedEnemies.Count;
+		var count = enemySpawner.spawnedEnemies.Count;
 		return count switch
 		{
 			0 => null,
@@ -93,7 +82,7 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private Enemy ClosestEnemy(PlayerProjectileData playerProjectileData)
 	{
-		float closestDistance = float.MaxValue;
+		var closestDistance = float.MaxValue;
 		Enemy closestEnemy = null;
 		foreach (var enemy in enemySpawner.spawnedEnemies)
 		{
@@ -104,7 +93,6 @@ public class PlayerCombatManager : MonoBehaviour
 				closestEnemy = enemy;
 			}
 		}
-
 		return playerProjectileData.range > closestDistance ? closestEnemy : null;
 	}
 

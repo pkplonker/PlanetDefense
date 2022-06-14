@@ -14,24 +14,14 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField] private Player player;
 	public static event Action<EnemyStats> OnEnemyDeath;
 
-	private void Awake()
-	{
-		cam = Camera.main;
-	}
-
-	private void OnEnable()
-	{
-		GameManager.onStateChange += HandleGameStateChange;
-	}
-
-	private void OnDisable()
-	{
-		GameManager.onStateChange -= HandleGameStateChange;
-	}
-
+	private void Awake() => cam = Camera.main;
+	private void OnEnable() => GameManager.onStateChange += HandleGameStateChange;
+	private void OnDisable() => GameManager.onStateChange -= HandleGameStateChange;
+	
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state is GameState.NewGame or GameState.NewWave or GameState.Complete or GameState.GameOver or GameState.Menu)
+		if (state is GameState.NewGame or GameState.NewWave or GameState.Complete or GameState.GameOver or GameState
+			.Menu)
 		{
 			DestroyOldEnemies();
 		}
@@ -83,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
 		return pos;
 	}
 
-	void HandleEnemyDeath(Enemy entity)
+	private void HandleEnemyDeath(Enemy entity)
 	{
 		spawnedEnemies.Remove(entity);
 		entity.onDeath -= HandleEnemyDeath;

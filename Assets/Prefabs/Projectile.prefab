@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626e65118b67c9a40afb49c34d39bebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactSound: {fileID: 8300000, guid: f4c9c07c43d1bf347b8551654eca45bd, type: 3}
 --- !u!50 &5758922140994373059
 Rigidbody2D:
   serializedVersion: 4
@@ -146,7 +147,8 @@ AudioSource:
   m_GameObject: {fileID: 5758922140994373069}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7058369977720532801, guid: 2681703de78eb3e4fb19c268c8c61b60,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

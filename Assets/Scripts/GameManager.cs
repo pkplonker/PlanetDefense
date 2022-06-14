@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private WaveContainer waveContainer;
 	[SerializeField] private GameState defaultState;
 	static int currentWave = -1;
-	[SerializeField]private int kills;
+	[SerializeField] private int kills;
 
 
 	private void OnEnable()
@@ -41,11 +41,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Kills = " + kills + ". Total mobs = " +
 		          waveContainer.GetWaveByIndex(currentWave).GetSpawnLength());
 
-		if (kills >= waveContainer.GetWaveByIndex(currentWave).GetSpawnLength())
-		{
-			//wave over
-			ChangeState(GameState.WaveOver);
-		}
+		if (kills >= waveContainer.GetWaveByIndex(currentWave).GetSpawnLength()) ChangeState(GameState.WaveOver);
 	}
 
 
@@ -72,36 +68,29 @@ public class GameManager : MonoBehaviour
 		SetDefaultState();
 	}
 
-	private void SetDefaultState()
-	{
-		ChangeState(defaultState);
-	}
+	private void SetDefaultState() => ChangeState(defaultState);
+
 
 	public static void ChangeState(GameState state)
 	{
 		gameState = state;
 		onStateChange?.Invoke(gameState);
-		if (state == GameState.NewGame)
+		switch (state)
 		{
-			SetupNewGame();
-			ChangeState(GameState.NewWave);
-		}
-
-		if (state == GameState.WaveOver)
-		{
-			ChangeState(GameState.Shop);
-		}
-
-		if (state == GameState.NewWave)
-		{
-			ChangeState(GameState.InGame);
+			case GameState.NewGame:
+				SetupNewGame();
+				ChangeState(GameState.NewWave);
+				break;
+			case GameState.WaveOver:
+				ChangeState(GameState.Shop);
+				break;
+			case GameState.NewWave:
+				ChangeState(GameState.InGame);
+				break;
 		}
 	}
 
-	private static void SetupNewGame()
-	{
-		currentWave = -1;
-	}
+	private static void SetupNewGame() => currentWave = -1;
 
 	private void IncrementWave()
 	{

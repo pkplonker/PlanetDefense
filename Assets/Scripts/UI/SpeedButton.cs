@@ -17,37 +17,23 @@ namespace UI
 			UpdateTime();
 			UpdateUI();
 		}
-
 		public void Toggle()
 		{
+			SFXController.instance.PlayUIClick();
 			currentSpeed++;
-			if ((int) currentSpeed >= Enum.GetNames(typeof(GameSpeed)).Length)
-			{
-				currentSpeed = 0;
-			}
-
+			if ((int) currentSpeed >= Enum.GetNames(typeof(GameSpeed)).Length) currentSpeed = 0;
 			UpdateCurrentSpeed(currentSpeed);
 		}
-
-		private void OnEnable()
-		{
-			GameManager.onStateChange += StateChange;
-		}
-
+		private void OnEnable() => GameManager.onStateChange += StateChange;
+		private void OnDisable() => GameManager.onStateChange -= StateChange;
 		private void StateChange(GameState state)
 		{
-			if (state == GameState.NewGame)
-			{
-				currentSpeed = GameSpeed.Normal;
-				UpdateCurrentSpeed(GameSpeed.Normal);
-			}
+			if (state != GameState.NewGame) return;
+			currentSpeed = GameSpeed.Normal;
+			UpdateCurrentSpeed(GameSpeed.Normal);
 		}
 
-		private void OnDisable()
-		{
-			GameManager.onStateChange -= StateChange;
-		}
-
+		
 		private void UpdateCurrentSpeed(GameSpeed requestedSpeed)
 		{
 			UpdateTime();
@@ -56,41 +42,26 @@ namespace UI
 
 		private void UpdateTime()
 		{
-			switch (currentSpeed)
+			Time.timeScale = currentSpeed switch
 			{
-				case GameSpeed.Half:
-					Time.timeScale = 0.5f;
-					break;
-				case GameSpeed.Normal:
-					Time.timeScale = 1f;
-					break;
-				case GameSpeed.TwoTimes:
-					Time.timeScale = 2f;
-					break;
-				case GameSpeed.FourTimes:
-					Time.timeScale = 4f;
-					break;
-			}
+				GameSpeed.Half => 0.5f,
+				GameSpeed.Normal => 1f,
+				GameSpeed.TwoTimes => 2f,
+				GameSpeed.FourTimes => 4f,
+				_ => Time.timeScale
+			};
 		}
 
 		private void UpdateUI()
 		{
-			switch (currentSpeed)
+			text.text = currentSpeed switch
 			{
-				case GameSpeed.Half:
-					text.text = "50%";
-					break;
-				case GameSpeed.Normal:
-					text.text = "100%";
-
-					break;
-				case GameSpeed.TwoTimes:
-					text.text = "200%";
-					break;
-				case GameSpeed.FourTimes:
-					text.text = "400%";
-					break;
-			}
+				GameSpeed.Half => "50%",
+				GameSpeed.Normal => "100%",
+				GameSpeed.TwoTimes => "200%",
+				GameSpeed.FourTimes => "400%",
+				_ => text.text
+			};
 		}
 	}
 

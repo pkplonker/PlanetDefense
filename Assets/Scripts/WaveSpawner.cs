@@ -30,10 +30,7 @@ public class WaveSpawner : MonoBehaviour
 
 	private void OnWaveStart(int waveIndex)
 	{
-		if (waveCoroutine == null)
-		{
-			waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
-		}
+		if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
 		else
 		{
 			StopCoroutine(waveCoroutine);

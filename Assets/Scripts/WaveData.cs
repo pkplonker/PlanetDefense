@@ -8,12 +8,9 @@ public class WaveData : ScriptableObject
 {
 	public List<Spawn> spawns;
 	public int GetSpawnLength() => spawns.Count;
-	
-	public Spawn GetSpawnByIndex(int index)
-	{
-		return index >= spawns.Count ? null : spawns[index];
-	}
+	public Spawn GetSpawnByIndex(int index) => index >= spawns.Count ? null : spawns[index];
 }
+
 [Serializable]
 public class Spawn
 {

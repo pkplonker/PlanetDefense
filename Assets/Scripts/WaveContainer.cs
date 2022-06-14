@@ -7,10 +7,8 @@ public class WaveContainer : ScriptableObject
 {
     public List<WaveData> waves;
 
-    public WaveData GetWaveByIndex(int index)
-    {
-	    return index > waves.Count ? null : waves[index];
-    }
+    public WaveData GetWaveByIndex(int index)=>index > waves.Count ? null : waves[index];
+    
 
     public int GetIndexByWave(WaveData data)
     {

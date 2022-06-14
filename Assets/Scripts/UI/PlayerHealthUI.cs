@@ -6,28 +6,19 @@ namespace UI
 {
 	public class PlayerHealthUI : MonoBehaviour
 	{
-		private TextMeshProUGUI tmp;
+		[Range(0, 1)] [SerializeField] private float lowHealthThreshold = 0.2f;
 		[SerializeField] private Player player;
 		[SerializeField] private Color lowHealthColor;
 		private Color defaultColor;
-		[Range(0, 1)] [SerializeField] private float lowHealthThreshold = 0.2f;
-
+		private TextMeshProUGUI tmp;
+		
 		private void Awake()
 		{
 			tmp = GetComponent<TextMeshProUGUI>();
 			defaultColor = tmp.color;
 		}
-
-		private void OnEnable()
-		{
-			player.onHealthChanged += UpdateUI;
-		}
-
-		private void OnDisable()
-		{
-			player.onHealthChanged -= UpdateUI;
-		}
-
+		private void OnEnable()=>player.onHealthChanged += UpdateUI;
+		private void OnDisable()=>player.onHealthChanged -= UpdateUI;
 		private void UpdateUI(float currentHealth, float maxHealth)
 		{
 			tmp.color = currentHealth / maxHealth < lowHealthThreshold ? lowHealthColor : defaultColor;

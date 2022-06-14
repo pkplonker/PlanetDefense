@@ -24,19 +24,11 @@ public class SFXController : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void Start()
-	{
-		audioSource = GetComponent<AudioSource>();
-	}
-
+	private void Start() => audioSource = GetComponent<AudioSource>();
+	public void PlayUIClick() => Playclip(uiClick);
 	public void Playclip(AudioClip clip)
 	{
 		if (clip == null || audioSource == null) return;
 		audioSource.PlayOneShot(clip);
-	}
-
-	public void PlayUIClick()
-	{
-		Playclip(uiClick);
 	}
 }

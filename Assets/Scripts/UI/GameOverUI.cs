@@ -3,63 +3,32 @@ using UnityEngine;
 
 namespace UI
 {
-    public class GameOverUI : MonoBehaviour
-    {
-      [SerializeField] private  CanvasGroup canvasGroup;
+	public class GameOverUI : UICanvas
+	{
+		private void Start() => Hide();
+		private void OnEnable() => GameManager.onStateChange += GameManagerOnonStateChange;
+		private void OnDisable() => GameManager.onStateChange -= GameManagerOnonStateChange;
 
-    
+		public void Restart()
+		{
+			GameManager.ChangeState(GameState.NewGame);
+			SFXController.instance.PlayUIClick();
+		}
 
-        private void OnEnable()
-        {
-            GameManager.onStateChange += GameManagerOnonStateChange;
-            Hide();
-        }
+		public void Menu()
+		{
+			GameManager.ChangeState(GameState.Menu);
+			SFXController.instance.PlayUIClick();
+		} 
 
-      
-
-        private void OnDisable()
-        {
-            GameManager.onStateChange -= GameManagerOnonStateChange;
-        }
-        private void GameManagerOnonStateChange(GameState state)
-        {
-            if (state == GameState.Dead)
-            {
-                Show();
-                GameManager.ChangeState(GameState.GameOver);
-            }
-            else if(state ==GameState.GameOver)
-            {
-                
-            }
-            else
-            {
-                Hide();
-            }
-          
-        }
-
-        private void Show()
-        {
-            canvasGroup.alpha = 1f;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-        }
-
-        private void Hide()
-        {
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-        }
-
-        public void Restart()
-        {
-            GameManager.ChangeState(GameState.NewGame);
-        }
-        public void Menu()
-        {
-            GameManager.ChangeState(GameState.Menu);
-        }
-    }
+		private void GameManagerOnonStateChange(GameState state)
+		{
+			if (state == GameState.Dead)
+			{
+				Show();
+				GameManager.ChangeState(GameState.GameOver);
+			}
+			else Hide();
+		}
+	}
 }
