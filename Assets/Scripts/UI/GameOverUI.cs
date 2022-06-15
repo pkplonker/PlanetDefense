@@ -23,12 +23,19 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.Dead)
+			switch (state)
 			{
-				Show();
-				GameManager.ChangeState(GameState.GameOver);
+				case GameState.Dead:
+					Show();
+					GameManager.ChangeState(GameState.GameOver);
+					break;
+				case GameState.GameOver:
+					Show();
+					break;
+				default:
+					Hide();
+					break;
 			}
-			else Hide();
 		}
 	}
 }
