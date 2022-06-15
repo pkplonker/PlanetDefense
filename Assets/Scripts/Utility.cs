@@ -12,7 +12,7 @@ public static class Utility
 	{
 		direction = direction.normalized;
 		var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-	if (angle < 0) angle += 360;
-		return angle+90;
+		if (angle < 0) angle += 360;
+		return angle + 90;
 	}
 }

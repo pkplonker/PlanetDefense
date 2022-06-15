@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 		if (inRange)
 		{
-		//	if (lastShotTime + stats.attackSpeed < Time.time) Shoot();
+			if (lastShotTime + stats.attackSpeed < Time.time) Shoot();
 		}
 		else
 		{

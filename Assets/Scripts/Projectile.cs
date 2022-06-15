@@ -62,11 +62,9 @@ public class Projectile : MonoBehaviour, IDestroyable
 					break;
 				case WeaponType.NonLockOn:
 					Debug.DrawRay(transform.position, (target.position - transform.position).normalized , Color.magenta);
-					transform.localEulerAngles = new Vector3(0, 0, 0); //works for enemy
 					transform.position+= (target.position - transform.position).normalized * data.speed * Time.deltaTime;
 					
 					float angle = Utility.GetAngleFromVector((transform.position-target.position).normalized);
-					Debug.Log(angle);
 					transform.rotation =  Quaternion.Euler(new Vector3(0, 0, angle));
 					
 					//transform.eulerAngles = new Vector3(0,0,angle);
