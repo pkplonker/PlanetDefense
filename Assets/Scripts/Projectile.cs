@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
 		if (!init) return;
-		if (transform == null) transform.Translate(target.position - transform.position  * data.speed * Time.deltaTime);
+		if (transform == null) transform.Translate(target.position - transform.position * data.speed * Time.deltaTime);
 		else
 		{
 			switch (data.weaponType)
@@ -61,15 +61,15 @@ public class Projectile : MonoBehaviour, IDestroyable
 						Vector3.MoveTowards(transform.position, target.position, data.speed * Time.deltaTime);
 					break;
 				case WeaponType.NonLockOn:
-					Debug.DrawRay(transform.position, target.position - transform.position * 4, Color.magenta);
-					//Debug.DrawRay(transform.position, direction * 4, Color.red);
-
+					Debug.DrawRay(transform.position, (target.position - transform.position).normalized , Color.magenta);
 					transform.localEulerAngles = new Vector3(0, 0, 0); //works for enemy
-					//	transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-					//transform.eulerAngles = Vector3.RotateTowards(transform.position, target.position, 7, 0);
-					Quaternion rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
-					transform.rotation = rotation;
-					transform.Translate(target.position - transform.position  * data.speed * Time.deltaTime);
+					transform.position+= (target.position - transform.position).normalized * data.speed * Time.deltaTime;
+					
+					float angle = Utility.GetAngleFromVector((transform.position-target.position).normalized);
+					Debug.Log(angle);
+					transform.rotation =  Quaternion.Euler(new Vector3(0, 0, angle));
+					
+					//transform.eulerAngles = new Vector3(0,0,angle);
 					break;
 			}
 		}
@@ -77,11 +77,10 @@ public class Projectile : MonoBehaviour, IDestroyable
 
 	private void OnDrawGizmos()
 	{
-		if (target != null)
-		{
-			Gizmos.color = Color.magenta;
-			Gizmos.DrawIcon(target.transform.position, "target", true,Color.magenta);
-		}
+		if (target == null) return;
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawIcon(target.transform.position, "target", true, Color.magenta);
+		
 	}
 
 	public void DestroyEntity()

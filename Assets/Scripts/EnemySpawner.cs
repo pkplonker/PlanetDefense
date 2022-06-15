@@ -69,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
 
 		Vector3 pos = new Vector3(x, y, 0f);
 		pos = cam.ViewportToWorldPoint(pos);
-
+		pos.z = 0;
 		return pos;
 	}
 
