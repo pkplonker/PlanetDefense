@@ -9,14 +9,8 @@ namespace Abilities
     {
         [SerializeField] ProjectileData projectileData;
         [SerializeField] Projectile projectilePrefab;
-        private float lastShotTime = 0;
-        private void OnEnable()
-        {
-	        lastShotTime = 0;
-        }
 
-       
 
-        
+
     }
 }

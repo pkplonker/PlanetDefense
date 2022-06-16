@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
-using Unity.VisualScripting;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable, ICheckAlive
 {
@@ -57,7 +55,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 		var projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
 		projectile.Init(stats.projectileData, Stats.Team.Player, target.transform);
 		projectiles.Add(projectile);
-		Debug.Log("Spawned projectile");
 		lastShotTime = Time.time;
 	}
 

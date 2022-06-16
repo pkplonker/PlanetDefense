@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,9 +34,6 @@ public class GameManager : MonoBehaviour
 	public void EnemyDeath(EnemyStats stats)
 	{
 		kills++;
-		Debug.Log("Kills = " + kills + ". Total mobs = " +
-		          waveContainer.GetWaveByIndex(currentWave).GetSpawnLength());
-
 		if (kills >= waveContainer.GetWaveByIndex(currentWave).GetSpawnLength()) ChangeState(GameState.WaveOver);
 	}
 
@@ -54,16 +47,12 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		if (instance == null)
-		{
-			instance = this;
-		}
+		if (instance == null) instance = this;
 		else if (instance != this)
 		{
 			Destroy(gameObject);
 			return;
 		}
-
 		DontDestroyOnLoad(gameObject);
 		SetDefaultState();
 	}

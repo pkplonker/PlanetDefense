@@ -1,17 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CurrencyHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerStats stats;
 	[SerializeField] private uint startingCurrency = 0;
-	[SerializeField] private readonly uint DEFAULT_CURRENCY;
+	[field: SerializeField] private uint DEFAULT_CURRENCY;
 	public static event Action<uint> onCurrencyChanged;
 	private void Awake() => stats.currency = DEFAULT_CURRENCY;
 	private void Start() => onCurrencyChanged?.Invoke(stats.currency);
+
 	private void OnEnable()
 	{
 		GameManager.onStateChange += HandleGameStateChange;
