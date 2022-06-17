@@ -4,10 +4,24 @@ using UnityEngine;
 public class CurrencyHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerStats stats;
+	public static CurrencyHandler instance;
 	[SerializeField] private uint startingCurrency = 0;
 	[field: SerializeField] private uint DEFAULT_CURRENCY;
 	public static event Action<uint> onCurrencyChanged;
-	private void Awake() => stats.currency = DEFAULT_CURRENCY;
+
+	private void Awake()
+	{
+		if (instance == null) instance = this;
+		else if (instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		DontDestroyOnLoad(gameObject);
+		stats.currency = DEFAULT_CURRENCY;
+	}
+
 	private void Start() => onCurrencyChanged?.Invoke(stats.currency);
 
 	private void OnEnable()
