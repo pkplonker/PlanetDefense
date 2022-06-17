@@ -8,7 +8,7 @@ public class PlayerCombatManager : MonoBehaviour
 {
 	private PlayerStats stats;
 	[SerializeField] private Projectile projectilePrefab;
-	[SerializeField] private PlayerProjectileData attack;
+	[SerializeField] private PlayerProjectileData playerProjectileData;
 	[SerializeField] private List<Ability> abilities;
 	private List<Ability> useableAbilities;
 	private List<Projectile> projectiles = new List<Projectile>();
@@ -17,6 +17,7 @@ public class PlayerCombatManager : MonoBehaviour
 	private void Awake() => stats = (PlayerStats) GetComponent<Player>().GetStats();
 	private void OnEnable() => GameManager.onStateChange += OnStateChange;
 	private void OnDisable() => GameManager.onStateChange -= OnStateChange;
+
 	private void OnStateChange(GameState state)
 	{
 		if (state is GameState.NewGame or GameState.GameOver)
@@ -45,27 +46,49 @@ public class PlayerCombatManager : MonoBehaviour
 	private void Update()
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
-		if (!(lastShotTime + attack.attackCooldown < Time.time)) return;
-		var target = AcquireTarget(attack);
+		if (!(lastShotTime + playerProjectileData.attackCooldown < Time.time)) return;
+		var target = AcquireTarget(playerProjectileData);
 		if (target != null)
 		{
-			projectiles.Add(Shoot(transform, Stats.Team.Enemy, target.transform));
+			projectiles.Add(Shoot(transform, target.transform));
 		}
 	}
 
-	private Projectile Shoot(Transform shooter, Stats.Team targetTeam, Transform targetTransform)
+	public void Shoot(Vector3 direction, ProjectileData projectileData)
 	{
-		if (shooter == null || targetTransform == null)
+		projectiles.Add(CreateProjectileWithDirection(direction, projectileData));
+	}
+
+	private Projectile Shoot(Transform shooter, Transform targetTransform, ProjectileData projectileData = null)
+	{
+		if (projectileData == null) projectileData = playerProjectileData;
+		if (shooter != null && targetTransform != null)
 		{
-			Debug.LogWarning("Missing info");
-			return null;
+			if (targetTransform.GetComponent<ICheckAlive>().GetIsDead())
+				return null;
 		}
 
-		if (targetTransform.GetComponent<ICheckAlive>().GetIsDead()) return null;
+		return CreateProjectile(targetTransform, projectileData);
+	}
+
+	private Projectile CreateProjectile(Transform targetTransform, ProjectileData projectileData)
+	{
 		var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
-		projectile.transform.localEulerAngles = -Quaternion.LookRotation(targetTransform.position-transform.position).eulerAngles;
+		projectile.transform.localEulerAngles =
+			-Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles;
 		projectile.transform.localScale = Vector3.one;
-		projectile.Init(attack, Stats.Team.Enemy, targetTransform);
+		projectile.Init(projectileData, Stats.Team.Enemy, targetTransform);
+		lastShotTime = Time.time;
+		return projectile;
+	}
+
+	private Projectile CreateProjectileWithDirection(Vector3 direction, ProjectileData projectileData)
+	{
+		var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+		projectile.transform.localEulerAngles =
+			-Quaternion.LookRotation(direction - transform.position).eulerAngles;
+		projectile.transform.localScale = Vector3.one;
+		projectile.Init(projectileData, Stats.Team.Enemy, direction);
 		lastShotTime = Time.time;
 		return projectile;
 	}
@@ -86,19 +109,12 @@ public class PlayerCombatManager : MonoBehaviour
 		Enemy closestEnemy = null;
 		foreach (var enemy in enemySpawner.spawnedEnemies)
 		{
-			float d = Vector2.Distance(transform.position, enemy.transform.position);
-			if (d < closestDistance)
-			{
-				closestDistance = d;
-				closestEnemy = enemy;
-			}
+			var d = Vector2.Distance(transform.position, enemy.transform.position);
+			if (!(d < closestDistance)) continue;
+			closestDistance = d;
+			closestEnemy = enemy;
 		}
-		return playerProjectileData.range > closestDistance ? closestEnemy : null;
-	}
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(transform.position, 6);
+		return playerProjectileData.range > closestDistance ? closestEnemy : null;
 	}
 }

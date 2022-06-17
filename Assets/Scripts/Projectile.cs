@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 	private AudioSource audioSource;
 	[SerializeField] private AudioClip impactSound;
 	private Vector3 cachedTargetPosition;
+	private Vector3 targetDirection;
 
 	public void Init(ProjectileData data, Stats.Team targetTeam, Transform target)
 	{
@@ -20,6 +21,16 @@ public class Projectile : MonoBehaviour, IDestroyable
 		init = true;
 		this.data = data;
 		audioSource = GetComponent<AudioSource>();
+	}
+
+	public void Init(ProjectileData data, Stats.Team targetTeam, Vector3 direciton)
+	{
+		Invoke(nameof(DestroyEntity), data.lifeTime);
+		this.targetTeam = targetTeam;
+		init = true;
+		this.data = data;
+		audioSource = GetComponent<AudioSource>();
+		targetDirection = direciton;
 	}
 
 	private void OnEnable() => GameManager.onStateChange += StateChange;
@@ -45,35 +56,37 @@ public class Projectile : MonoBehaviour, IDestroyable
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
 		if (!init) return;
-		if (transform == null) transform.Translate(target.position - transform.position * data.speed * Time.deltaTime);
-		else
+
+		switch (data.weaponType)
 		{
-			switch (data.weaponType)
-			{
-				case WeaponType.LockOn:
-					transform.position =
-						Vector3.MoveTowards(transform.position, target.position, data.speed * Time.deltaTime);
-					break;
-				case WeaponType.NonLockOn:
-					Debug.DrawRay(transform.position, (target.position - transform.position).normalized , Color.magenta);
-					transform.position+= (target.position - transform.position).normalized * data.speed * Time.deltaTime;
-					
-					float angle = Utility.GetAngleFromVector((transform.position-target.position).normalized);
-					transform.rotation =  Quaternion.Euler(new Vector3(0, 0, angle));
-					
-					//transform.eulerAngles = new Vector3(0,0,angle);
-					break;
-			}
+			case WeaponType.LockOn:
+				LockOnUpdate();
+				break;
+			case WeaponType.NonLockOn:
+				NonLockOnUpdate();
+				break;
 		}
 	}
 
-	private void OnDrawGizmos()
+	private void LockOnUpdate()
 	{
-		if (target == null) return;
-		Gizmos.color = Color.magenta;
-		Gizmos.DrawIcon(target.transform.position, "target", true, Color.magenta);
-		
+		transform.position =
+			Vector3.MoveTowards(transform.position, target.position, data.speed * Time.deltaTime);
 	}
+
+	private void NonLockOnUpdate()
+	{
+		var position = transform.position;
+		Vector3 targetPosition;
+		if (target != null) targetPosition = target.position;
+		else targetPosition = targetDirection*10;
+		
+		position += (targetPosition - position).normalized * data.speed * Time.deltaTime;
+		transform.position = position;
+		var angle = Utility.GetAngleFromVector((position - targetPosition).normalized);
+		transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+	}
+
 
 	public void DestroyEntity()
 	{
