@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerManualShooter : MonoBehaviour
 {
@@ -42,11 +43,21 @@ public class PlayerManualShooter : MonoBehaviour
 	{
 		shootTimer -= Time.deltaTime;
 		UpdateReticlePosition();
-		if (Input.GetMouseButtonDown(0) && shootTimer <= 0 && inGame)
+		if (Input.GetMouseButtonDown(0) && shootTimer <= 0 && inGame && !IsClickingOnUI())
+
 		{
 			playerCombatManager.Shoot((targetReticle.position - transform.position).normalized, projectileData);
 			shootTimer = shootFrequency;
 		}
+	}
+
+	private bool IsClickingOnUI()
+	{
+		PointerEventData eventDataPos = new PointerEventData(EventSystem.current);
+		eventDataPos.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventDataPos, results);
+		return results.Capacity > 0;
 	}
 
 
