@@ -423,6 +423,8 @@ MonoBehaviour:
   priceText: {fileID: 6988951484181353712}
   levelText: {fileID: 384475077}
   stat: {fileID: 11400000, guid: d98889165b9399e42b7b9d78723afcd4, type: 2}
+  canAffordColor: {r: 1, g: 1, b: 1, a: 1}
+  cannotAffordColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
 --- !u!1 &6988951485685706288
 GameObject:
   m_ObjectHideFlags: 0

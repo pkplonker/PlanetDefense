@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d032386b1fdbf149907ee427faf8b2f, type: 3}
-  m_Name: Manual Damage
+  m_Name: Auto Cooldown
   m_EditorClassIdentifier: 
-  statName: Damage
+  statName: Cooldown
   value: 3
-  valueModifier: 1.1
+  valueModifier: 0.95
   currentCost: 15
   costMultiplier: 2
   level: 1

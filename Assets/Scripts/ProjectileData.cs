@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "New Projectile", menuName = "Projectile")]
-public class ProjectileData : ScriptableObject
+
+public abstract class ProjectileData : ScriptableObject
 {
-   
-   public float damage;
-   public float speed;
-   public float lifeTime;
-   public WeaponType weaponType = WeaponType.NonLockOn;
-   public float rotationSpeed=360f;
+	public float lifeTime;
+	public WeaponType weaponType = WeaponType.NonLockOn;
+
+	public abstract float GetDamage();
+	public abstract float GetSpeed();
+	public abstract float GetCooldown();
+
+	public abstract float GetRange();
 }
 
 public enum WeaponType
 {
-   LockOn,
-   NonLockOn
+	LockOn,
+	NonLockOn
 }

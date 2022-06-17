@@ -9074,7 +9074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5758922140994373058, guid: 9d78e44e9bd1e3b4fa51b7fc79b64a31,
     type: 3}
-  playerProjectileData: {fileID: 11400000, guid: bc2686d313a430d4780a0acd91af4316,
+  playerAutoProjectileData: {fileID: 11400000, guid: 7ff14f32b66727b4294bf1fa3741d358,
     type: 2}
   abilities: []
   enemySpawner: {fileID: 1265013037}
@@ -9090,11 +9090,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cf161082ce4414eaf961f607c99c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReticle: {fileID: 316838733}
+  targetReticule: {fileID: 316838733}
   shootFrequency: 2
   shootRadius: 3
   cam: {fileID: 330585545}
-  projectileData: {fileID: 11400000, guid: 1084b128e509e3445bc7f641634c553a, type: 2}
+  projectileData: {fileID: 11400000, guid: ee290ca27eded0046ad84b1d6cb142bb, type: 2}
 --- !u!1 &1720285483
 GameObject:
   m_ObjectHideFlags: 0

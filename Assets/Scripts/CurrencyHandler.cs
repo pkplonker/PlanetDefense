@@ -57,5 +57,6 @@ public class CurrencyHandler : MonoBehaviour
 		return true;
 	}
 
-	private void EnemyDeath(EnemyStats stats) => AddMoney(stats.value);
+	public bool CanAfford(uint amount) => stats.currency >= amount;
+	private void EnemyDeath(EnemyStats stats) => AddMoney(stats.currencyValue);
 }

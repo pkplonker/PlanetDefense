@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 		var stats = other.GetComponent<IGetStats>();
 		if (stats == null) return;
 		if (stats.GetStats().team != targetTeam) return;
-		other.GetComponent<IDamageable>().TakeDamage(data.damage);
+		other.GetComponent<IDamageable>().TakeDamage(data.GetDamage());
 		SFXController.instance.Playclip(impactSound);
 		DestroyEntity();
 	}
@@ -71,7 +71,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 	private void LockOnUpdate()
 	{
 		transform.position =
-			Vector3.MoveTowards(transform.position, target.position, data.speed * Time.deltaTime);
+			Vector3.MoveTowards(transform.position, target.position, data.GetSpeed() * Time.deltaTime);
 	}
 
 	private void NonLockOnUpdate()
@@ -79,9 +79,9 @@ public class Projectile : MonoBehaviour, IDestroyable
 		var position = transform.position;
 		Vector3 targetPosition;
 		if (target != null) targetPosition = target.position;
-		else targetPosition = targetDirection*10;
-		
-		position += (targetPosition - position).normalized * data.speed * Time.deltaTime;
+		else targetPosition = targetDirection * 10;
+
+		position += (targetPosition - position).normalized * data.GetSpeed() * Time.deltaTime;
 		transform.position = position;
 		var angle = Utility.GetAngleFromVector((position - targetPosition).normalized);
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));

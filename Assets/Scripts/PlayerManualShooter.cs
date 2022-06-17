@@ -1,39 +1,27 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlayerManualShooter : MonoBehaviour
 {
-	[SerializeField] private Transform targetReticle;
+	[SerializeField] private Transform targetReticule;
 	[SerializeField] private float shootFrequency;
 	[SerializeField] private float shootRadius;
 	[SerializeField] private Camera cam;
 	[SerializeField] private ProjectileData projectileData;
 	private PlayerCombatManager playerCombatManager;
 	private float shootTimer;
-	private bool inGame = false;
+	private bool inGame ;
 	private void OnEnable() => GameManager.onStateChange += StateChange;
 	private void OnDisable() => GameManager.onStateChange -= StateChange;
 	private void Start() => playerCombatManager = GetComponent<PlayerCombatManager>();
-
-
-	private void StateChange(GameState state)
-	{
-		if (state == GameState.InGame)
-		{
-			SetInGame(true);
-		}
-		else
-		{
-			SetInGame(false);
-		}
-	}
+	private void StateChange(GameState state)=>SetInGame(state == GameState.InGame);
+	
 
 	private void SetInGame(bool inGame)
 	{
-		targetReticle.gameObject.SetActive(inGame);
+		targetReticule.gameObject.SetActive(inGame);
 		shootTimer = .1f;
 		this.inGame = inGame;
 	}
@@ -42,31 +30,30 @@ public class PlayerManualShooter : MonoBehaviour
 	private void Update()
 	{
 		shootTimer -= Time.deltaTime;
-		UpdateReticlePosition();
-		if (Input.GetMouseButtonDown(0) && shootTimer <= 0 && inGame && !IsClickingOnUI())
-
-		{
-			playerCombatManager.Shoot((targetReticle.position - transform.position).normalized, projectileData);
-			shootTimer = shootFrequency;
-		}
+		UpdateReticulePosition();
+		if (!Input.GetMouseButtonDown(0) || !(shootTimer <= 0) || !inGame || IsClickingOnUI()) return;
+		playerCombatManager.Shoot((targetReticule.position - transform.position).normalized, projectileData);
+		shootTimer = shootFrequency;
 	}
 
 	private bool IsClickingOnUI()
 	{
-		PointerEventData eventDataPos = new PointerEventData(EventSystem.current);
-		eventDataPos.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-		List<RaycastResult> results = new List<RaycastResult>();
+		var eventDataPos = new PointerEventData(EventSystem.current)
+		{
+			position = new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+		};
+		var results = new List<RaycastResult>();
 		EventSystem.current.RaycastAll(eventDataPos, results);
 		return results.Capacity > 0;
 	}
 
 
-	private void UpdateReticlePosition()
+	private void UpdateReticulePosition()
 	{
 		var pos = cam.ScreenToWorldPoint(Input.mousePosition);
 		pos.z = 0;
 		pos = pos.normalized;
 		pos *= shootRadius;
-		targetReticle.position = pos;
+		targetReticule.position = pos;
 	}
 }

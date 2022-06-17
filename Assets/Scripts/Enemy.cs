@@ -34,14 +34,14 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 		if (inRange)
 		{
-			if (lastShotTime + stats.attackSpeed < Time.time) Shoot();
+			if (lastShotTime + stats.projectileData.GetSpeed() < Time.time) Shoot();
 		}
 		else
 		{
-			if (Vector3.Distance(transform.position, target.transform.position) > stats.attackRange)
+			if (Vector3.Distance(transform.position, target.transform.position) > stats.projectileData.GetRange())
 			{
 				transform.position =
-					Vector3.MoveTowards(transform.position, target.transform.position, stats.speed * Time.deltaTime);
+					Vector3.MoveTowards(transform.position, target.transform.position, stats.movementSpeed * Time.deltaTime);
 				transform.rotation =
 					Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
 			}

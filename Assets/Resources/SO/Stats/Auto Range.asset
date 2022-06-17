@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7a266362b61cd242a89fa1c3ef7ba98, type: 3}
-  m_Name: PlayerAutoProjectile
+  m_Script: {fileID: 11500000, guid: 1d032386b1fdbf149907ee427faf8b2f, type: 3}
+  m_Name: Auto Range
   m_EditorClassIdentifier: 
-  damage: 5
-  speed: 5
-  lifeTime: 4
-  weaponType: 1
-  rotationSpeed: 360
-  attackCooldown: 1
-  range: 6
+  statName: Range
+  value: 3
+  valueModifier: 1.05
+  currentCost: 15
+  costMultiplier: 2
+  level: 1

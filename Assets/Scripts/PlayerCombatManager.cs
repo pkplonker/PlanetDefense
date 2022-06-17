@@ -8,7 +8,7 @@ public class PlayerCombatManager : MonoBehaviour
 {
 	private PlayerStats stats;
 	[SerializeField] private Projectile projectilePrefab;
-	[SerializeField] private PlayerProjectileData playerProjectileData;
+	[SerializeField] private StatBasedProjectileData playerAutoProjectileData;
 	[SerializeField] private List<Ability> abilities;
 	private List<Ability> useableAbilities;
 	private List<Projectile> projectiles = new List<Projectile>();
@@ -46,8 +46,8 @@ public class PlayerCombatManager : MonoBehaviour
 	private void Update()
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
-		if (!(lastShotTime + playerProjectileData.attackCooldown < Time.time)) return;
-		var target = AcquireTarget(playerProjectileData);
+		if (!(lastShotTime + playerAutoProjectileData.GetCooldown() < Time.time)) return;
+		var target = AcquireTarget(playerAutoProjectileData);
 		if (target != null)
 		{
 			projectiles.Add(Shoot(transform, target.transform));
@@ -61,22 +61,20 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private Projectile Shoot(Transform shooter, Transform targetTransform, ProjectileData projectileData = null)
 	{
-		if (projectileData == null) projectileData = playerProjectileData;
-		if (shooter != null && targetTransform != null)
-		{
-			if (targetTransform.GetComponent<ICheckAlive>().GetIsDead())
-				return null;
-		}
-
-		return CreateProjectile(targetTransform, projectileData);
+		if (projectileData == null) return null;
+		if (shooter == null || targetTransform == null) return CreateProjectile(targetTransform, projectileData);
+		return targetTransform.GetComponent<ICheckAlive>().GetIsDead()
+			? null
+			: CreateProjectile(targetTransform, projectileData);
 	}
 
 	private Projectile CreateProjectile(Transform targetTransform, ProjectileData projectileData)
 	{
 		var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
-		projectile.transform.localEulerAngles =
+		Transform projectileTransform;
+		(projectileTransform = projectile.transform).localEulerAngles =
 			-Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles;
-		projectile.transform.localScale = Vector3.one;
+		projectileTransform.localScale = Vector3.one;
 		projectile.Init(projectileData, Stats.Team.Enemy, targetTransform);
 		lastShotTime = Time.time;
 		return projectile;
@@ -85,15 +83,16 @@ public class PlayerCombatManager : MonoBehaviour
 	private Projectile CreateProjectileWithDirection(Vector3 direction, ProjectileData projectileData)
 	{
 		var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
-		projectile.transform.localEulerAngles =
+		Transform projectileTransform;
+		(projectileTransform = projectile.transform).localEulerAngles =
 			-Quaternion.LookRotation(direction - transform.position).eulerAngles;
-		projectile.transform.localScale = Vector3.one;
+		projectileTransform.localScale = Vector3.one;
 		projectile.Init(projectileData, Stats.Team.Enemy, direction);
 		lastShotTime = Time.time;
 		return projectile;
 	}
 
-	private Enemy AcquireTarget(PlayerProjectileData playerProjectileData)
+	private Enemy AcquireTarget(ProjectileData playerProjectileData)
 	{
 		var count = enemySpawner.spawnedEnemies.Count;
 		return count switch
@@ -103,7 +102,7 @@ public class PlayerCombatManager : MonoBehaviour
 		};
 	}
 
-	private Enemy ClosestEnemy(PlayerProjectileData playerProjectileData)
+	private Enemy ClosestEnemy(ProjectileData playerProjectileData)
 	{
 		var closestDistance = float.MaxValue;
 		Enemy closestEnemy = null;
@@ -115,6 +114,6 @@ public class PlayerCombatManager : MonoBehaviour
 			closestEnemy = enemy;
 		}
 
-		return playerProjectileData.range > closestDistance ? closestEnemy : null;
+		return playerProjectileData.GetRange() > closestDistance ? closestEnemy : null;
 	}
 }
