@@ -11,8 +11,9 @@ public class Projectile : MonoBehaviour, IDestroyable
 	[SerializeField] private AudioClip impactSound;
 	private Vector3 cachedTargetPosition;
 	private Vector3 targetDirection;
+	private IRegisterDestroy shooter;
 
-	public void Init(ProjectileData data, Stats.Team targetTeam, Transform target)
+	public void Init(IRegisterDestroy shooter, ProjectileData data, Stats.Team targetTeam, Transform target)
 	{
 		Invoke(nameof(DestroyEntity), data.lifeTime);
 		this.target = target;
@@ -21,9 +22,10 @@ public class Projectile : MonoBehaviour, IDestroyable
 		init = true;
 		this.data = data;
 		audioSource = GetComponent<AudioSource>();
+		this.shooter = shooter;
 	}
 
-	public void Init(ProjectileData data, Stats.Team targetTeam, Vector3 direciton)
+	public void Init(IRegisterDestroy shooter, ProjectileData data, Stats.Team targetTeam, Vector3 direciton)
 	{
 		Invoke(nameof(DestroyEntity), data.lifeTime);
 		this.targetTeam = targetTeam;
@@ -31,6 +33,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 		this.data = data;
 		audioSource = GetComponent<AudioSource>();
 		targetDirection = direciton;
+		this.shooter = shooter;
 	}
 
 	private void OnEnable() => GameManager.onStateChange += StateChange;
@@ -79,7 +82,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 		var position = transform.position;
 		Vector3 targetPosition;
 		if (target != null) targetPosition = target.position;
-		else targetPosition = targetDirection * 10;
+		else targetPosition = targetDirection * 20;
 
 		position += (targetPosition - position).normalized * data.GetSpeed() * Time.deltaTime;
 		transform.position = position;
@@ -92,5 +95,6 @@ public class Projectile : MonoBehaviour, IDestroyable
 	{
 		if (gameObject == null) return;
 		Destroy(gameObject);
+		shooter.RegisterDestroy(this);
 	}
 }

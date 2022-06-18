@@ -4,7 +4,7 @@ using System.Linq;
 using Interfaces;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable, ICheckAlive
+public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable, ICheckAlive, IRegisterDestroy
 {
 	private Player target;
 	private EnemyStats stats;
@@ -34,14 +34,15 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 
 		if (inRange)
 		{
-			if (lastShotTime + stats.projectileData.GetSpeed() < Time.time) Shoot();
+	//		if (lastShotTime + stats.projectileData.GetSpeed() < Time.time) Shoot();
 		}
 		else
 		{
 			if (Vector3.Distance(transform.position, target.transform.position) > stats.projectileData.GetRange())
 			{
 				transform.position =
-					Vector3.MoveTowards(transform.position, target.transform.position, stats.movementSpeed * Time.deltaTime);
+					Vector3.MoveTowards(transform.position, target.transform.position,
+						stats.movementSpeed * Time.deltaTime);
 				transform.rotation =
 					Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
 			}
@@ -53,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 	{
 		if (target.GetIsDead()) return;
 		var projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
-		projectile.Init(stats.projectileData, Stats.Team.Player, target.transform);
+		projectile.Init(this, stats.projectileData, Stats.Team.Player, target.transform);
 		projectiles.Add(projectile);
 		lastShotTime = Time.time;
 	}
@@ -74,7 +75,6 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 			currentHealth = 0;
 			Die();
 		}
-
 		onHealthChanged?.Invoke(currentHealth);
 	}
 
@@ -99,7 +99,14 @@ public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroya
 		{
 			p.DestroyEntity();
 		}
-
 		Destroy(gameObject);
+	}
+
+	public void RegisterDestroy(object obj)
+	{
+		if (obj is Projectile projectile)
+		{
+			projectiles.Remove(projectile);
+		}
 	}
 }

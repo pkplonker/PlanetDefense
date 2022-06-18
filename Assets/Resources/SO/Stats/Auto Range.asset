@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Auto Range
   m_EditorClassIdentifier: 
   statName: Range
-  value: 3
+  value: 6
   valueModifier: 1.05
   currentCost: 15
   costMultiplier: 2

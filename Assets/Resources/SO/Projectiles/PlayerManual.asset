@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779f22ba806148f479e615b8c05d4409, type: 3}
   m_Name: PlayerManual
   m_EditorClassIdentifier: 
-  lifeTime: 0
+  lifeTime: 6
   weaponType: 1
   damageStat: {fileID: 11400000, guid: d98889165b9399e42b7b9d78723afcd4, type: 2}
   speedStat: {fileID: 11400000, guid: ace0427c0b4b8f344af4b507786e4f27, type: 2}

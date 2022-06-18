@@ -59,6 +59,13 @@ namespace UI
 			UpdateButtons(activeGrid);
 		}
 
+		protected override void Hide()
+		{
+			base.Hide();
+			SetActiveGrid(null);
+		}
+
+
 		private void UpdateButtons(GridLayoutGroup activeGrid)
 		{
 			var buttons = GetActiveGrid().GetComponentsInChildren<ShopButton>().ToList();

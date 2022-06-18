@@ -4,9 +4,8 @@ using System.Linq;
 using Abilities;
 using UnityEngine;
 
-public class PlayerCombatManager : MonoBehaviour
+public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 {
-	private PlayerStats stats;
 	[SerializeField] private Projectile projectilePrefab;
 	[SerializeField] private StatBasedProjectileData playerAutoProjectileData;
 	[SerializeField] private List<Ability> abilities;
@@ -14,7 +13,6 @@ public class PlayerCombatManager : MonoBehaviour
 	private List<Projectile> projectiles = new List<Projectile>();
 	private float lastShotTime;
 	[SerializeField] private EnemySpawner enemySpawner;
-	private void Awake() => stats = (PlayerStats) GetComponent<Player>().GetStats();
 	private void OnEnable() => GameManager.onStateChange += OnStateChange;
 	private void OnDisable() => GameManager.onStateChange -= OnStateChange;
 
@@ -37,6 +35,7 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private void Start()
 	{
+		DestroyAllProjectiles();
 		foreach (var a in abilities)
 		{
 			useableAbilities.Add(Instantiate(a));
@@ -61,7 +60,11 @@ public class PlayerCombatManager : MonoBehaviour
 
 	private Projectile Shoot(Transform shooter, Transform targetTransform, ProjectileData projectileData = null)
 	{
-		if (projectileData == null) return null;
+		if (projectileData == null)
+		{
+			projectileData = playerAutoProjectileData;
+		}
+
 		if (shooter == null || targetTransform == null) return CreateProjectile(targetTransform, projectileData);
 		return targetTransform.GetComponent<ICheckAlive>().GetIsDead()
 			? null
@@ -75,7 +78,7 @@ public class PlayerCombatManager : MonoBehaviour
 		(projectileTransform = projectile.transform).localEulerAngles =
 			-Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles;
 		projectileTransform.localScale = Vector3.one;
-		projectile.Init(projectileData, Stats.Team.Enemy, targetTransform);
+		projectile.Init(this, projectileData, Stats.Team.Enemy, targetTransform);
 		lastShotTime = Time.time;
 		return projectile;
 	}
@@ -87,7 +90,7 @@ public class PlayerCombatManager : MonoBehaviour
 		(projectileTransform = projectile.transform).localEulerAngles =
 			-Quaternion.LookRotation(direction - transform.position).eulerAngles;
 		projectileTransform.localScale = Vector3.one;
-		projectile.Init(projectileData, Stats.Team.Enemy, direction);
+		projectile.Init(this, projectileData, Stats.Team.Enemy, direction);
 		lastShotTime = Time.time;
 		return projectile;
 	}
@@ -114,6 +117,15 @@ public class PlayerCombatManager : MonoBehaviour
 			closestEnemy = enemy;
 		}
 
+		Debug.Log("range = " + playerProjectileData.GetRange() + " closestDistance = " + closestDistance);
 		return playerProjectileData.GetRange() > closestDistance ? closestEnemy : null;
+	}
+
+	public void RegisterDestroy(object obj)
+	{
+		if (obj is Projectile projectile)
+		{
+			projectiles.Remove(projectile);
+		}
 	}
 }
