@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statName: Damage
   value: 3
-  valueModifier: 1.1
+  valueModifier: 1.5
   currentCost: 15
   costMultiplier: 2
   level: 1

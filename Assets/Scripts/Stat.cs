@@ -20,6 +20,12 @@ public class Stat : ScriptableObject
 	private void OnEnable()
 	{
 		ResetData();
+		GameManager.onStateChange += OnStateChange;
+	}
+
+	private void OnStateChange(GameState state)
+	{
+		if (state == GameState.NewGame) ResetData();
 	}
 
 	private void ResetData()
