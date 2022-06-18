@@ -117,7 +117,6 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 			closestEnemy = enemy;
 		}
 
-		Debug.Log("range = " + playerProjectileData.GetRange() + " closestDistance = " + closestDistance);
 		return playerProjectileData.GetRange() > closestDistance ? closestEnemy : null;
 	}
 

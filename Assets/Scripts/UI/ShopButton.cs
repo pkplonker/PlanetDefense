@@ -12,20 +12,16 @@ namespace UI
 		[SerializeField] private Stat stat;
 		[SerializeField] private Color canAffordColor;
 		[SerializeField] private Color cannotAffordColor;
-		private Stat activeStat;
 
-		private void Awake()
-		{
-			activeStat = Instantiate(stat);
-		}
+	
 
 
 		public void UpdateUI()
 		{
-			titleText.text = activeStat.statName;
-			priceText.text = activeStat.currentCost.ToString();
-			levelText.text = "Level: " + activeStat.level;
-			if (CurrencyHandler.instance.CanAfford(stat.currentCost))
+			titleText.text = stat.GetStatName();
+			priceText.text = stat.GetCurrentCost().ToString();
+			levelText.text = "Level: " + stat.GetLevel();
+			if (CurrencyHandler.instance.CanAfford(stat.GetCurrentCost()))
 			{
 				priceText.color = canAffordColor;
 				titleText.color = canAffordColor;
@@ -41,13 +37,13 @@ namespace UI
 
 		public void Buy()
 		{
-			if (!CurrencyHandler.instance.RemoveMoney(stat.currentCost))
+			if (!CurrencyHandler.instance.RemoveMoney(stat.GetCurrentCost()))
 			{
 				//todo: show not enough money
 			}
 			else
 			{
-				activeStat.Upgrade();
+				stat.Upgrade();
 				UpdateUI();
 			}
 		}

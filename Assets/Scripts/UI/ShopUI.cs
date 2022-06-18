@@ -13,7 +13,7 @@ namespace UI
 		[SerializeField] private List<GridLayoutGroup> grids;
 		[SerializeField] private TextMeshProUGUI currentCurrency;
 		private GridLayoutGroup activeGrid;
-
+		[SerializeField] private List<ShopVerticalButton> verticalButtons;
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
@@ -86,6 +86,11 @@ namespace UI
 				grid.gameObject.SetActive(false);
 			}
 
+			foreach (var button in verticalButtons)
+			{
+				button.Deselect();
+			}
+			verticalButtons[(int) type].Select();
 			SetActiveGrid(grids[(int) type]);
 			activeGrid.gameObject.SetActive(true);
 			UpdateButtons(activeGrid);
