@@ -11,7 +11,7 @@ namespace UI
 		private void OnEnable()=>CurrencyHandler.onCurrencyChanged += UpdateUI;
 		private void OnDisable()=>CurrencyHandler.onCurrencyChanged -= UpdateUI;
 		
-		private void UpdateUI(uint amount)
+		private void UpdateUI(ulong amount)
 		{
 			if (tmp == null) return;
 			tmp.text = "$" + amount;

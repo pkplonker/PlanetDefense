@@ -7,6 +7,6 @@ using UnityEngine;
 
 public class PlayerStats : Stats
 {
-	public uint currency;
+	public ulong currency;
 }
 

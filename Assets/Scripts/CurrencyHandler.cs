@@ -5,8 +5,8 @@ public class CurrencyHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerStats stats;
 	public static CurrencyHandler instance;
-	[SerializeField] private uint startingCurrency = 0;
-	public static event Action<uint> onCurrencyChanged;
+	[SerializeField] private ulong startingCurrency = 0;
+	public static event Action<ulong> onCurrencyChanged;
 
 	private void Awake()
 	{
@@ -43,13 +43,13 @@ public class CurrencyHandler : MonoBehaviour
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
-	public void AddMoney(uint amount)
+	public void AddMoney(ulong amount)
 	{
 		stats.currency += amount;
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
-	public bool RemoveMoney(uint amount)
+	public bool RemoveMoney(ulong amount)
 	{
 		if (stats.currency < amount) return false;
 		stats.currency -= amount;
@@ -57,6 +57,6 @@ public class CurrencyHandler : MonoBehaviour
 		return true;
 	}
 
-	public bool CanAfford(uint amount) => stats.currency >= amount;
+	public bool CanAfford(ulong amount) => stats.currency >= amount;
 	private void EnemyDeath(EnemyStats stats) => AddMoney(stats.currencyValue);
 }

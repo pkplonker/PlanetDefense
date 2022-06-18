@@ -27,7 +27,11 @@ namespace UI
 			CurrencyHandler.onCurrencyChanged -= UpdateCurrency;
 		}
 
-		private void Start() => Hide();
+		private void Start()
+		{
+			Hide();
+			SelectManualWeapons();
+		}
 
 		public static void NextLevel()
 		{
@@ -48,7 +52,7 @@ namespace UI
 			else Hide();
 		}
 
-		private void UpdateCurrency(uint newCurrency)
+		private void UpdateCurrency(ulong newCurrency)
 		{
 			currentCurrency.text = "£" + newCurrency;
 		}
@@ -56,13 +60,7 @@ namespace UI
 		protected override void Show()
 		{
 			base.Show();
-			UpdateButtons(activeGrid);
-		}
-
-		protected override void Hide()
-		{
-			base.Hide();
-			SetActiveGrid(null);
+			UpdateButtons(GetActiveGrid());
 		}
 
 

@@ -659,8 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a59b968a99116f04abd440f2d3ddf18d, type: 2}
-  startingCurrency: 63000
-  DEFAULT_CURRENCY: 0
+  startingCurrency: 99999999999
 --- !u!1 &77752134
 GameObject:
   m_ObjectHideFlags: 0
@@ -5185,7 +5184,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 808898491}
   grids:
   - {fileID: 1616994846}
-  - {fileID: 0}
+  - {fileID: 627981541}
   currentCurrency: {fileID: 1043655783}
 --- !u!1 &870569972
 GameObject:

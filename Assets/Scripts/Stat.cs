@@ -7,7 +7,7 @@ public class Stat : ScriptableObject
 
 	public float value;
 	[Range(0, 5)] [SerializeField] private float valueModifier = 1.1f;
-	public uint currentCost;
+	public ulong currentCost;
 	[Range(1, 5)] public uint costMultiplier;
 	public int level;
 
