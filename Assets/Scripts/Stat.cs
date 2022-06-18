@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Stat", menuName = "Stats/New Stat")]
-public class Stat : ScriptableObject
+[CreateAssetMenu(fileName = "New Stat", menuName = "Unlockable/New Stat")]
+public class Stat : ScriptableObject, IBuyable
 {
 	[SerializeField] private string statName;
 
@@ -35,12 +35,7 @@ public class Stat : ScriptableObject
 		runTimeCurrentCost = currentCost;
 	}
 
-	public virtual void Upgrade()
-	{
-		runTimeValue *= valueModifier;
-		runTimeCurrentCost *= costMultiplier;
-		runTimeLevel++;
-	}
+
 
 	public ulong GetCurrentCost() => runTimeCurrentCost;
 
@@ -49,4 +44,10 @@ public class Stat : ScriptableObject
 	public object GetLevel() => runTimeLevel;
 
 	public float GetCurrentValue() => runTimeValue;
+	public void Buy()
+	{
+		runTimeValue *= valueModifier;
+		runTimeCurrentCost *= costMultiplier;
+		runTimeLevel++;
+	}
 }

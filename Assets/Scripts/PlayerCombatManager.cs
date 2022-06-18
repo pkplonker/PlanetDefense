@@ -9,6 +9,7 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 	[SerializeField] private Projectile projectilePrefab;
 	[SerializeField] private StatBasedProjectileData playerAutoProjectileData;
 	[SerializeField] private List<Ability> abilities;
+	[SerializeField] private Unlockable autoShootUnlock;
 	private List<Ability> useableAbilities;
 	private List<Projectile> projectiles = new List<Projectile>();
 	private float lastShotTime;
@@ -45,6 +46,7 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 	private void Update()
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
+		if (!autoShootUnlock.isUnlocked) return;
 		if (!(lastShotTime + playerAutoProjectileData.GetCooldown() < Time.time)) return;
 		var target = AcquireTarget(playerAutoProjectileData);
 		if (target != null)
