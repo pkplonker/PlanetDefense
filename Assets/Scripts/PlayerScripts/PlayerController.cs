@@ -93,10 +93,18 @@ namespace PlayerScripts
 			if (!stats.GetIsShieldUnlocked()) TakeHealthDamage(amount);
 			else
 			{
-				var remainingDamage = (int) (amount - currentShield);
-				currentShield = 0;
-				onShieldChanged?.Invoke(currentShield, GetMaxShield());
-				TakeHealthDamage(remainingDamage);
+				if (currentShield > amount)
+				{
+					currentShield -= amount;
+					onShieldChanged?.Invoke(currentShield, GetMaxShield());
+				}
+				else
+				{
+					amount -= currentShield;
+					currentShield = 0;
+					onShieldChanged?.Invoke(currentShield, GetMaxShield());
+					TakeHealthDamage(amount);
+				}
 			}
 		}
 
