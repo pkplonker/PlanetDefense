@@ -8,9 +8,7 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 {
 	[SerializeField] private Projectile projectilePrefab;
 	[SerializeField] private StatBasedProjectileData playerAutoProjectileData;
-	[SerializeField] private List<Ability> abilities;
 	[SerializeField] private Unlockable autoShootUnlock;
-	private List<Ability> useableAbilities;
 	private List<Projectile> projectiles = new List<Projectile>();
 	private float lastShotTime;
 	[SerializeField] private EnemySpawner enemySpawner;
@@ -37,10 +35,6 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 	private void Start()
 	{
 		DestroyAllProjectiles();
-		foreach (var a in abilities)
-		{
-			useableAbilities.Add(Instantiate(a));
-		}
 	}
 
 	private void Update()

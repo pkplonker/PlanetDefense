@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Unlockable", menuName = "Unlockable/New unlockable")]
 public class Unlockable : Purchaseable
 {
 	[SerializeField] private string statName;
-	[SerializeField] private bool isOneTimePurchase = false;
+	[SerializeField] private bool isOneTimePurchase;
 
 	[SerializeField] private bool isUnlocked;
 	public ulong price;

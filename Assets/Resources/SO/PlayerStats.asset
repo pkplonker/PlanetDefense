@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712a8ac4bc7288e40ab0ede6befbd20e, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  maxHealth: 40
   characterName: Pkplonker
   team: 0
-  currency: 0
+  currency: 99999999999
   health: {fileID: 11400000, guid: 61e80ae535aa5d1499a6fae823b2cd0e, type: 2}
+  shield: {fileID: 11400000, guid: 0ebaebb62cbcead49a694b9a5416fe7e, type: 2}
+  shieldUnlock: {fileID: 11400000, guid: c0ed830f075d2e64fb7a89dcfb7b3e1d, type: 2}
