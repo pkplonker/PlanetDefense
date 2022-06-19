@@ -16,19 +16,19 @@ public class GameManager : MonoBehaviour
 	private void OnEnable()
 	{
 		onStateChange += GameStateChange;
-		EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void Start()
 	{
 		currentWave = 0;
-		EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void OnDisable()
 	{
 		onStateChange -= GameStateChange;
-		EnemySpawner.OnEnemyDeath += EnemyDeath;
+		Enemies.EnemySpawner.OnEnemyDeath += EnemyDeath;
 	}
 
 	public void EnemyDeath(EnemyStats stats)

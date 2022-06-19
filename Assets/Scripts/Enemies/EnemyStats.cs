@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Upgrades;
+
 [CreateAssetMenu(fileName = "New Stats", menuName = "Stats/Enemy Stats")]
 
 public class EnemyStats : Stats

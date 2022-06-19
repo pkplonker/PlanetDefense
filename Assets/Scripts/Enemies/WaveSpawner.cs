@@ -6,7 +6,7 @@ public class WaveSpawner : MonoBehaviour
 {
 	[SerializeField] private WaveContainer waveContainer;
 	private int currentMobIndex;
-	[SerializeField] private EnemySpawner enemySpawner;
+	[SerializeField] private Enemies.EnemySpawner enemySpawner;
 	Coroutine waveCoroutine;
 	int waveIndex = 0;
 	public static event Action<int, int> OnNewMobSpawned;

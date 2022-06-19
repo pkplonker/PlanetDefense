@@ -1,5 +1,6 @@
 using UI;
 using UnityEngine;
+using Upgrades;
 
 public class ShopButtonRequiringUnlock : ShopButton
 {

@@ -1,4 +1,5 @@
 using System;
+using PlayerScripts;
 using UnityEngine;
 
 public class CurrencyHandler : MonoBehaviour
@@ -27,13 +28,13 @@ public class CurrencyHandler : MonoBehaviour
 	private void OnEnable()
 	{
 		GameManager.onStateChange += HandleGameStateChange;
-		EnemySpawner.OnEnemyDeath += EnemyDeath;
+		Enemies.EnemySpawner.OnEnemyDeath += EnemyDeath;
 	}
 
 	private void OnDisable()
 	{
 		GameManager.onStateChange -= HandleGameStateChange;
-		EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void HandleGameStateChange(GameState state)

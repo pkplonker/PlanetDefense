@@ -1,5 +1,6 @@
 using Interfaces;
 using UnityEngine;
+using Upgrades;
 
 public class Projectile : MonoBehaviour, IDestroyable
 {

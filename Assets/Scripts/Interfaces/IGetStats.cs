@@ -1,3 +1,5 @@
+using Upgrades;
+
 namespace Interfaces
 {
     public interface IGetStats

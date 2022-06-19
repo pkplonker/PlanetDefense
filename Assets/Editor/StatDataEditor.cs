@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Upgrades;
 
 [CustomEditor(typeof(Stat))]
 public class StatDataEditor : Editor

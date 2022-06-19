@@ -1,4 +1,5 @@
 using System;
+using PlayerScripts;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace UI
 	public class PlayerHealthUI : MonoBehaviour
 	{
 		[Range(0, 1)] [SerializeField] private float lowHealthThreshold = 0.2f;
-		[SerializeField] private Player player;
+		[SerializeField] private PlayerController player;
 		[SerializeField] private Color lowHealthColor;
 		private Color defaultColor;
 		private TextMeshProUGUI tmp;
