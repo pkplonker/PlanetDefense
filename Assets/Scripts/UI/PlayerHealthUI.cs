@@ -22,7 +22,7 @@ namespace UI
 		private void UpdateUI(float currentHealth, float maxHealth)
 		{
 			tmp.color = currentHealth / maxHealth < lowHealthThreshold ? lowHealthColor : defaultColor;
-			tmp.text = currentHealth + "/" + player.GetMaxHealth();
+			tmp.text = (ulong)currentHealth + "/" + (ulong)player.GetMaxHealth();
 		}
 	}
 }

@@ -11,31 +11,54 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 	private float currentHealth;
 	public event Action<float, float> onHealthChanged;
 	public event Action<Player> onDeath;
-	public float GetMaxHealth() => stats.maxHealth;
+
+	public float GetMaxHealth() => stats.GetMaxHealth();
 	private SpriteRenderer spriteRenderer;
 
 	private void Awake()
 	{
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.enabled = false;
-		
 	}
+
 	private void Start() => SetInitialHealth();
-	private void OnEnable() => GameManager.onStateChange += HandleGameStateChange;
-	private void OnDisable() => GameManager.onStateChange -= HandleGameStateChange;
+
+	private void OnEnable()
+	{
+		GameManager.onStateChange += HandleGameStateChange;
+		stats.health.OnValueChanged += MaxHealthChanged;
+	}
+
+	private void MaxHealthChanged(float before, float after)
+	{
+		currentHealth+=after - before;
+		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
+	}
+
+
+	private void OnDisable()
+	{
+		GameManager.onStateChange -= HandleGameStateChange;
+	} 
 	public Stats GetStats() => stats;
 	public bool GetIsDead() => isDead;
 
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state != GameState.NewGame) return;
+		if (state != GameState.NewGame)
+		{
+			onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
+			return;
+		}
+
+		;
 		SetInitialHealth();
 		spriteRenderer.enabled = true;
 	}
 
 	private void SetInitialHealth()
 	{
-		currentHealth = stats.maxHealth;
+		currentHealth = stats.GetMaxHealth();
 		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 		isDead = false;
 	}
@@ -48,6 +71,7 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 			currentHealth = 0;
 			Die();
 		}
+
 //
 		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 	}
@@ -64,9 +88,9 @@ public class Player : MonoBehaviour, IDamageable, IHealable, IGetStats, ICheckAl
 	public void Heal(float amount)
 	{
 		currentHealth += amount;
-		if (currentHealth > stats.maxHealth)
+		if (currentHealth > stats.GetMaxHealth())
 		{
-			currentHealth = stats.maxHealth;
+			currentHealth = stats.GetMaxHealth();
 		}
 
 		onHealthChanged?.Invoke(currentHealth, GetMaxHealth());

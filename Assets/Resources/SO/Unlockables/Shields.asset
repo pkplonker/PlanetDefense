@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712a8ac4bc7288e40ab0ede6befbd20e, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 9096b595a34b08c49970cf09be96f283, type: 3}
+  m_Name: Shields
   m_EditorClassIdentifier: 
-  maxHealth: 40
-  characterName: Pkplonker
-  team: 0
-  currency: 0
-  health: {fileID: 11400000, guid: 61e80ae535aa5d1499a6fae823b2cd0e, type: 2}
+  statName: Unlock Planetary Shield
+  isOneTimePurchase: 1
+  isUnlocked: 0
+  price: 500

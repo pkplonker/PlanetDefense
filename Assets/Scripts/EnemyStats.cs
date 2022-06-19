@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyStats : Stats
 {
+	public float maxHealth;
+
 	public float movementSpeed = 2f;
 	public float impactDamage = 3f;
 	public uint currencyValue = 3;

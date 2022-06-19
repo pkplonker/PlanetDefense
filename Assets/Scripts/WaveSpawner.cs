@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class WaveSpawner : MonoBehaviour
 	private int currentMobIndex;
 	[SerializeField] private EnemySpawner enemySpawner;
 	Coroutine waveCoroutine;
+	int waveIndex = 0;
+	public static event Action<int, int> OnNewMobSpawned;
 
 	private void OnEnable()
 	{
@@ -14,6 +17,8 @@ public class WaveSpawner : MonoBehaviour
 		GameManager.onStateChange += OnStateChange;
 		waveCoroutine = null;
 	}
+
+	private int GetWaveSize() => waveContainer.waves[waveIndex].GetSpawnLength();
 
 	private void OnStateChange(GameState state)
 	{
@@ -27,6 +32,7 @@ public class WaveSpawner : MonoBehaviour
 
 	private void OnWaveStart(int waveIndex)
 	{
+		this.waveIndex = waveIndex;
 		if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
 		else
 		{
@@ -49,10 +55,13 @@ public class WaveSpawner : MonoBehaviour
 	private IEnumerator WaveCoroutine(int waveIndex)
 	{
 		currentMobIndex = 0;
+		OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
+
 		while (currentMobIndex != waveContainer.waves[waveIndex].GetSpawnLength())
 		{
 			yield return new WaitForSeconds(waveContainer.waves[waveIndex].spawns[currentMobIndex].nextMobDelay);
 			enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].enemy);
+			OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
 			currentMobIndex++;
 		}
 	}

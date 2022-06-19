@@ -14,6 +14,7 @@ public class Stat : Purchaseable
 	private float runTimeValue;
 	private ulong runTimeCurrentCost;
 	private int runTimeLevel;
+	public event Action<float, float> OnValueChanged;
 
 	private void OnEnable()
 	{
@@ -41,7 +42,9 @@ public class Stat : Purchaseable
 
 	public override void Buy()
 	{
+		var cachedValue = runTimeValue;
 		runTimeValue *= valueModifier;
+		OnValueChanged?.Invoke(cachedValue, runTimeValue);
 		runTimeCurrentCost *= costMultiplier;
 		runTimeLevel++;
 	}

@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,12 +11,12 @@ public class PlayerManualShooter : MonoBehaviour
 	[SerializeField] private ProjectileData projectileData;
 	private PlayerCombatManager playerCombatManager;
 	private float shootTimer;
-	private bool inGame ;
+	private bool inGame;
 	private void OnEnable() => GameManager.onStateChange += StateChange;
 	private void OnDisable() => GameManager.onStateChange -= StateChange;
 	private void Start() => playerCombatManager = GetComponent<PlayerCombatManager>();
-	private void StateChange(GameState state)=>SetInGame(state == GameState.InGame);
-	
+	private void StateChange(GameState state) => SetInGame(state == GameState.InGame);
+
 
 	private void SetInGame(bool inGame)
 	{
@@ -29,6 +28,14 @@ public class PlayerManualShooter : MonoBehaviour
 
 	private void Update()
 	{
+		if (!inGame)
+		{
+			targetReticule.gameObject.SetActive(false);
+			return;
+		}
+
+		targetReticule.gameObject.SetActive(true);
+
 		shootTimer -= Time.deltaTime;
 		UpdateReticulePosition();
 		if (!Input.GetMouseButtonDown(0) || !(shootTimer <= 0) || !inGame || IsClickingOnUI()) return;
