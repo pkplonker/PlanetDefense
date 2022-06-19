@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9096b595a34b08c49970cf09be96f283, type: 3}
   m_Name: AutoShoot
   m_EditorClassIdentifier: 
-  isUnlocked: 0
+  statName: Unlock Automatic Targetting
+  isOneTimePurchase: 1
+  isUnlocked: 1
   price: 150

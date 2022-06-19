@@ -13,10 +13,12 @@ namespace UI
 		[SerializeField] private TextMeshProUGUI currentCurrency;
 		private GridLayoutGroup activeGrid;
 		[SerializeField] private List<ShopVerticalButton> verticalButtons;
+
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
 			CurrencyHandler.onCurrencyChanged += UpdateCurrency;
+			ShopButton.OnPurchase += UpdateButtonsFromEvent;
 		}
 
 
@@ -24,6 +26,7 @@ namespace UI
 		{
 			GameManager.onStateChange -= GameManagerOnonStateChange;
 			CurrencyHandler.onCurrencyChanged -= UpdateCurrency;
+			ShopButton.OnPurchase -= UpdateButtonsFromEvent;
 		}
 
 		private void Start()
@@ -38,6 +41,7 @@ namespace UI
 			GameManager.ChangeState(GameState.NewWave);
 		}
 
+		private void UpdateButtonsFromEvent() => UpdateButtons(GetActiveGrid());
 		public void SelectManualWeapons() => ShowGrid(GridTypes.ManualWeapons);
 		public void SelectAutomaticWeapons() => ShowGrid(GridTypes.AutomaticWeapons);
 		public void SelectDefense() => ShowGrid(GridTypes.Defense);
@@ -89,6 +93,7 @@ namespace UI
 			{
 				button.Deselect();
 			}
+
 			verticalButtons[(int) type].Select();
 			SetActiveGrid(grids[(int) type]);
 			activeGrid.gameObject.SetActive(true);

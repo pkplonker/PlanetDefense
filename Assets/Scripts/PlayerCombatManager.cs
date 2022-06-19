@@ -46,7 +46,7 @@ public class PlayerCombatManager : MonoBehaviour, IRegisterDestroy
 	private void Update()
 	{
 		if (GameManager.GetCurrentState() != GameState.InGame) return;
-		if (!autoShootUnlock.isUnlocked) return;
+		if (!autoShootUnlock.GetIsUnlocked()) return;
 		if (!(lastShotTime + playerAutoProjectileData.GetCooldown() < Time.time)) return;
 		var target = AcquireTarget(playerAutoProjectileData);
 		if (target != null)

@@ -4,5 +4,8 @@ using UnityEngine;
 
 public interface IBuyable
 {
-    public void Buy();
+	public string GetStatName();
+	public void Buy();
+	public ulong GetCurrentCost();
+	public string GetLevel();
 }

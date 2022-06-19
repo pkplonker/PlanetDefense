@@ -9,17 +9,28 @@ namespace UI
 		[SerializeField] protected TextMeshProUGUI titleText;
 		[SerializeField] protected TextMeshProUGUI priceText;
 		[SerializeField] protected TextMeshProUGUI levelText;
-		[SerializeField] protected Stat stat;
+		[SerializeField] public Purchaseable item;
 		[SerializeField] protected Color canAffordColor;
 		[SerializeField] protected Color cannotAffordColor;
-
+		public static event Action OnPurchase;
 
 		public virtual void UpdateUI()
 		{
-			titleText.text = stat.GetStatName();
-			priceText.text = stat.GetCurrentCost().ToString();
-			levelText.text = "Level: " + stat.GetLevel();
-			if (CurrencyHandler.instance.CanAfford(stat.GetCurrentCost())) ShowPurchasable();
+			titleText.text = item.GetStatName();
+			priceText.text = item.GetCurrentCost().ToString();
+			if (item.GetType() == typeof(Stat))
+			{
+				levelText.enabled = true;
+				levelText.text = "Level " + ((Stat) item).GetLevel();
+			}
+			else
+			{
+				levelText.enabled = false;
+				levelText.text = "";
+			}
+
+			levelText.text = "Level: " + item.GetLevel();
+			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost())) ShowPurchasable();
 			else UnshowPurchasable();
 		}
 
@@ -39,15 +50,20 @@ namespace UI
 
 		public virtual void Buy()
 		{
-			if (!CurrencyHandler.instance.RemoveMoney(stat.GetCurrentCost()))
+			if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
 			{
 				//todo: show not enough money
 			}
 			else
 			{
-				stat.Buy();
+				item.Buy();
+				if (item.GetIsOneTimePurchase()) HandleOneTimePurchase();
 				UpdateUI();
 			}
+
+			OnPurchase?.Invoke();
 		}
+
+		private void HandleOneTimePurchase() => Destroy(gameObject);
 	}
 }

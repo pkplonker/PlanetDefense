@@ -4,11 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Unlockable", menuName = "Unlockable/New unlockable")]
-public class Unlockable : ScriptableObject, IBuyable
+public class Unlockable : Purchaseable
 {
-	public bool isUnlocked;
+	[SerializeField] private string statName;
+	[SerializeField] private bool isOneTimePurchase = false;
+
+	[SerializeField] private bool isUnlocked;
 	public ulong price;
-	public void Buy() => isUnlocked = true;
+
+	public override string GetStatName() => statName;
+	public override void Buy() => isUnlocked = true;
+	public override ulong GetCurrentCost() => price;
+	public override bool GetIsOneTimePurchase() => isOneTimePurchase;
+	public bool GetIsUnlocked() => isUnlocked;
+	public override string GetLevel() => "";
+
 	private void ResetData() => isUnlocked = false;
 
 	private void OnEnable()

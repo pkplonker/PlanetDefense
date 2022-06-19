@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
@@ -9,24 +7,28 @@ public class ShopButtonRequiringUnlock : ShopButton
 
 	public override void UpdateUI()
 	{
-		titleText.text = stat.GetStatName();
-		priceText.text = stat.GetCurrentCost().ToString();
-		levelText.text = "Level: " + stat.GetLevel();
-		if (CurrencyHandler.instance.CanAfford(stat.GetCurrentCost()) && unlockable.isUnlocked) ShowPurchasable();
+		titleText.text = item.GetStatName();
+		priceText.text = item.GetCurrentCost().ToString();
+		levelText.text = "Level: " + item.GetLevel();
+		if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost()) && unlockable.GetIsUnlocked()) ShowPurchasable();
 		else UnshowPurchasable();
 	}
 
-	public virtual void Buy()
+	public override void Buy()
 	{
-		if (!unlockable.isUnlocked) return;
-		if (!CurrencyHandler.instance.RemoveMoney(stat.GetCurrentCost()))
+		if (!unlockable.GetIsUnlocked()) return;
+		if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
 		{
 			//todo: show not enough money
 		}
 		else
 		{
-			stat.Buy();
+			item.Buy();
+			if (item.GetIsOneTimePurchase()) HandleOneTimePurchase();
 			UpdateUI();
 		}
 	}
+
+	private void HandleOneTimePurchase()=>Destroy(gameObject);
+	
 }
