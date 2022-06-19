@@ -6,7 +6,7 @@ namespace UI
 {
 	public class SpeedButton : MonoBehaviour
 	{
-		private GameSpeed currentSpeed = GameSpeed.Normal;
+		public static GameSpeed currentSpeed = GameSpeed.Normal;
 		[SerializeField] private TextMeshProUGUI text;
 
 		private void Start()
@@ -14,6 +14,7 @@ namespace UI
 			UpdateTime();
 			UpdateUI();
 		}
+
 		public void Toggle()
 		{
 			SFXController.instance.PlayUIClick();
@@ -21,8 +22,10 @@ namespace UI
 			if ((int) currentSpeed >= Enum.GetNames(typeof(GameSpeed)).Length) currentSpeed = 0;
 			UpdateCurrentSpeed(currentSpeed);
 		}
+
 		private void OnEnable() => GameManager.onStateChange += StateChange;
 		private void OnDisable() => GameManager.onStateChange -= StateChange;
+
 		private void StateChange(GameState state)
 		{
 			if (state != GameState.NewGame) return;
@@ -30,7 +33,18 @@ namespace UI
 			UpdateCurrentSpeed(GameSpeed.Normal);
 		}
 
-		
+		public static float GetSpeedMultiplier()
+		{
+			return currentSpeed switch
+			{
+				GameSpeed.Half => 0.5f,
+				GameSpeed.Normal => 1f,
+				GameSpeed.TwoTimes => 2f,
+				GameSpeed.FourTimes => 4f,
+				_ => 1f
+			};
+		}
+
 		private void UpdateCurrentSpeed(GameSpeed requestedSpeed)
 		{
 			UpdateTime();
@@ -39,14 +53,7 @@ namespace UI
 
 		private void UpdateTime()
 		{
-			Time.timeScale = currentSpeed switch
-			{
-				GameSpeed.Half => 0.5f,
-				GameSpeed.Normal => 1f,
-				GameSpeed.TwoTimes => 2f,
-				GameSpeed.FourTimes => 4f,
-				_ => Time.timeScale
-			};
+			Time.timeScale = GetSpeedMultiplier();
 		}
 
 		private void UpdateUI()

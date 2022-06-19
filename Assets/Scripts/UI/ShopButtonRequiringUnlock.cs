@@ -30,6 +30,4 @@ public class ShopButtonRequiringUnlock : ShopButton
 		}
 	}
 
-	private void HandleOneTimePurchase()=>Destroy(gameObject);
-	
 }

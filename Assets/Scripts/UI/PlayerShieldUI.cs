@@ -1,36 +1,37 @@
-using PlayerScripts;
-using TMPro;
-using UnityEngine;
+using System;
 
 namespace UI
 {
-	public class PlayerShieldUI : MonoBehaviour
+	public class PlayerShieldUI : HealthBarUI
 	{
-		[Range(0, 1)] [SerializeField] private float lowHealthThreshold = 0.2f;
-		[SerializeField] private PlayerController player;
-		[SerializeField] private Color lowHealthColor;
-		private Color defaultColor;
-		private TextMeshProUGUI tmp;
-
-		private void Awake()
+		protected override void OnEnable()
 		{
-			tmp = GetComponent<TextMeshProUGUI>();
-			defaultColor = tmp.color;
+			base.OnEnable();
+			player.onShieldChanged += UpdateUI;
 		}
 
-		private void OnEnable() => player.onShieldChanged += UpdateUI;
-		private void OnDisable() => player.onShieldChanged -= UpdateUI;
-
-		private void UpdateUI(float currentHealth, float maxHealth)
+		protected override void OnDisable()
 		{
-			tmp.color = currentHealth / maxHealth < lowHealthThreshold ? lowHealthColor : defaultColor;
+			base.OnDisable();
+			player.onShieldChanged -= UpdateUI;
+		}
+
+		protected override void UpdateUI(float currentHealth, float maxHealth)
+		{
+			CheckNeedToFlash(currentHealth, maxHealth);
+
 			if (player.IsShieldUnlocked())
 			{
-				tmp.text = (ulong) currentHealth + "/" + (ulong) player.GetMaxShield();
+				tmp.text = (ulong) currentHealth + "/" + (ulong) maxHealth;
+				icon.enabled = true;
+				icon.color = defaultImageColor;
 			}
 			else
 			{
 				tmp.text = "";
+				icon.color = defaultImageColor;
+
+				icon.enabled = false;
 			}
 		}
 	}

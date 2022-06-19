@@ -65,6 +65,6 @@ namespace UI
 			OnPurchase?.Invoke();
 		}
 
-		private void HandleOneTimePurchase() => Destroy(gameObject);
+		protected virtual void HandleOneTimePurchase() => gameObject.SetActive(false);
 	}
 }

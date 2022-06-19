@@ -25,7 +25,7 @@ namespace UI
 		public void Giveup()
 		{
 			SFXController.instance.PlayUIClick();
-			GameManager.ChangeState(GameState.Menu);
+			GameManager.ChangeState(GameState.Dead);
 		}
 
 		public void Settings()

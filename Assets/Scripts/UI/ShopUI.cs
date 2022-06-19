@@ -13,6 +13,7 @@ namespace UI
 		[SerializeField] private TextMeshProUGUI currentCurrency;
 		private GridLayoutGroup activeGrid;
 		[SerializeField] private List<ShopVerticalButton> verticalButtons;
+		private List<Button> cachedButtons = new List<Button>();
 
 		private void OnEnable()
 		{
@@ -20,7 +21,6 @@ namespace UI
 			CurrencyHandler.onCurrencyChanged += UpdateCurrency;
 			ShopButton.OnPurchase += UpdateButtonsFromEvent;
 		}
-
 
 		private void OnDisable()
 		{
@@ -31,8 +31,18 @@ namespace UI
 
 		private void Start()
 		{
+			cachedButtons = grids.SelectMany(grid => grid.GetComponentsInChildren<Button>()).ToList();
+			Reset();
+		}
+
+		private void Reset()
+		{
 			Hide();
 			SelectManualWeapons();
+			foreach (var b in cachedButtons)
+			{
+				b.gameObject.SetActive(true);
+			}
 		}
 
 		public static void NextLevel()
@@ -48,17 +58,15 @@ namespace UI
 		public void SelectUtility() => ShowGrid(GridTypes.Utility);
 		private void SetActiveGrid(GridLayoutGroup grid) => activeGrid = grid == null ? grids[0] : grid;
 		private GridLayoutGroup GetActiveGrid() => activeGrid == null ? grids[0] : activeGrid;
+		private void UpdateCurrency(ulong newCurrency) => currentCurrency.text = "£" + newCurrency;
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
+			if (state == GameState.NewGame) Reset();
 			if (state == GameState.Shop) Show();
 			else Hide();
 		}
 
-		private void UpdateCurrency(ulong newCurrency)
-		{
-			currentCurrency.text = "£" + newCurrency;
-		}
 
 		protected override void Show()
 		{
