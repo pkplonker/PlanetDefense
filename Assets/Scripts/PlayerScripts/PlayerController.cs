@@ -73,7 +73,6 @@ namespace PlayerScripts
 				onShieldChanged?.Invoke(currentShield, GetMaxShield());
 				return;
 			}
-
 			SetInitialHealth();
 			spriteRenderer.enabled = true;
 		}
@@ -116,7 +115,6 @@ namespace PlayerScripts
 				currentHealth = 0;
 				Die();
 			}
-
 			onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 		}
 
@@ -132,11 +130,7 @@ namespace PlayerScripts
 		public void Heal(float amount)
 		{
 			currentHealth += amount;
-			if (currentHealth > stats.GetMaxHealth())
-			{
-				currentHealth = stats.GetMaxHealth();
-			}
-
+			if (currentHealth > stats.GetMaxHealth()) currentHealth = stats.GetMaxHealth();
 			onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 		}
 	}

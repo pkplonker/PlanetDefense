@@ -18,19 +18,20 @@ namespace UI
 
 		protected override void UpdateUI(float currentHealth, float maxHealth)
 		{
-			CheckNeedToFlash(currentHealth, maxHealth);
-
 			if (player.IsShieldUnlocked())
 			{
+				CheckNeedToFlash(currentHealth, maxHealth);
 				tmp.text = (ulong) currentHealth + "/" + (ulong) maxHealth;
 				icon.enabled = true;
 				icon.color = defaultImageColor;
+				if (currentHealth != 0 || cor == null) return;
+				StopCoroutine(cor);
+				icon.color = lowHealthColor;
 			}
 			else
 			{
 				tmp.text = "";
 				icon.color = defaultImageColor;
-
 				icon.enabled = false;
 			}
 		}
