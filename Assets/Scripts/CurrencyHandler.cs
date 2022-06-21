@@ -1,12 +1,15 @@
 using System;
 using PlayerScripts;
 using UnityEngine;
+using Upgrades;
 
 public class CurrencyHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerStats stats;
 	public static CurrencyHandler instance;
 	[SerializeField] private ulong startingCurrency = 0;
+
+	[SerializeField] private Stat moneyMultiplier;
 	public static event Action<ulong> onCurrencyChanged;
 
 	private void Awake()
@@ -46,7 +49,7 @@ public class CurrencyHandler : MonoBehaviour
 
 	public void AddMoney(ulong amount)
 	{
-		stats.currency += amount;
+		stats.currency += amount * (ulong) moneyMultiplier.GetCurrentValue();
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
