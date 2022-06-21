@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using StuartHeathTools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,9 @@ namespace UI
 	public class ShopUI : UICanvas
 	{
 		[SerializeField] private List<GridLayoutGroup> grids;
+		[SerializeField] private List<ShopVerticalButton> verticalButtons;
 		[SerializeField] private TextMeshProUGUI currentCurrency;
 		private GridLayoutGroup activeGrid;
-		[SerializeField] private List<ShopVerticalButton> verticalButtons;
 		private List<Button> cachedButtons = new List<Button>();
 
 		private void OnEnable()
@@ -58,7 +59,9 @@ namespace UI
 		public void SelectUtility() => ShowGrid(GridTypes.Utility);
 		private void SetActiveGrid(GridLayoutGroup grid) => activeGrid = grid == null ? grids[0] : grid;
 		private GridLayoutGroup GetActiveGrid() => activeGrid == null ? grids[0] : activeGrid;
-		private void UpdateCurrency(ulong newCurrency) => currentCurrency.text = "£" + newCurrency;
+
+		private void UpdateCurrency(ulong newCurrency) =>
+			currentCurrency.text = "$" + Utility.FormatMoneyToKMB(newCurrency);
 
 		private void GameManagerOnonStateChange(GameState state)
 		{

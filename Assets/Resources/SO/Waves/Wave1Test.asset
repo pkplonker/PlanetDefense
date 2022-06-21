@@ -14,12 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
+    nextMobDelay: 0

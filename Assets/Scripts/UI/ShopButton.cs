@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using Upgrades;
-
+using StuartHeathTools;
 namespace UI
 {
 	public class ShopButton : MonoBehaviour
@@ -18,7 +18,7 @@ namespace UI
 		public virtual void UpdateUI()
 		{
 			titleText.text = item.GetStatName();
-			priceText.text = item.GetCurrentCost().ToString();
+			UpdatePriceText();
 			if (item.GetType() == typeof(Stat))
 			{
 				levelText.enabled = true;
@@ -33,6 +33,11 @@ namespace UI
 			levelText.text = "Level: " + item.GetLevel();
 			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost())) ShowPurchasable();
 			else UnshowPurchasable();
+		}
+
+		protected void UpdatePriceText()
+		{
+			priceText.text = "$" + Utility.FormatMoneyToKMB(item.GetCurrentCost());
 		}
 
 		protected virtual void UnshowPurchasable()

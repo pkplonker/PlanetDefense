@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.stuartheath.stuartheathtools": "https://github.com/pkplonker/Unity-Stuart-Heath-Custom-Tools.git",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.14",
     "com.unity.render-pipelines.universal": "13.1.7",

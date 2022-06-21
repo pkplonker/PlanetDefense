@@ -1,4 +1,5 @@
 using System;
+using StuartHeathTools;
 
 namespace UI
 {
@@ -21,7 +22,8 @@ namespace UI
 			if (player.IsShieldUnlocked())
 			{
 				CheckNeedToFlash(currentHealth, maxHealth);
-				tmp.text = (ulong) currentHealth + "/" + (ulong) maxHealth;
+				tmp.text = Utility.FormatMoneyToKMB((ulong) currentHealth) + "/" +
+				           Utility.FormatMoneyToKMB((ulong) maxHealth);
 				icon.enabled = true;
 				icon.color = defaultImageColor;
 				if (currentHealth != 0 || cor == null) return;

@@ -1,33 +1,35 @@
-using UI;
 using UnityEngine;
 using Upgrades;
 
-public class ShopButtonRequiringUnlock : ShopButton
+namespace UI
 {
-	[SerializeField] Unlockable unlockable;
-
-	public override void UpdateUI()
+	public class ShopButtonRequiringUnlock : ShopButton
 	{
-		titleText.text = item.GetStatName();
-		priceText.text = item.GetCurrentCost().ToString();
-		levelText.text = "Level: " + item.GetLevel();
-		if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost()) && unlockable.GetIsUnlocked()) ShowPurchasable();
-		else UnshowPurchasable();
-	}
+		[SerializeField] Unlockable unlockable;
 
-	public override void Buy()
-	{
-		if (!unlockable.GetIsUnlocked()) return;
-		if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
+		public override void UpdateUI()
 		{
-			//todo: show not enough money
+			titleText.text = item.GetStatName();
+			UpdatePriceText();
+			levelText.text = "Level: " + item.GetLevel();
+			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost()) && unlockable.GetIsUnlocked())
+				ShowPurchasable();
+			else UnshowPurchasable();
 		}
-		else
+
+		public override void Buy()
 		{
-			item.Buy();
-			if (item.GetIsOneTimePurchase()) HandleOneTimePurchase();
-			UpdateUI();
+			if (!unlockable.GetIsUnlocked()) return;
+			if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
+			{
+				//todo: show not enough money
+			}
+			else
+			{
+				item.Buy();
+				if (item.GetIsOneTimePurchase()) HandleOneTimePurchase();
+				UpdateUI();
+			}
 		}
 	}
-
 }

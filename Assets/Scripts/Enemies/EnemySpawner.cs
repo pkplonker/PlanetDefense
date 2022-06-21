@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PlayerScripts;
+using StuartHeathTools;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,9 +10,9 @@ namespace Enemies
 {
 	public class EnemySpawner : MonoBehaviour
 	{
-		[SerializeField] private Enemies.Enemy enemyPrefab;
+		[SerializeField] private Enemy enemyPrefab;
 		[SerializeField] private EnemyStats enemyStats;
-		public List<Enemies.Enemy> spawnedEnemies { get; private set; } = new List<Enemies.Enemy>();
+		public List<Enemy> spawnedEnemies { get; private set; } = new List<Enemies.Enemy>();
 		private Camera cam;
 		[SerializeField] private PlayerController player;
 		public static event Action<EnemyStats> OnEnemyDeath;
@@ -19,7 +20,7 @@ namespace Enemies
 		private void Awake() => cam = Camera.main;
 		private void OnEnable() => GameManager.onStateChange += HandleGameStateChange;
 		private void OnDisable() => GameManager.onStateChange -= HandleGameStateChange;
-	
+
 		private void HandleGameStateChange(GameState state)
 		{
 			if (state is GameState.NewGame or GameState.NewWave or GameState.Complete or GameState.GameOver or GameState
@@ -47,8 +48,8 @@ namespace Enemies
 
 		public void SpawnEnemy(EnemyStats stats)
 		{
-			Vector3 spawnPos = CalculateSpawnPosition();
-			Enemies.Enemy enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
+			var spawnPos = CalculateSpawnPosition();
+			var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
 			enemy.Init(player, stats);
 			spawnedEnemies.Add(enemy);
 			enemy.onDeath += HandleEnemyDeath;
@@ -58,15 +59,15 @@ namespace Enemies
 		{
 			float x;
 			float y;
-			if (Utility.RandomBool()) //spawn left or right
+			if (UtilityRandom.RandomBool()) //spawn left or right
 			{
-				x = Utility.RandomBool() ? 1.1f : -0.1f;
+				x = UtilityRandom.RandomBool() ? 1.1f : -0.1f;
 				y = Random.value;
 			}
 			else // spawn top or bottom
 			{
 				x = Random.value;
-				y = Utility.RandomBool() ? 1.1f : -0.1f;
+				y = UtilityRandom.RandomBool() ? 1.1f : -0.1f;
 			}
 
 			Vector3 pos = new Vector3(x, y, 0f);

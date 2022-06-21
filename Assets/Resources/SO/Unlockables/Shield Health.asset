@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shield Health
   m_EditorClassIdentifier: 
   value: 40
-  valueModifier: 1.5
+  valueModifier: 1.2
   currentCost: 15
   costMultiplier: 2
   level: 1

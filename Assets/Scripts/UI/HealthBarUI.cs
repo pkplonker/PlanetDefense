@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using PlayerScripts;
 using TMPro;
@@ -25,15 +24,11 @@ namespace UI
 			defaultColor = tmp.color;
 		}
 
-		protected virtual void OnEnable()
-		{
-			GameManager.onStateChange += GameManagerOnonStateChange;
-		}
+		protected virtual void OnEnable()=>GameManager.onStateChange += GameManagerOnonStateChange;
+		
 
-		protected virtual void OnDisable()
-		{
-			GameManager.onStateChange -= GameManagerOnonStateChange;
-		}
+		protected virtual void OnDisable()=>GameManager.onStateChange -= GameManagerOnonStateChange;
+		
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
@@ -45,21 +40,18 @@ namespace UI
 			icon.color = defaultImageColor;
 		}
 
-		protected IEnumerator FlashCor(Graphic image, Color defaultColor, Color flashColor,
+		private IEnumerator FlashCor(Graphic image, Color defaultColor, Color flashColor,
 			float flashDuration = 0.1f)
 		{
 			float timer = 0;
-
 			while (true)
 			{
-				Debug.Log(gameObject.name + " is flashing");
 				timer += Time.deltaTime;
 				if (timer > flashDuration * SpeedButton.GetSpeedMultiplier())
 				{
 					timer = 0;
 					image.color = image.color == defaultColor ? flashColor : defaultColor;
 				}
-
 				yield return null;
 			}
 		}
@@ -70,7 +62,7 @@ namespace UI
 		{
 			if (currentHealth / maxHealth < lowHealthThreshold)
 			{
-				if (cor == null) cor = StartCoroutine(FlashCor(icon, defaultImageColor, lowHealthColor));
+				cor ??= StartCoroutine(FlashCor(icon, defaultImageColor, lowHealthColor));
 				tmp.color = lowHealthColor;
 			}
 			else

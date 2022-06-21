@@ -1,4 +1,5 @@
 using Interfaces;
+using StuartHeathTools;
 using UnityEngine;
 using Upgrades;
 
@@ -87,7 +88,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 
 		position += (targetPosition - position).normalized * data.GetSpeed() * Time.deltaTime;
 		transform.position = position;
-		var angle = Utility.GetAngleFromVector((position - targetPosition).normalized);
+		var angle = UtilityMath.GetAngleFromVector((position - targetPosition).normalized);
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 	}
 

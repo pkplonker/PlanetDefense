@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.stuartheath.stuartheathtools": {
+      "version": "https://github.com/pkplonker/Unity-Stuart-Heath-Custom-Tools.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3ebcb771a9d4a0e55380b33dce34cbea58441baf"
+    },
     "com.unity.2d.animation": {
       "version": "8.0.0",
       "depth": 1,

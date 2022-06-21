@@ -1,4 +1,4 @@
-using System;
+using StuartHeathTools;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace UI
 		private void UpdateUI(ulong amount)
 		{
 			if (tmp == null) return;
-			tmp.text = "$" + amount;
+			tmp.text = "$" + Utility.FormatMoneyToKMB(amount);
 		}
 	}
 }

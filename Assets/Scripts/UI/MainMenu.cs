@@ -29,6 +29,9 @@ namespace UI
 		{
 			SFXController.instance.PlayUIClick();
 			Debug.Log("Exit requested");
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#endif
 			Application.Quit();
 		}
 	}

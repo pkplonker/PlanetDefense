@@ -1,4 +1,5 @@
 using System;
+using StuartHeathTools;
 
 namespace UI
 {
@@ -18,8 +19,9 @@ namespace UI
 
 		protected override void UpdateUI(float currentHealth, float maxHealth)
 		{
-			CheckNeedToFlash(currentHealth,maxHealth);
-			tmp.text = (ulong) currentHealth + "/" + (ulong) maxHealth;
+			CheckNeedToFlash(currentHealth, maxHealth);
+			tmp.text = Utility.FormatMoneyToKMB((ulong) currentHealth) + "/" +
+			           Utility.FormatMoneyToKMB((ulong) maxHealth);
 			icon.enabled = true;
 		}
 	}
