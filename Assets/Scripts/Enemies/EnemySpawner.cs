@@ -52,6 +52,7 @@ namespace Enemies
 			var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
 			enemy.Init(player, stats);
 			spawnedEnemies.Add(enemy);
+			enemy.GetComponent<SpriteRenderer>().sprite = stats.sprite;
 			enemy.onDeath += HandleEnemyDeath;
 		}
 

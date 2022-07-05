@@ -20,8 +20,8 @@ namespace UI
 		protected override void UpdateUI(float currentHealth, float maxHealth)
 		{
 			CheckNeedToFlash(currentHealth, maxHealth);
-			tmp.text = Utility.FormatMoneyToKMB((ulong) currentHealth) + "/" +
-			           Utility.FormatMoneyToKMB((ulong) maxHealth);
+			tmp.text = Utility.FormatMoneyToKMB((long) currentHealth) + "/" +
+			           Utility.FormatMoneyToKMB((long) maxHealth);
 			icon.enabled = true;
 		}
 	}

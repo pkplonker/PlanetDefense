@@ -60,7 +60,7 @@ namespace UI
 		private void SetActiveGrid(GridLayoutGroup grid) => activeGrid = grid == null ? grids[0] : grid;
 		private GridLayoutGroup GetActiveGrid() => activeGrid == null ? grids[0] : activeGrid;
 
-		private void UpdateCurrency(ulong newCurrency) =>
+		private void UpdateCurrency(long newCurrency) =>
 			currentCurrency.text = "$" + Utility.FormatMoneyToKMB(newCurrency);
 
 		private void GameManagerOnonStateChange(GameState state)

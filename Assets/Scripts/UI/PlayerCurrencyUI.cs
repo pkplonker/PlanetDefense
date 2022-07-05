@@ -11,7 +11,7 @@ namespace UI
 		private void OnEnable()=>CurrencyHandler.onCurrencyChanged += UpdateUI;
 		private void OnDisable()=>CurrencyHandler.onCurrencyChanged -= UpdateUI;
 		
-		private void UpdateUI(ulong amount)
+		private void UpdateUI(long amount)
 		{
 			if (tmp == null) return;
 			tmp.text = "$" + Utility.FormatMoneyToKMB(amount);

@@ -6,7 +6,7 @@ namespace PlayerScripts
 	[CreateAssetMenu(fileName = "New Stats", menuName = "Stats/Player Stats")]
 	public class PlayerStats : Stats
 	{
-		public ulong currency;
+		public long currency;
 		public Stat health;
 		public Stat shield;
 		public Unlockable shieldUnlock;

@@ -8,7 +8,7 @@ namespace Upgrades
         public abstract string GetStatName();
 
         public abstract void Buy();
-        public abstract ulong GetCurrentCost();
+        public abstract long GetCurrentCost();
 
         public abstract string GetLevel();
         public abstract bool GetIsOneTimePurchase();

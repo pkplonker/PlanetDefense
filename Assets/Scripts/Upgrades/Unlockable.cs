@@ -11,7 +11,7 @@ namespace Upgrades
 
 		[SerializeField] private bool isUnlocked;
 		public event Action OnPurchase;
-		public ulong price;
+		public long price;
 
 		public override string GetStatName() => statName;
 
@@ -21,7 +21,7 @@ namespace Upgrades
 			OnPurchase?.Invoke();
 		}
 
-		public override ulong GetCurrentCost() => price;
+		public override long GetCurrentCost() => price;
 		public override bool GetIsOneTimePurchase() => isOneTimePurchase;
 		public bool GetIsUnlocked() => isUnlocked;
 		public override string GetLevel() => "";

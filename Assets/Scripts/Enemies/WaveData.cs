@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Wave Data", menuName = "Waves/Wave Data")]

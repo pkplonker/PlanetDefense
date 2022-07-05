@@ -6,6 +6,6 @@ public interface IBuyable
 {
 	public string GetStatName();
 	public void Buy();
-	public ulong GetCurrentCost();
+	public long GetCurrentCost();
 	public string GetLevel();
 }

@@ -8,13 +8,13 @@ namespace Upgrades
 	{
 		[SerializeField] private float value;
 		[Range(0, 5)] [SerializeField] private float valueModifier = 1.1f;
-		[SerializeField] private ulong currentCost;
+		[SerializeField] private long currentCost;
 		[Range(1, 5)] [SerializeField] private uint costMultiplier;
 		[SerializeField] private int level;
 		[SerializeField] private string statName;
 		[SerializeField] private bool isOneTimePurchase = false;
 		private float runTimeValue;
-		private ulong runTimeCurrentCost;
+		private long runTimeCurrentCost;
 		private int runTimeLevel;
 		public event Action<float, float> OnValueChanged;
 
@@ -36,7 +36,7 @@ namespace Upgrades
 			runTimeCurrentCost = currentCost;
 		}
 
-		public override ulong GetCurrentCost() => runTimeCurrentCost;
+		public override long GetCurrentCost() => runTimeCurrentCost;
 		public override string GetStatName() => statName;
 		public override string GetLevel() => runTimeLevel.ToString();
 		public override bool GetIsOneTimePurchase() => isOneTimePurchase;

@@ -1,4 +1,5 @@
 using System;
+using Enemies;
 using PlayerScripts;
 using UnityEngine;
 using Upgrades;
@@ -7,10 +8,10 @@ public class CurrencyHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerStats stats;
 	public static CurrencyHandler instance;
-	[SerializeField] private ulong startingCurrency = 0;
+	[SerializeField] private long startingCurrency = 0;
 
 	[SerializeField] private Stat moneyMultiplier;
-	public static event Action<ulong> onCurrencyChanged;
+	public static event Action<long> onCurrencyChanged;
 
 	private void Awake()
 	{
@@ -47,13 +48,13 @@ public class CurrencyHandler : MonoBehaviour
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
-	public void AddMoney(ulong amount)
+	public void AddMoney(long amount)
 	{
-		stats.currency += amount * (ulong) moneyMultiplier.GetCurrentValue();
+		stats.currency += amount * (long) moneyMultiplier.GetCurrentValue();
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
-	public bool RemoveMoney(ulong amount)
+	public bool RemoveMoney(long amount)
 	{
 		if (stats.currency < amount) return false;
 		stats.currency -= amount;
@@ -61,6 +62,6 @@ public class CurrencyHandler : MonoBehaviour
 		return true;
 	}
 
-	public bool CanAfford(ulong amount) => stats.currency >= amount;
+	public bool CanAfford(long amount) => stats.currency >= amount;
 	private void EnemyDeath(EnemyStats stats) => AddMoney(stats.currencyValue);
 }
