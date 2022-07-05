@@ -35,6 +35,8 @@ namespace Editor
 					enemy.movementSpeed = float.Parse(splitData[2]);
 					enemy.impactDamage = float.Parse(splitData[3]);
 					enemy.currencyValue = uint.Parse(splitData[4]);
+					enemy.projectileDataPath = splitData[5];
+					enemy.spritePath = splitData[6];
 
 					AssetDatabase.CreateAsset(enemy, $"Assets/Resources/SO/Enemies/{enemy.characterName}.asset");
 				}

@@ -1,8 +1,8 @@
-Character Name,Max Health,Movement Speed,Impact Damage,Currency Value
-Test Enemy,3,2,3,2
-Enemy1,3,2,3,2
-Enemy2,10,2,10,4
-Enemy3,20,2.5,20,16
-Enemy4,40,3,40,64
-Enemy5,80,4,80,256
-Enemy6,160,5,160,1024
+Character Name,Max Health,Movement Speed,Impact Damage,Currency Value,ProjectileDataPath,SpritePath
+Test Enemy,3,2,3,2,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_01_ORANGE
+Enemy1,3,2,3,2,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_02_GREEN
+Enemy2,10,2,10,4,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_03_BLUE
+Enemy3,20,2.5,20,16,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_04_YELLOW
+Enemy4,40,3,40,64,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_05_GREEN
+Enemy5,80,4,80,256,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_PURPLE
+Enemy6,160,5,160,1024,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_RED

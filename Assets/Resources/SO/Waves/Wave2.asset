@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: Wave2
   m_EditorClassIdentifier: 
   spawns:
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
+    nextMobDelay: 1
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
+    nextMobDelay: 1
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
+    nextMobDelay: 1
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
+    nextMobDelay: 1
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
     nextMobDelay: 1
   - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
     nextMobDelay: 1
   - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
     nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
     nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
     nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
-    nextMobDelay: 1
-  - enemy: {fileID: 11400000, guid: b6db7d841db480e4ba0bb19f6bae3d81, type: 2}
+  - enemy: {fileID: 11400000, guid: 945d92b5623a0614b9a1a39fd77a6d30, type: 2}
     nextMobDelay: 1

@@ -38,11 +38,11 @@ namespace Enemies
 
 			if (inRange)
 			{
-						if (lastShotTime + stats.projectileData.GetSpeed() < Time.time) Shoot();
+						if (lastShotTime + stats.GetProjectileData().GetSpeed() < Time.time) Shoot();
 			}
 			else
 			{
-				if (Vector3.Distance(transform.position, target.transform.position) > stats.projectileData.GetRange())
+				if (Vector3.Distance(transform.position, target.transform.position) > stats.GetProjectileData().GetRange())
 				{
 					transform.position =
 						Vector3.MoveTowards(transform.position, target.transform.position,
@@ -58,7 +58,7 @@ namespace Enemies
 		{
 			if (target.GetIsDead()) return;
 			var projectile = Instantiate(projectilePrefab, transform).GetComponent<Projectile>();
-			projectile.Init(this, stats.projectileData, Stats.Team.Player, target.transform);
+			projectile.Init(this, stats.GetProjectileData(), Stats.Team.Player, target.transform);
 			projectiles.Add(projectile);
 			lastShotTime = Time.time;
 		}
