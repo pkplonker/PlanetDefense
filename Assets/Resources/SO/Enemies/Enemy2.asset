@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d3b2a226d4ee54093ad991ed71bc80, type: 3}
   m_Name: Enemy2
   m_EditorClassIdentifier: 
-  characterName: Test Enemy
-  team: 1
-  maxHealth: 3
+  characterName: Enemy2
+  team: 0
+  maxHealth: 10
   movementSpeed: 2
-  impactDamage: 3
-  currencyValue: 3
-  projectileData: {fileID: 11400000, guid: feaa8946d917e7241b717786fb9741a2, type: 2}
-  sprite: {fileID: 21300000, guid: c4bbaf9aba527424eb001bb6c393d65f, type: 3}
+  impactDamage: 10
+  currencyValue: 4
+  projectileData: {fileID: 0}
+  sprite: {fileID: 0}
