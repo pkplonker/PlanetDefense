@@ -51,6 +51,7 @@ public class Projectile : MonoBehaviour, IDestroyable
 		var stats = other.GetComponent<IGetStats>();
 		if (stats == null) return;
 		if (stats.GetStats().team != targetTeam) return;
+		Debug.Log("projectile hit "+ stats.GetStats().team);
 		other.GetComponent<IDamageable>().TakeDamage(data.GetDamage());
 		SFXController.instance.Playclip(impactSound);
 		DestroyEntity();

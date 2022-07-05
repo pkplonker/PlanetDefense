@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy4
   m_EditorClassIdentifier: 
   characterName: Enemy4
-  team: 0
+  team: 1
   maxHealth: 40
   movementSpeed: 3
   impactDamage: 40

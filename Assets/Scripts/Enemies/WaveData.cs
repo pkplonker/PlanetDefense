@@ -8,6 +8,7 @@ using UnityEngine;
 public class WaveData : ScriptableObject
 {
 	public List<Spawn> spawns;
+	public int levelIndex;
 	public int GetSpawnLength() => spawns.Count;
 	public Spawn GetSpawnByIndex(int index) => index >= spawns.Count ? null : spawns[index];
 }
@@ -15,6 +16,7 @@ public class WaveData : ScriptableObject
 [Serializable]
 public class Spawn
 {
-	public EnemyStats enemy;
+	public string enemyStatsPath;
 	public float nextMobDelay;
+	public EnemyStats GetEnemyStats() => Resources.Load<EnemyStats>(enemyStatsPath);
 }

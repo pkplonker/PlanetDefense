@@ -60,7 +60,7 @@ public class WaveSpawner : MonoBehaviour
 		while (currentMobIndex != waveContainer.waves[waveIndex].GetSpawnLength())
 		{
 			yield return new WaitForSeconds(waveContainer.waves[waveIndex].spawns[currentMobIndex].nextMobDelay);
-			enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].enemy);
+			enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].GetEnemyStats());
 			OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
 			currentMobIndex++;
 		}

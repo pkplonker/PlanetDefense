@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy2
   m_EditorClassIdentifier: 
   characterName: Enemy2
-  team: 0
+  team: 1
   maxHealth: 10
   movementSpeed: 2
   impactDamage: 10
