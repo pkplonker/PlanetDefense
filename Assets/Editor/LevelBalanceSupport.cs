@@ -6,6 +6,7 @@
 
 using System.Linq;
 using Editor.ScriptCreation;
+using Enemies;
 using StuartHeathToolsEditor;
 using UnityEditor;
 using UnityEngine;

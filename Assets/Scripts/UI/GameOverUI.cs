@@ -12,14 +12,14 @@ namespace UI
 
 		public void Restart()
 		{
-			GameManager.ChangeState(GameState.NewGame);
+			GameManager.Instance.ChangeState(GameState.NewGame);
 			HideUI(0.3f);
 			SFXController.instance.PlayUIClick();
 		}
 
 		public void Menu()
 		{
-			GameManager.ChangeState(GameState.Menu);
+			GameManager.Instance.ChangeState(GameState.Menu);
 			HideUI(0.3f);
 			SFXController.instance.PlayUIClick();
 		} 
@@ -30,7 +30,7 @@ namespace UI
 			{
 				case GameState.Dead:
 					ShowUI(3f);
-					GameManager.ChangeState(GameState.GameOver);
+					GameManager.Instance.ChangeState(GameState.GameOver);
 					break;
 				case GameState.GameOver:
 					ShowUI(3f);

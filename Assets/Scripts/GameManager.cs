@@ -1,15 +1,15 @@
 using System;
 using Enemies;
+using StuartHeathTools;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : GenericUnitySingleton<GameManager>
 {
-	private static GameState gameState = GameState.InGame;
-	public static GameManager instance;
+	private static GameState gameState = GameState.Menu;
 	public static event Action<GameState> onStateChange;
 	public static event Action<int> onWaveStart;
 	[SerializeField] private WaveContainer waveContainer;
-	[SerializeField] private GameState defaultState;
+	[SerializeField] private GameState defaultState= GameState.Menu;
 	static int currentWave = -1;
 	[SerializeField] private int kills;
 
@@ -17,19 +17,20 @@ public class GameManager : MonoBehaviour
 	private void OnEnable()
 	{
 		onStateChange += GameStateChange;
-		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void Start()
 	{
+		SetDefaultState();
 		currentWave = 0;
-		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void OnDisable()
 	{
 		onStateChange -= GameStateChange;
-		Enemies.EnemySpawner.OnEnemyDeath += EnemyDeath;
+		EnemySpawner.OnEnemyDeath += EnemyDeath;
 	}
 
 	public void EnemyDeath(EnemyStats stats)
@@ -41,28 +42,21 @@ public class GameManager : MonoBehaviour
 
 	private void GameStateChange(GameState state)
 	{
+		
+		
 		if (state != GameState.NewWave) return;
 		kills = 0;
 		IncrementWave();
 	}
 
-	private void Awake()
-	{
-		if (instance == null) instance = this;
-		else if (instance != this)
-		{
-			Destroy(gameObject);
-			return;
-		}
-		DontDestroyOnLoad(gameObject);
-		SetDefaultState();
-	}
+
 
 	private void SetDefaultState() => ChangeState(defaultState);
 
 
-	public static void ChangeState(GameState state)
+	public void ChangeState(GameState state)
 	{
+		if (gameState == GameState.Shop && state == GameState.WaveOver) return;
 		gameState = state;
 		onStateChange?.Invoke(gameState);
 		switch (state)
@@ -71,12 +65,14 @@ public class GameManager : MonoBehaviour
 				SetupNewGame();
 				ChangeState(GameState.NewWave);
 				break;
-			case GameState.WaveOver:
-				ChangeState(GameState.Shop);
-				break;
 			case GameState.NewWave:
 				ChangeState(GameState.InGame);
 				break;
+			case GameState.WaveOver:
+				if (waveContainer.IsLastWave(currentWave+1)) ChangeState(GameState.Menu); //placeholder functionality
+				else ChangeState(GameState.Shop);
+				break;
+				
 		}
 	}
 

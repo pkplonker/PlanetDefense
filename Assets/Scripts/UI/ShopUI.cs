@@ -50,7 +50,7 @@ namespace UI
 		public static void NextLevel()
 		{
 			SFXController.instance.PlayUIClick();
-			GameManager.ChangeState(GameState.NewWave);
+			GameManager.Instance.ChangeState(GameState.NewWave);
 		}
 
 		private void UpdateButtonsFromEvent() => UpdateButtonsDelay();

@@ -124,7 +124,7 @@ namespace PlayerScripts
 			isDead = true;
 			Debug.Log(stats.characterName + " died");
 			onDeath?.Invoke(this);
-			GameManager.ChangeState(GameState.Dead);
+			GameManager.Instance.ChangeState(GameState.Dead);
 		}
 
 		public void Heal(float amount)

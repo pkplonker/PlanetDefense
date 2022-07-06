@@ -14,7 +14,7 @@ namespace UI
 		public void Resume()
 		{
 			SFXController.instance.PlayUIClick();
-			GameManager.ChangeState(GameState.InGame);
+			GameManager.Instance.ChangeState(GameState.InGame);
 		}
 
 		public void Restart()
@@ -26,7 +26,7 @@ namespace UI
 		public void Giveup()
 		{
 			SFXController.instance.PlayUIClick();
-			GameManager.ChangeState(GameState.Dead);
+			GameManager.Instance.ChangeState(GameState.Dead);
 		}
 
 		public void Settings()

@@ -81,7 +81,7 @@ namespace Enemies
 		{
 			spawnedEnemies.Remove(entity);
 			entity.onDeath -= HandleEnemyDeath;
-			GameManager.instance.EnemyDeath(null);
+			GameManager.Instance.EnemyDeath(null);
 			OnEnemyDeath?.Invoke(entity.GetEnemyStats());
 		}
 	}

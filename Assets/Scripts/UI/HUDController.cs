@@ -28,7 +28,7 @@ namespace UI
 
 		public void Pause()
 		{
-			GameManager.ChangeState(GameState.Paused);
+			GameManager.Instance.ChangeState(GameState.Paused);
 			SFXController.instance.PlayUIClick();
 		}
 	}

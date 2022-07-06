@@ -14,7 +14,7 @@ namespace UI
 		public static void NewGame()
 		{
 			SFXController.instance.PlayUIClick();
-			GameManager.ChangeState(GameState.NewGame);
+			GameManager.Instance.ChangeState(GameState.NewGame);
 		}
 
 		public static void Settings()
