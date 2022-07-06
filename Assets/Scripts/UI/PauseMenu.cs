@@ -33,6 +33,7 @@ namespace UI
 		{
 			SFXController.instance.PlayUIClick();
 			MainMenu.Settings();
+			UI.Settings.Instance.Show();
 		}
 
 		private void OnDisable() => GameManager.onStateChange -= GameManagerOnonStateChange;

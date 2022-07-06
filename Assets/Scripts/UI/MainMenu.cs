@@ -21,6 +21,7 @@ namespace UI
 		{
 			SFXController.instance.PlayUIClick();
 			Debug.Log("Settings");
+			UI.Settings.Instance.Show();
 		}
 
 		private void OnEnable() => GameManager.onStateChange += GameManagerOnonStateChange;

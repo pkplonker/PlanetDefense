@@ -105,5 +105,5 @@ public enum GameState
 	WaveOver,
 	Shop,
 	NewWave,
-	Complete
+	Complete,
 }
