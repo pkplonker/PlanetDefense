@@ -39,7 +39,7 @@ namespace UI
 
 		private void Reset()
 		{
-			Hide();
+			Hide(0f);
 			SelectManualWeapons();
 			foreach (var b in cachedButtons)
 			{
@@ -53,7 +53,7 @@ namespace UI
 			GameManager.ChangeState(GameState.NewWave);
 		}
 
-		private void UpdateButtonsFromEvent() => UpdateButtons();
+		private void UpdateButtonsFromEvent() => UpdateButtonsDelay();
 		public void SelectManualWeapons() => ShowGrid(GridTypes.ManualWeapons);
 		public void SelectAutomaticWeapons() => ShowGrid(GridTypes.AutomaticWeapons);
 		public void SelectDefense() => ShowGrid(GridTypes.Defense);
@@ -66,22 +66,25 @@ namespace UI
 		private void GameManagerOnonStateChange(GameState state)
 		{
 			if (state == GameState.NewGame) Reset();
-			if (state == GameState.Shop) Show();
-			else Hide();
+			if (state == GameState.Shop) Show(2f);
+			else Hide(0f);
 		}
 
 
-		protected override void Show()
+		protected override void Show(float fadeTime=1f)
 		{
-			base.Show();
+			base.Show(fadeTime);
 			Invoke(nameof(UpdateButtons),.05f);
 			
 		}
 
+		private void UpdateButtonsDelay()
+		{
+			Invoke(nameof(UpdateButtons),.05f);
 
+		}
 		private void UpdateButtons()
 		{
-			var activeGrid = GetActiveGrid();
 			var buttons = GetActiveGrid().GetComponentsInChildren<ShopButton>().ToList();
 			foreach (var button in buttons)
 			{

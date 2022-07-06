@@ -9,7 +9,7 @@ namespace UI
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
-			Hide();
+			Hide(0);
 		}
 
 
@@ -20,8 +20,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.InGame) Show();
-			else Hide();
+			if (state == GameState.InGame) Show(0);
+			else Hide(0);
 		}
 
 

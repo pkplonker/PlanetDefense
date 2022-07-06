@@ -7,7 +7,7 @@ namespace UI
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
-			Hide();
+			Hide(0f);
 		}
 
 		public void Resume()
@@ -39,8 +39,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.Paused) Show();
-			else Hide();
+			if (state == GameState.Paused) Show(0f);
+			else Hide(0f);
 		}
 	}
 }

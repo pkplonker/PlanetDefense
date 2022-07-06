@@ -5,7 +5,7 @@ namespace UI
 {
 	public class GameOverUI : UICanvas
 	{
-		private void Start() => Hide();
+		private void Start() => Hide(0f);
 		private void OnEnable() => GameManager.onStateChange += GameManagerOnonStateChange;
 		private void OnDisable() => GameManager.onStateChange -= GameManagerOnonStateChange;
 
@@ -26,14 +26,14 @@ namespace UI
 			switch (state)
 			{
 				case GameState.Dead:
-					Show();
+					Show(3f);
 					GameManager.ChangeState(GameState.GameOver);
 					break;
 				case GameState.GameOver:
-					Show();
+					Show(3f);
 					break;
 				default:
-					Hide();
+					Hide(0);
 					break;
 			}
 		}

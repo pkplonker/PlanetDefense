@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
 
 	public static void ChangeState(GameState state)
 	{
-		Debug.Log("Setting state");
 		gameState = state;
 		onStateChange?.Invoke(gameState);
 		switch (state)

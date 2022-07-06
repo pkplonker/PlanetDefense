@@ -21,8 +21,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.Menu) Show();
-			else Hide();
+			if (state == GameState.Menu) Show(2f);
+			else Hide(0f);
 		}
 
 		public static void Exit()
