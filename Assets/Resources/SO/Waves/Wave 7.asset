@@ -39,12 +39,4 @@ MonoBehaviour:
     enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
   - nextMobDelay: 1
     enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 1
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.1
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
   levelIndex: 7

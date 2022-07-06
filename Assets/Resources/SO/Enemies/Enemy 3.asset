@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy 3
   team: 1
-  maxHealth: 200
+  maxHealth: 100
   movementSpeed: 2.5
   impactDamage: 20
-  currencyValue: 1600
+  currencyValue: 3500
   projectileDataPath: SO/Projectiles/P3
   spritePath: SpaceShips/SpaceShips/Spaceship_04_YELLOW

@@ -47,12 +47,4 @@ MonoBehaviour:
     enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
   - nextMobDelay: 0.5
     enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
-  - nextMobDelay: 0.5
-    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
   levelIndex: 9
