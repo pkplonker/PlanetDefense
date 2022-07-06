@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Enemy 4
   team: 1
-  maxHealth: 40
+  maxHealth: 500
   movementSpeed: 3
   impactDamage: 40
   currencyValue: 1500

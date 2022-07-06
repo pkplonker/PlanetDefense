@@ -96,7 +96,7 @@ namespace Editor
 					gold += spawn.enemyStats.currencyValue;
 				}
 
-				GUILayout.Label("Wave: " + wave.levelIndex + "= " + hp / gold, style);
+				GUILayout.Label("Wave: " + wave.levelIndex + "= " + gold / hp, style);
 			}
 
 			GUILayout.EndVertical();

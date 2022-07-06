@@ -27,6 +27,7 @@ namespace Editor
 		{
 			try
 			{
+				ClearData();
 				GenerateEnemies(enemyCSVPath);
 				GenerateWaves(waveCSVPath);
 				PopulateContainer("");
@@ -38,6 +39,15 @@ namespace Editor
 			}
 
 			Debug.Log("Loaded Data".WithColor(Color.green));
+		}
+
+		private static void ClearData()
+		{
+			foreach (var e in Resources.LoadAll<EnemyStats>("so") as EnemyStats[])
+			{
+				Debug.Log(e);
+				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(e));
+			}
 		}
 
 		private static void PopulateContainer(string s)
@@ -113,7 +123,9 @@ namespace Editor
 				{
 					if (string.IsNullOrEmpty(splitLine[j])) continue;
 					var spawn = new Spawn();
+					
 					spawn.SetEnemyStats(Resources.Load(splitLine[j]) as EnemyStats);
+					if(spawn.enemyStats==null) Debug.Log("Failed to generate stats, wave "+ waveData.levelIndex + ", Enemy: "+((j-1)/2));
 					j++;
 					spawn.nextMobDelay = float.Parse(splitLine[j]);
 					waveData.spawns.Add(spawn);
