@@ -33,31 +33,32 @@ namespace Editor
 			}
 			catch (Exception e)
 			{
-				Debug.LogError("Failed to load data: "+e);
+				Debug.LogError("Failed to load data: " + e);
 				throw;
 			}
+
 			Debug.Log("Loaded Data".WithColor(Color.green));
-			
 		}
 
 		private static void PopulateContainer(string s)
 		{
-			var data = ((Resources.FindObjectsOfTypeAll(typeof(WaveData)) as WaveData[]) ?? Array.Empty<WaveData>()).ToList();
+			var data = ((Resources.FindObjectsOfTypeAll(typeof(WaveData)) as WaveData[]) ?? Array.Empty<WaveData>())
+				.ToList();
 			for (int i = data.Count - 1; i >= 0; i--)
 			{
 				if (data[i].levelIndex == 0) data.Remove(data[i]);
 			}
+
 			var container = Resources.FindObjectsOfTypeAll(typeof(WaveContainer));
 			var waveContainer = container[0] as WaveContainer;
 			var orderedEnumerable = data.OrderBy(x => x.levelIndex);
-			
+
 			if (waveContainer != null)
 			{
 				waveContainer.waves = new List<WaveData>();
 				waveContainer.waves = orderedEnumerable.ToList();
 			}
 			else Debug.LogError("Wave Container missing");
-			
 		}
 
 		private static void GenerateEnemies(string path)
@@ -101,26 +102,24 @@ namespace Editor
 			Debug.Log(allLines[0]);
 			for (int i = 1; i < allLines.Count; i++)
 			{
-				
-					string[] splitLine = allLines[i].Split(',');
-					WaveData waveData = ScriptableObject.CreateInstance<WaveData>();
-					waveData.spawns = new List<Spawn>();
-					if (string.IsNullOrEmpty(splitLine[0])) continue;
-					waveData.name = splitLine[0];
-					waveData.levelIndex = int.Parse(splitLine[1]);
+				string[] splitLine = allLines[i].Split(',');
+				WaveData waveData = ScriptableObject.CreateInstance<WaveData>();
+				waveData.spawns = new List<Spawn>();
+				if (string.IsNullOrEmpty(splitLine[0])) continue;
+				waveData.name = splitLine[0];
+				waveData.levelIndex = int.Parse(splitLine[1]);
 
-					for (int j = 2; j < splitLine.Length; j++)
-					{
-						if (string.IsNullOrEmpty(splitLine[j])) continue;
-						var spawn = new Spawn();
-						spawn.enemyStatsPath = splitLine[j];
-						j++;
-						spawn.nextMobDelay = float.Parse(splitLine[j]);
-						waveData.spawns.Add(spawn);
-					}
+				for (int j = 2; j < splitLine.Length; j++)
+				{
+					if (string.IsNullOrEmpty(splitLine[j])) continue;
+					var spawn = new Spawn();
+					spawn.SetEnemyStats(Resources.Load(splitLine[j]) as EnemyStats);
+					j++;
+					spawn.nextMobDelay = float.Parse(splitLine[j]);
+					waveData.spawns.Add(spawn);
+				}
 
-					AssetDatabase.CreateAsset(waveData, $"Assets/Resources/SO/Waves/{waveData.name}.asset");
-				
+				AssetDatabase.CreateAsset(waveData, $"Assets/Resources/SO/Waves/{waveData.name}.asset");
 			}
 
 			AssetDatabase.SaveAssets();

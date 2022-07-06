@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wave 1
   m_EditorClassIdentifier: 
   spawns:
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
   levelIndex: 1

@@ -12,20 +12,22 @@ public class WaveData : ScriptableObject
 	public int GetSpawnLength() => spawns.Count;
 	public Spawn GetSpawnByIndex(int index) => index >= spawns.Count ? null : spawns[index];
 
-	private void OnEnable()
-	{
-		foreach (var spawn in spawns)
-		{
-			spawn.enemyStats = Resources.Load<EnemyStats>(spawn.enemyStatsPath);
-		}
-	}
+	
+
+	
 }
 
 [Serializable]
 public class Spawn
 {
-	public string enemyStatsPath;
+	//public string enemyStatsPath;
 	public float nextMobDelay;
 	public EnemyStats enemyStats;
+
+	public void SetEnemyStats(EnemyStats stats)
+	{
+		enemyStats = stats;
+
+	}
 
 }

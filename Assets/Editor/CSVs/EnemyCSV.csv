@@ -1,8 +1,8 @@
 Character Name,Max Health,Movement Speed,Impact Damage,Currency Value,ProjectileDataPath,SpritePath
-Test Enemy,3,2,3,2,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_01_ORANGE
-Enemy 1,3,2,3,2,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_02_GREEN
-Enemy 2,10,2,10,4,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_03_BLUE
-Enemy 3,20,2.5,20,16,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_04_YELLOW
-Enemy 4,40,3,40,64,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_05_GREEN
-Enemy 5,80,4,80,256,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_PURPLE
-Enemy 6,160,5,160,1024,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_RED
+Test Enemy,3,2,3,5,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_01_ORANGE
+Enemy 1,3,2,3,5,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_01_ORANGE
+Enemy 2,10,2,10,150,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_03_BLUE
+Enemy 3,20,2.5,20,300,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_04_YELLOW
+Enemy 4,40,3,40,1500,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_05_GREEN
+Enemy 5,80,4,80,4000,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_PURPLE
+Enemy 6,160,5,160,25000,SO/Projectiles/EnemyTestProjectile,SpaceShips/SpaceShips/Spaceship_06_RED

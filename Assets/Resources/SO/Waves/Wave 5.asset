@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: Wave 5
   m_EditorClassIdentifier: 
   spawns:
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 1
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 2
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 2
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 3
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 3
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 4
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 4
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 5
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 5
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 5
-    nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Enemy 6
-    nextMobDelay: 1
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: 15703c75d90108246814fc9a561868a7, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: 556d335e76ed467469ebb39f78d4a39f, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: 556d335e76ed467469ebb39f78d4a39f, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: cdc048a815ab1694397d95213f681a29, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: cdc048a815ab1694397d95213f681a29, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: dc0bf356bcd797f4b861507ee66f2d4c, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: dc0bf356bcd797f4b861507ee66f2d4c, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: dc0bf356bcd797f4b861507ee66f2d4c, type: 2}
+  - nextMobDelay: 1
+    enemyStats: {fileID: 11400000, guid: dab4834fc901ef34197f9897102cd132, type: 2}
   levelIndex: 5
