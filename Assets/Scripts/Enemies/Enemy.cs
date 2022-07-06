@@ -115,5 +115,7 @@ namespace Enemies
 				projectiles.Remove(projectile);
 			}
 		}
+
+		public EnemyStats GetEnemyStats() => stats;
 	}
 }

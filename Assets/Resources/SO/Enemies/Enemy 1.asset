@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35d3b2a226d4ee54093ad991ed71bc80, type: 3}
-  m_Name: Enemy4
+  m_Name: Enemy 1
   m_EditorClassIdentifier: 
-  characterName: Enemy4
+  characterName: Enemy 1
   team: 1
-  maxHealth: 40
-  movementSpeed: 3
-  impactDamage: 40
-  currencyValue: 64
+  maxHealth: 3
+  movementSpeed: 2
+  impactDamage: 3
+  currencyValue: 2
   projectileDataPath: SO/Projectiles/EnemyTestProjectile
-  spritePath: SpaceShips/SpaceShips/Spaceship_05_GREEN
+  spritePath: SpaceShips/SpaceShips/Spaceship_02_GREEN

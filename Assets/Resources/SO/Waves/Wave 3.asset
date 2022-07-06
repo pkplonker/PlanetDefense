@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Wave 3
   m_EditorClassIdentifier: 
   spawns:
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 1
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 1
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 1
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 2
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 2
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 3
     nextMobDelay: 1
-  - enemyStatsPath: SO/Enemies/Test Enemy
+  - enemyStatsPath: SO/Enemies/Enemy 3
     nextMobDelay: 1
   levelIndex: 3

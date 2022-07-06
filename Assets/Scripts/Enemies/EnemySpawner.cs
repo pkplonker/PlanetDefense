@@ -11,7 +11,7 @@ namespace Enemies
 	public class EnemySpawner : MonoBehaviour
 	{
 		[SerializeField] private Enemy enemyPrefab;
-		[SerializeField] private EnemyStats enemyStats;
+		private EnemyStats enemyStats;
 		public List<Enemy> spawnedEnemies { get; private set; } = new List<Enemies.Enemy>();
 		private Camera cam;
 		[SerializeField] private PlayerController player;
@@ -82,7 +82,7 @@ namespace Enemies
 			spawnedEnemies.Remove(entity);
 			entity.onDeath -= HandleEnemyDeath;
 			GameManager.instance.EnemyDeath(null);
-			OnEnemyDeath?.Invoke(enemyStats);
+			OnEnemyDeath?.Invoke(entity.GetEnemyStats());
 		}
 	}
 }

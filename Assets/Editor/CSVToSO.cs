@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Enemies;
+using StuartHeathTools;
 using UnityEditor;
 using UnityEngine;
 using Upgrades;
@@ -24,9 +25,19 @@ namespace Editor
 		[MenuItem("Planet Defense/Generate Enemies")]
 		public static void GenerateEnemyData()
 		{
-			GenerateEnemies(enemyCSVPath);
-			GenerateWaves(waveCSVPath);
-			PopulateContainer("");
+			try
+			{
+				GenerateEnemies(enemyCSVPath);
+				GenerateWaves(waveCSVPath);
+				PopulateContainer("");
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Failed to load data: "+e);
+				throw;
+			}
+			Debug.Log("Loaded Data".WithColor(Color.green));
+			
 		}
 
 		private static void PopulateContainer(string s)
@@ -60,7 +71,6 @@ namespace Editor
 				try
 				{
 					if (string.IsNullOrEmpty(splitData[0])) continue;
-					Debug.Log(splitData[0]);
 					enemy.characterName = splitData[0];
 					enemy.maxHealth = float.Parse(splitData[1]);
 					enemy.movementSpeed = float.Parse(splitData[2]);
@@ -69,7 +79,6 @@ namespace Editor
 					enemy.projectileDataPath = splitData[5];
 					enemy.spritePath = splitData[6];
 					enemy.team = Stats.Team.Enemy;
-
 					AssetDatabase.CreateAsset(enemy, $"Assets/Resources/SO/Enemies/{enemy.characterName}.asset");
 				}
 				catch (Exception e)

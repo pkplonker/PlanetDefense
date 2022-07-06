@@ -22,8 +22,8 @@ namespace UI
 			if (player.IsShieldUnlocked())
 			{
 				CheckNeedToFlash(currentHealth, maxHealth);
-				tmp.text = Utility.FormatMoneyToKMB((ulong) currentHealth) + "/" +
-				           Utility.FormatMoneyToKMB((ulong) maxHealth);
+				tmp.text = Utility.FormatMoneyToKMB( currentHealth) + "/" +
+				           Utility.FormatMoneyToKMB( maxHealth);
 				icon.enabled = true;
 				icon.color = defaultImageColor;
 				if (currentHealth != 0 || cor == null) return;

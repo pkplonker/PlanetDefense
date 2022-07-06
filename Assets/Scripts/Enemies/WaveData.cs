@@ -11,6 +11,14 @@ public class WaveData : ScriptableObject
 	public int levelIndex;
 	public int GetSpawnLength() => spawns.Count;
 	public Spawn GetSpawnByIndex(int index) => index >= spawns.Count ? null : spawns[index];
+
+	private void OnEnable()
+	{
+		foreach (var spawn in spawns)
+		{
+			spawn.enemyStats = Resources.Load<EnemyStats>(spawn.enemyStatsPath);
+		}
+	}
 }
 
 [Serializable]
@@ -18,5 +26,6 @@ public class Spawn
 {
 	public string enemyStatsPath;
 	public float nextMobDelay;
-	public EnemyStats GetEnemyStats() => Resources.Load<EnemyStats>(enemyStatsPath);
+	public EnemyStats enemyStats;
+
 }
