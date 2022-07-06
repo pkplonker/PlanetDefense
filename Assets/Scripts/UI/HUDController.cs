@@ -1,15 +1,16 @@
+using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
 {
-	public class HUDController : UICanvas
+	public class HUDController : CanvasGroupBase
 	{
 
 
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
-			Hide(0);
+			HideUI(0);
 		}
 
 
@@ -20,8 +21,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.InGame) Show(0);
-			else Hide(0);
+			if (state == GameState.InGame) ShowUI(0);
+			else HideUI(0);
 		}
 
 

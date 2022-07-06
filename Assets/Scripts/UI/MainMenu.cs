@@ -1,9 +1,16 @@
+using System;
+using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
 {
-	public class MainMenu : UICanvas
+	public class MainMenu : CanvasGroupBase
 	{
+		private void Awake()
+		{
+			ShowUI();
+		}
+
 		public static void NewGame()
 		{
 			SFXController.instance.PlayUIClick();
@@ -21,8 +28,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.Menu) Show(2f);
-			else Hide(0f);
+			if (state == GameState.Menu) ShowUI(2f);
+			else HideUI(0f);
 		}
 
 		public static void Exit()

@@ -1,13 +1,14 @@
+using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
 {
-	public class PauseMenu : UICanvas
+	public class PauseMenu : CanvasGroupBase
 	{
 		private void OnEnable()
 		{
 			GameManager.onStateChange += GameManagerOnonStateChange;
-			Hide(0f);
+			HideUI(0f);
 		}
 
 		public void Resume()
@@ -39,8 +40,8 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.Paused) Show(0f);
-			else Hide(0f);
+			if (state == GameState.Paused) ShowUI(0f);
+			else HideUI(0f);
 		}
 	}
 }

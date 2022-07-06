@@ -1,23 +1,26 @@
 using System;
+using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
 {
-	public class GameOverUI : UICanvas
+	public class GameOverUI : CanvasGroupBase
 	{
-		private void Start() => Hide(0f);
+		private void Start() => HideUI(0f);
 		private void OnEnable() => GameManager.onStateChange += GameManagerOnonStateChange;
 		private void OnDisable() => GameManager.onStateChange -= GameManagerOnonStateChange;
 
 		public void Restart()
 		{
 			GameManager.ChangeState(GameState.NewGame);
+			HideUI(0.3f);
 			SFXController.instance.PlayUIClick();
 		}
 
 		public void Menu()
 		{
 			GameManager.ChangeState(GameState.Menu);
+			HideUI(0.3f);
 			SFXController.instance.PlayUIClick();
 		} 
 
@@ -26,14 +29,14 @@ namespace UI
 			switch (state)
 			{
 				case GameState.Dead:
-					Show(3f);
+					ShowUI(3f);
 					GameManager.ChangeState(GameState.GameOver);
 					break;
 				case GameState.GameOver:
-					Show(3f);
+					ShowUI(3f);
 					break;
 				default:
-					Hide(0);
+					HideUI(0);
 					break;
 			}
 		}

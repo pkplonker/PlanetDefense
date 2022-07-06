@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-	public class ShopUI : UICanvas
+	public class ShopUI : CanvasGroupBase
 	{
 		[SerializeField] private List<GridLayoutGroup> grids;
 		[SerializeField] private List<ShopVerticalButton> verticalButtons;
@@ -39,7 +39,7 @@ namespace UI
 
 		private void Reset()
 		{
-			Hide(0f);
+			HideUI(0f);
 			SelectManualWeapons();
 			foreach (var b in cachedButtons)
 			{
@@ -66,14 +66,14 @@ namespace UI
 		private void GameManagerOnonStateChange(GameState state)
 		{
 			if (state == GameState.NewGame) Reset();
-			if (state == GameState.Shop) Show(2f);
-			else Hide(0f);
+			if (state == GameState.Shop) ShowUI(2f);
+			else HideUI(0f);
 		}
 
 
-		protected override void Show(float fadeTime=1f)
+		protected override void ShowUI(float fadeTime=1f)
 		{
-			base.Show(fadeTime);
+			base.ShowUI(fadeTime);
 			Invoke(nameof(UpdateButtons),.05f);
 			
 		}
