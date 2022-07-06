@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - nextMobDelay: 1
-    enemyStats: {fileID: 0}
+    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
   levelIndex: 1

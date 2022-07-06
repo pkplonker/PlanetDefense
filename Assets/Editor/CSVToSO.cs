@@ -30,7 +30,7 @@ namespace Editor
 				ClearData();
 				GenerateEnemies(enemyCSVPath);
 				GenerateWaves(waveCSVPath);
-				PopulateContainer("");
+				PopulateContainer();
 			}
 			catch (Exception e)
 			{
@@ -43,14 +43,19 @@ namespace Editor
 
 		private static void ClearData()
 		{
-			foreach (var e in Resources.LoadAll<EnemyStats>("so") as EnemyStats[])
+			foreach (var e in Resources.LoadAll<EnemyStats>("so") )
+			{
+				Debug.Log(e);
+				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(e));
+			}
+			foreach (var e in Resources.LoadAll<WaveData>("so") )
 			{
 				Debug.Log(e);
 				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(e));
 			}
 		}
 
-		private static void PopulateContainer(string s)
+		private static void PopulateContainer()
 		{
 			var data = ((Resources.FindObjectsOfTypeAll(typeof(WaveData)) as WaveData[]) ?? Array.Empty<WaveData>())
 				.ToList();
