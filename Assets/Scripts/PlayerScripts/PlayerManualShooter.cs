@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Upgrades;
 
 namespace PlayerScripts
 {
 	public class PlayerManualShooter : MonoBehaviour
 	{
 		[SerializeField] private Transform targetReticule;
-		[SerializeField] private float shootFrequency;
+		[SerializeField] private Stat manualShootSpeed;
 		[SerializeField] private float shootRadius;
 		[SerializeField] private Camera cam;
 		[SerializeField] private ProjectileData projectileData;
@@ -42,7 +43,7 @@ namespace PlayerScripts
 			UpdateReticulePosition();
 			if (!Input.GetMouseButtonDown(0) || !(shootTimer <= 0) || !inGame || IsClickingOnUI()) return;
 			playerCombatManager.Shoot((targetReticule.position - transform.position).normalized, projectileData);
-			shootTimer = shootFrequency;
+			shootTimer = manualShootSpeed.GetCurrentValue();
 		}
 
 		private bool IsClickingOnUI()

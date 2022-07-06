@@ -21,6 +21,7 @@ namespace UI
 			GameManager.onStateChange += GameManagerOnonStateChange;
 			CurrencyHandler.onCurrencyChanged += UpdateCurrency;
 			ShopButton.OnPurchase += UpdateButtonsFromEvent;
+
 		}
 
 		private void OnDisable()
@@ -52,14 +53,13 @@ namespace UI
 			GameManager.ChangeState(GameState.NewWave);
 		}
 
-		private void UpdateButtonsFromEvent() => UpdateButtons(GetActiveGrid());
+		private void UpdateButtonsFromEvent() => UpdateButtons();
 		public void SelectManualWeapons() => ShowGrid(GridTypes.ManualWeapons);
 		public void SelectAutomaticWeapons() => ShowGrid(GridTypes.AutomaticWeapons);
 		public void SelectDefense() => ShowGrid(GridTypes.Defense);
 		public void SelectUtility() => ShowGrid(GridTypes.Utility);
 		private void SetActiveGrid(GridLayoutGroup grid) => activeGrid = grid == null ? grids[0] : grid;
 		private GridLayoutGroup GetActiveGrid() => activeGrid == null ? grids[0] : activeGrid;
-
 		private void UpdateCurrency(long newCurrency) =>
 			currentCurrency.text = "$" + Utility.FormatMoneyToKMB(newCurrency);
 
@@ -74,12 +74,14 @@ namespace UI
 		protected override void Show()
 		{
 			base.Show();
-			UpdateButtons(GetActiveGrid());
+			Invoke(nameof(UpdateButtons),.05f);
+			
 		}
 
 
-		private void UpdateButtons(GridLayoutGroup activeGrid)
+		private void UpdateButtons()
 		{
+			var activeGrid = GetActiveGrid();
 			var buttons = GetActiveGrid().GetComponentsInChildren<ShopButton>().ToList();
 			foreach (var button in buttons)
 			{
@@ -108,7 +110,7 @@ namespace UI
 			verticalButtons[(int) type].Select();
 			SetActiveGrid(grids[(int) type]);
 			activeGrid.gameObject.SetActive(true);
-			UpdateButtons(activeGrid);
+			UpdateButtons();
 		}
 	}
 

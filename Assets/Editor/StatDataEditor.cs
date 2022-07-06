@@ -7,6 +7,7 @@ namespace Editor
 	[CustomEditor(typeof(Stat))]
 	public class StatDataEditor : UnityEditor.Editor
 	{
+		private UnityEditor.Editor editor;
 		public override void OnInspectorGUI()
 		{
 			var t = (Stat) target;
@@ -18,7 +19,7 @@ namespace Editor
 			EditorGUILayout.LabelField("Value: ", t.GetCurrentValue().ToString());
 			EditorGUILayout.LabelField("Level: ", t.GetLevel().ToString());
 			EditorGUILayout.LabelField("Cost: ", t.GetCurrentCost().ToString());
-
+			
 
 			EditorGUILayout.Space();
 		}

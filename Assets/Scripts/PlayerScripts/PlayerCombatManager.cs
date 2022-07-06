@@ -26,10 +26,11 @@ namespace PlayerScripts
 
 		private void DestroyAllProjectiles()
 		{
-			foreach (var p in projectiles.Where(p => p != null))
+			for (int i = 0; i < projectiles.Count; i++)
 			{
-				p.DestroyEntity();
+				if (projectiles[i] != null) Destroy(projectiles[i]);
 			}
+			
 		}
 
 

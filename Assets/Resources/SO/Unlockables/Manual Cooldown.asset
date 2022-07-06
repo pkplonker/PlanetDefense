@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d032386b1fdbf149907ee427faf8b2f, type: 3}
   m_Name: Manual Cooldown
   m_EditorClassIdentifier: 
-  statName: Cooldown
   value: 3
-  valueModifier: 0.95
+  valueModifier: 0.9
   currentCost: 15
   costMultiplier: 2
   level: 1
+  statName: Cooldown
+  isOneTimePurchase: 0

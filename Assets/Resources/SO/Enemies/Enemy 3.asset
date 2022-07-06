@@ -17,6 +17,6 @@ MonoBehaviour:
   maxHealth: 200
   movementSpeed: 2.5
   impactDamage: 20
-  currencyValue: 300
+  currencyValue: 1600
   projectileDataPath: SO/Projectiles/EnemyTestProjectile
   spritePath: SpaceShips/SpaceShips/Spaceship_04_YELLOW

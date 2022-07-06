@@ -4,6 +4,7 @@
 
 #if UNITY_EDITOR
 
+using System.Linq;
 using Editor.ScriptCreation;
 using StuartHeathToolsEditor;
 using UnityEditor;
@@ -18,10 +19,10 @@ namespace Editor
 	{
 		private static WaveContainer wc;
 
-		[MenuItem("Planet Defense/Level Balance", false, 0)]
+		[MenuItem("Planet Defense/Wave Data", false, 0)]
 		public static void ShowWindow()
 		{
-			GetWindow<LevelBalanceSupport>("Level Balance");
+			GetWindow<LevelBalanceSupport>("Wave Data");
 		}
 
 		private void OnGUI()
@@ -31,6 +32,10 @@ namespace Editor
 			var style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
 
 			GUILayout.BeginHorizontal();
+			EditorGUILayout.Space();
+			WaveID(style);
+			EditorGUILayout.Space();
+			TotalMobs(style);
 			EditorGUILayout.Space();
 			Gold(style);
 			EditorGUILayout.Space();
@@ -42,6 +47,45 @@ namespace Editor
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space();
 			UtilityEditor.LineBreak();
+
+
+			GUILayout.BeginHorizontal();
+			EditorGUILayout.Space();
+			AverageDps(style);
+
+
+			GUILayout.EndHorizontal();
+		}
+
+		private void WaveID(GUIStyle style)
+		{
+			GUILayout.BeginVertical();
+			GUILayout.Label("Wave", style);
+			for (var i = 1; i <= wc.waves.Count; i++)
+			{
+				GUILayout.Label(i.ToString(), style);
+			}
+
+			GUILayout.EndVertical();
+		}
+
+		private static void TotalMobs(GUIStyle style)
+		{
+			GUILayout.BeginVertical();
+			GUILayout.Label("Total Enemies", style);
+			foreach (var wave in wc.waves)
+			{
+				long count = wave.spawns.LongCount();
+				GUILayout.Label( count.ToString(), style);
+			}
+
+			GUILayout.EndVertical();
+		}
+
+		private static void AverageDps(GUIStyle style)
+		{
+			GUILayout.BeginVertical();
+			GUILayout.EndVertical();
 		}
 
 		private static void Gold(GUIStyle style)
@@ -56,7 +100,7 @@ namespace Editor
 					count += spawn.enemyStats.currencyValue;
 				}
 
-				GUILayout.Label("Wave: " + wave.levelIndex + "= " + count, style);
+				GUILayout.Label( count.ToString(), style);
 			}
 
 			GUILayout.EndVertical();
@@ -75,7 +119,7 @@ namespace Editor
 					count += spawn.enemyStats.maxHealth;
 				}
 
-				GUILayout.Label("Wave: " + wave.levelIndex + "= " + count, style);
+				GUILayout.Label( count.ToString(), style);
 			}
 
 			GUILayout.EndVertical();
@@ -96,7 +140,7 @@ namespace Editor
 					gold += spawn.enemyStats.currencyValue;
 				}
 
-				GUILayout.Label("Wave: " + wave.levelIndex + "= " + gold / hp, style);
+				GUILayout.Label( (gold / hp).ToString(), style);
 			}
 
 			GUILayout.EndVertical();

@@ -26,18 +26,18 @@ namespace UI
 
 		protected virtual void OnEnable()=>GameManager.onStateChange += GameManagerOnonStateChange;
 		
+		
 
 		protected virtual void OnDisable()=>GameManager.onStateChange -= GameManagerOnonStateChange;
-		
+
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state != GameState.NewGame) return;
+			icon.color = defaultImageColor;
+			tmp.color = defaultImageColor;
 			if (cor == null) return;
 			StopCoroutine(cor);
 			cor = null;
-			tmp.color = defaultColor;
-			icon.color = defaultImageColor;
 		}
 
 		private IEnumerator FlashCor(Graphic image, Color defaultColor, Color flashColor,

@@ -10269,7 +10269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetReticule: {fileID: 316838733}
-  shootFrequency: 2
+  manualShootSpeed: {fileID: 11400000, guid: 7e280a22e8c04b14aadb46334d84120d, type: 2}
   shootRadius: 3
   cam: {fileID: 330585545}
   projectileData: {fileID: 11400000, guid: ee290ca27eded0046ad84b1d6cb142bb, type: 2}

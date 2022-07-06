@@ -13,9 +13,9 @@ namespace Upgrades
 		[SerializeField] private int level;
 		[SerializeField] private string statName;
 		[SerializeField] private bool isOneTimePurchase = false;
-		private float runTimeValue;
-		private long runTimeCurrentCost;
-		private int runTimeLevel;
+		public float runTimeValue { get; private set; }
+		public long runTimeCurrentCost { get; private set; }
+		public int runTimeLevel { get; private set; }
 		public event Action<float, float> OnValueChanged;
 
 		private void OnEnable()
