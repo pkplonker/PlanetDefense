@@ -18,5 +18,5 @@ MonoBehaviour:
   movementSpeed: 5
   impactDamage: 160
   currencyValue: 32000
-  projectileDataPath: SO/Projectiles/EnemyTestProjectile
+  projectileDataPath: SO/Projectiles/P6
   spritePath: SpaceShips/SpaceShips/Spaceship_06_RED

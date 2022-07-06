@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3efb323d80b423d449b6baff41358ae6, type: 3}
-  m_Name: EnemyTestProjectile
+  m_Name: P2
   m_EditorClassIdentifier: 
   lifeTime: 5
   weaponType: 1
-  damage: 1
-  speed: 3
+  damage: 3
+  speed: 3.5
   cooldown: 2
-  range: 3
+  range: 4
