@@ -13,11 +13,13 @@ namespace Upgrades
 		[SerializeField] private int level;
 		[SerializeField] private string statName;
 		[SerializeField] private bool isOneTimePurchase = false;
+		[SerializeField] private string changeSymbol;
 		public float runTimeValue { get; private set; }
 		public long runTimeCurrentCost { get; private set; }
 		public int runTimeLevel { get; private set; }
 		public event Action<float, float> OnValueChanged;
-
+		public float GetValueModifier() => valueModifier;
+		public string GetChangeSymbol() => changeSymbol;
 		private void OnEnable()
 		{
 			ResetData();

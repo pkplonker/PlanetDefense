@@ -20,7 +20,6 @@ namespace UI
 		public static void Settings()
 		{
 			SFXController.instance.PlayUIClick();
-			Debug.Log("Settings");
 			UI.Settings.Instance.Show();
 		}
 

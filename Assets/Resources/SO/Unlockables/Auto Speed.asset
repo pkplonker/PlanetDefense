@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d032386b1fdbf149907ee427faf8b2f, type: 3}
   m_Name: Auto Speed
   m_EditorClassIdentifier: 
-  statName: Speed
   value: 3
   valueModifier: 1.1
   currentCost: 15
   costMultiplier: 2
   level: 1
+  statName: Speed
+  isOneTimePurchase: 0
+  changeSymbol: mph

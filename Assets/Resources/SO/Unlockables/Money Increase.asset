@@ -19,3 +19,4 @@ MonoBehaviour:
   level: 1
   statName: Increase $ Per Kill
   isOneTimePurchase: 0
+  changeSymbol: x

@@ -13,6 +13,9 @@ namespace UI
 		[SerializeField] public Purchaseable item;
 		[SerializeField] protected Color canAffordColor;
 		[SerializeField] protected Color cannotAffordColor;
+		[SerializeField] protected TextMeshProUGUI currentValue;
+		[SerializeField] protected TextMeshProUGUI upgradeAmount;
+		[SerializeField] private GameObject valueComponent;
 		public static event Action OnPurchase;
 
 		public virtual void UpdateUI()
@@ -30,9 +33,23 @@ namespace UI
 				levelText.text = "";
 			}
 
+			UpdateValues();
 			levelText.text = "Level: " + item.GetLevel();
 			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost())) ShowPurchasable();
 			else UnshowPurchasable();
+		}
+
+		private void UpdateValues()
+		{
+			if (item.GetType() != typeof(Stat))
+			{
+				valueComponent.SetActive(false);
+				return;
+			}
+			valueComponent.SetActive(true);
+			Stat stat = (Stat) item;
+			currentValue.text = stat.runTimeValue.ToString("0.0") + stat.GetChangeSymbol();
+			upgradeAmount.text = ((stat.runTimeValue * stat.GetValueModifier())-stat.runTimeValue).ToString("0.0")+ stat.GetChangeSymbol();
 		}
 
 		protected void UpdatePriceText()

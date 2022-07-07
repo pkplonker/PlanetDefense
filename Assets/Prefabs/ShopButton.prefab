@@ -39,8 +39,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -49}
-  m_SizeDelta: {x: 250, y: 70}
+  m_AnchoredPosition: {x: 7.4, y: -2}
+  m_SizeDelta: {x: 280.1, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &59848318
 CanvasRenderer:
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 784264046}
   - component: {fileID: 784264045}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: UpgradeChangeAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,8 +251,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -51.2128, y: -1.1051}
-  m_SizeDelta: {x: 63.2811, y: 47.79}
+  m_AnchoredPosition: {x: -57.920685, y: -1.1051}
+  m_SizeDelta: {x: 69.2291, y: 47.79}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &784264046
 CanvasRenderer:
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 2082566010}
   - component: {fileID: 2082566009}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CurrentVal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,7 +539,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 44.130203, y: 0}
-  m_SizeDelta: {x: 60.2166, y: 50}
+  m_SizeDelta: {x: 71.62, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2082566010
 CanvasRenderer:
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Unlock Automatic Firing
+  m_text: Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38aecd77a18d544bfb836befe83883b7, type: 2}
   m_sharedMaterial: {fileID: 6434564289584660316, guid: 38aecd77a18d544bfb836befe83883b7,
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.6
+  m_fontSize: 62.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1066,3 +1066,6 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 0629d22f2479a1d4289d8a5105e37b6a, type: 2}
   canAffordColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  currentValue: {fileID: 2082566009}
+  upgradeAmount: {fileID: 784264045}
+  valueComponent: {fileID: 59848315}
