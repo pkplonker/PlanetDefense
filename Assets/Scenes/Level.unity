@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sound Fx
+  m_text: Projectiles
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38aecd77a18d544bfb836befe83883b7, type: 2}
   m_sharedMaterial: {fileID: 6434564289584660316, guid: 38aecd77a18d544bfb836befe83883b7,
@@ -1028,10 +1028,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.4
+  m_fontSize: 34.25
   m_fontSizeBase: 38.4
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -6257,8 +6257,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 222.25, y: 0.000048876}
-  m_SizeDelta: {x: 205.17151, y: 53.377502}
+  m_AnchoredPosition: {x: 279.43982, y: 0.000048876}
+  m_SizeDelta: {x: 319.5511, y: 53.3775}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703612218
 MonoBehaviour:
@@ -6280,7 +6280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Text Info
+  m_text: Show Story
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38aecd77a18d544bfb836befe83883b7, type: 2}
   m_sharedMaterial: {fileID: 6434564289584660316, guid: 38aecd77a18d544bfb836befe83883b7,
@@ -6825,8 +6825,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1009651846}
         m_TargetAssemblyTypeName: UI.Settings, Assembly-CSharp
-        m_MethodName: SetMusicVolume
-        m_Mode: 4
+        m_MethodName: SetMasterVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9178,7 +9178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 0}
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 2681703de78eb3e4fb19c268c8c61b60, type: 2}
+  master: {fileID: 740725049}
+  sFX: {fileID: 8945499593933325620}
+  projectiles: {fileID: 1185574015}
+  ui: {fileID: 1132457304}
+  music: {fileID: 8346775873111049637}
 --- !u!1 &1016634931
 GameObject:
   m_ObjectHideFlags: 0
@@ -10469,7 +10474,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1009651846}
         m_TargetAssemblyTypeName: UI.Settings, Assembly-CSharp
         m_MethodName: SetUIVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11441,7 +11446,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1009651846}
         m_TargetAssemblyTypeName: UI.Settings, Assembly-CSharp
         m_MethodName: SetProjectilesVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14877,7 +14882,7 @@ GameObject:
   - component: {fileID: 1745445872}
   - component: {fileID: 1745445871}
   m_Layer: 5
-  m_Name: Toggle_CheckBox
+  m_Name: Story
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14892,7 +14897,7 @@ RectTransform:
   m_GameObject: {fileID: 1745445869}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8291678, y: 1.8291678, z: 1.8291678}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 493105005}
@@ -14902,7 +14907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -920.0714, y: 543.26276}
+  m_AnchoredPosition: {x: -725, y: -66}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745445871
@@ -14951,7 +14956,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!114 &1745445872
 MonoBehaviour:
@@ -22743,7 +22760,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1009651846}
         m_TargetAssemblyTypeName: UI.Settings, Assembly-CSharp
         m_MethodName: SetMusicVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -23127,7 +23144,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1009651846}
         m_TargetAssemblyTypeName: UI.Settings, Assembly-CSharp
         m_MethodName: SetSFXVolume
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
