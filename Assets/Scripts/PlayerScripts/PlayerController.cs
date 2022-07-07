@@ -133,5 +133,11 @@ namespace PlayerScripts
 			if (currentHealth > stats.GetMaxHealth()) currentHealth = stats.GetMaxHealth();
 			onHealthChanged?.Invoke(currentHealth, GetMaxHealth());
 		}
+		public void HealShields(float amount)
+		{
+			currentShield += amount;
+			if (currentShield > stats.GetMaxShield()) currentShield = stats.GetMaxShield();
+			onShieldChanged?.Invoke(currentShield, GetMaxShield());
+		}
 	}
 }

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 1
   valueModifier: 1.2
-  currentCost: 15
+  currentCost: 50
   costMultiplier: 2
   level: 1
   statName: Shield Regeneration Amount
   isOneTimePurchase: 0
+  changeSymbol: 
