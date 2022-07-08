@@ -38,8 +38,7 @@ namespace UI
 			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost())) ShowPurchasable();
 			else UnshowPurchasable();
 		}
-
-		private void UpdateValues()
+		protected void UpdateValues()
 		{
 			if (item.GetType() != typeof(Stat))
 			{

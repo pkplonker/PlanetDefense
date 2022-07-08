@@ -29,8 +29,8 @@ namespace Editor
 
 		private void OnGUI()
 		{
-			stats = (Resources.FindObjectsOfTypeAll(typeof(Stat)) as Stat[]).ToList();
-			unlockables = (Resources.FindObjectsOfTypeAll(typeof(Unlockable)) as Unlockable[]).ToList();
+			stats = ((Resources.FindObjectsOfTypeAll(typeof(Stat)) as Stat[]) ?? throw new InvalidOperationException()).ToList();
+			unlockables = ((Resources.FindObjectsOfTypeAll(typeof(Unlockable)) as Unlockable[]) ?? throw new InvalidOperationException()).ToList();
 			GUIStyle s = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleCenter};
 
 			EditorGUILayout.Space();
@@ -44,6 +44,7 @@ namespace Editor
 				EditorGUILayout.LabelField("Value: ", stats[i].GetCurrentValue().ToString(),s);
 				EditorGUILayout.LabelField("Level: ", stats[i].GetLevel().ToString(),s);
 				EditorGUILayout.LabelField("Cost: ", stats[i].GetCurrentCost().ToString(),s);
+
 				EditorGUILayout.EndHorizontal();
 			}
 

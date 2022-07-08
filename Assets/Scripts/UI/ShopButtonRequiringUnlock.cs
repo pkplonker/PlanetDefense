@@ -9,6 +9,7 @@ namespace UI
 
 		public override void UpdateUI()
 		{
+			UpdateValues();
 			titleText.text = item.GetStatName();
 			UpdatePriceText();
 			levelText.text = "Level: " + item.GetLevel();
