@@ -18,26 +18,20 @@ namespace PlayerScripts
 
 		private void OnStateChange(GameState state)
 		{
-			if (state is GameState.NewGame or GameState.GameOver)
-			{
-				DestroyAllProjectiles();
-			}
+			if (state is GameState.NewGame or GameState.GameOver) DestroyAllProjectiles();
 		}
 
 		private void DestroyAllProjectiles()
 		{
-			for (int i = 0; i < projectiles.Count; i++)
+			for (var i = 0; i < projectiles.Count; i++)
 			{
 				if (projectiles[i] != null) Destroy(projectiles[i]);
 			}
-			
 		}
 
 
-		private void Start()
-		{
-			DestroyAllProjectiles();
-		}
+		private void Start()=>DestroyAllProjectiles();
+		
 
 		private void Update()
 		{
@@ -51,18 +45,13 @@ namespace PlayerScripts
 			}
 		}
 
-		public void Shoot(Vector3 direction, ProjectileData projectileData)
-		{
+		public void Shoot(Vector3 direction, ProjectileData projectileData) =>
 			projectiles.Add(CreateProjectileWithDirection(direction, projectileData));
-		}
+
 
 		private Projectile Shoot(Transform shooter, Transform targetTransform, ProjectileData projectileData = null)
 		{
-			if (projectileData == null)
-			{
-				projectileData = playerAutoProjectileData;
-			}
-
+			if (projectileData == null) projectileData = playerAutoProjectileData;
 			if (shooter == null || targetTransform == null) return CreateProjectile(targetTransform, projectileData);
 			return targetTransform.GetComponent<ICheckAlive>().GetIsDead()
 				? null
@@ -120,10 +109,7 @@ namespace PlayerScripts
 
 		public void RegisterDestroy(object obj)
 		{
-			if (obj is Projectile projectile)
-			{
-				projectiles.Remove(projectile);
-			}
+			if (obj is Projectile projectile) projectiles.Remove(projectile);
 		}
 	}
 }

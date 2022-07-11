@@ -9,7 +9,7 @@ namespace UI
 	public abstract class HealthBarUI : MonoBehaviour
 	{
 		[Range(0, 1)] [SerializeField] protected float lowHealthThreshold = 0.2f;
-		[SerializeField] protected PlayerController player;
+		[SerializeField] protected PlayerHealth player;
 		[SerializeField] protected Color lowHealthColor;
 		protected Color defaultColor;
 		protected TextMeshProUGUI tmp;

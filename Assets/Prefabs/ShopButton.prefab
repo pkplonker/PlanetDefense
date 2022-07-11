@@ -538,8 +538,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 44.130203, y: 0}
-  m_SizeDelta: {x: 71.62, y: 50}
+  m_AnchoredPosition: {x: 49.59999, y: 0}
+  m_SizeDelta: {x: 66.15, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2082566010
 CanvasRenderer:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   titleText: {fileID: 3366638919488904772}
   priceText: {fileID: 6988951484181353712}
   levelText: {fileID: 384475077}
-  item: {fileID: 11400000, guid: 0629d22f2479a1d4289d8a5105e37b6a, type: 2}
+  item: {fileID: 11400000, guid: d98889165b9399e42b7b9d78723afcd4, type: 2}
   canAffordColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   currentValue: {fileID: 2082566009}

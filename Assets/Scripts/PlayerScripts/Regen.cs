@@ -14,7 +14,7 @@ namespace PlayerScripts
 	/// </summary>
 	public class Regen : MonoBehaviour
 	{
-		private PlayerController player;
+		private PlayerHealth player;
 		private Coroutine cor;
 		[SerializeField] private Stat healthRegenAmount;
 		[SerializeField] private Stat shieldRegenAmount;
@@ -23,7 +23,7 @@ namespace PlayerScripts
 		private GameState state;
 		
 		
-		private void Awake() => player = GetComponent<PlayerController>();
+		private void Awake() => player = GetComponent<PlayerHealth>();
 		
 		private void Update()
 		{

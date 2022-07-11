@@ -6,7 +6,7 @@ namespace PlayerScripts
 	public class ShieldSpriteController : MonoBehaviour
 	{
 		private SpriteRenderer spriteRenderer;
-		[SerializeField] private PlayerController player;
+		[SerializeField] private PlayerHealth player;
 		private void Awake() => spriteRenderer = GetComponent<SpriteRenderer>();
 		private void OnEnable() => player.onShieldChanged += OnShieldChanged;
 		private void OnDisable() => player.onShieldChanged -= OnShieldChanged;

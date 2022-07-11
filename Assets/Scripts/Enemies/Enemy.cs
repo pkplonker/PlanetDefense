@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
@@ -10,7 +11,7 @@ namespace Enemies
 {
 	public class Enemy : MonoBehaviour, IDamageable, IHealable, IGetStats, IDestroyable, ICheckAlive, IRegisterDestroy
 	{
-		private PlayerController target;
+		private PlayerHealth target;
 		private EnemyStats stats;
 		private float currentHealth;
 		public event Action<float> onHealthChanged;
@@ -23,8 +24,9 @@ namespace Enemies
 		private List<Projectile> projectiles = new List<Projectile>();
 		public Stats GetStats() => stats;
 		public bool GetIsDead() => isDead;
+		[SerializeField] private GameObject explosionPrefab;
 
-		public void Init(PlayerController target, EnemyStats stats)
+		public void Init(PlayerHealth target, EnemyStats stats)
 		{
 			this.stats = stats;
 			this.target = target;
@@ -65,13 +67,13 @@ namespace Enemies
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			var player = other.GetComponent<PlayerController>();
+			var player = other.GetComponent<PlayerHealth>();
 			if (player == null) return;
-			TakeDamage(stats.maxHealth);
-			player.TakeDamage(stats.impactDamage);
+			TakeDamage(stats.maxHealth,other.GetComponent<Transform>().position);
+			player.TakeDamage(stats.impactDamage, other.GetComponent<Transform>().position);
 		}
 
-		public void TakeDamage(float amount)
+		public void TakeDamage(float amount, Vector3 hitPoint)
 		{
 			currentHealth -= amount;
 			if (currentHealth <= 0)
@@ -87,6 +89,12 @@ namespace Enemies
 		{
 			isDead = true;
 			onDeath?.Invoke(this);
+			Explode();
+		}
+
+		private void Explode()
+		{
+			Instantiate(explosionPrefab,transform.position,Quaternion.identity);
 			Destroy(gameObject);
 		}
 

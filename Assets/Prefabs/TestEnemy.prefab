@@ -100,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5758922140994373058, guid: 0dd9a419b4193dc43b5bcdd3768c72a7,
     type: 3}
+  explosionPrefab: {fileID: 1436353947374868525, guid: ca49932d48fe0fa44bc188006bbea6f7,
+    type: 3}
 --- !u!58 &4304393007547639650
 CircleCollider2D:
   m_ObjectHideFlags: 0

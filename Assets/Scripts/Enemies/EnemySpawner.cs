@@ -14,7 +14,7 @@ namespace Enemies
 		private EnemyStats enemyStats;
 		public List<Enemy> spawnedEnemies { get; private set; } = new List<Enemies.Enemy>();
 		private Camera cam;
-		[SerializeField] private PlayerController player;
+		[SerializeField] private PlayerHealth player;
 		public static event Action<EnemyStats> OnEnemyDeath;
 
 		private void Awake() => cam = Camera.main;
