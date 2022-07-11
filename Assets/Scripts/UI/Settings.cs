@@ -21,6 +21,7 @@ namespace UI
 		[SerializeField] private Slider projectiles;
 		[SerializeField] private Slider ui;
 		[SerializeField] private Slider music;
+		[SerializeField] private Toggle vibrationToggle;
 
 
 		private void Awake()
@@ -42,6 +43,7 @@ namespace UI
 		{
 			HideUI();
 			LoadAudioValuesFromPlayerPrefs();
+			LoadTogglesFromPlayerPrefs();
 		}
 
 		public void Back() => HideUI();
@@ -50,6 +52,27 @@ namespace UI
 		{
 			ShowUI(0.5f);
 			LoadAudioValuesFromPlayerPrefs();
+			LoadTogglesFromPlayerPrefs();
+		}
+
+		private void LoadTogglesFromPlayerPrefs()
+		{
+			if (PlayerPrefs.HasKey("Vibration"))
+			{
+				vibrationToggle.isOn = PlayerPrefs.GetInt("Vibration") == 1;
+			}
+			else
+			{
+				vibrationToggle.isOn = true;
+				PlayerPrefs.SetInt("Vibration", 1);
+				PlayerPrefs.Save();
+			}
+		}
+
+		public void ToggleVibration()
+		{
+			PlayerPrefs.SetInt("Vibration", PlayerPrefs.GetInt("Vibration") == 1 ? 0 : 1);
+			PlayerPrefs.Save();
 		}
 
 		private void LoadAudioValuesFromPlayerPrefs()
@@ -91,7 +114,7 @@ namespace UI
 			PlayerPrefs.SetFloat(channel, volume);
 			PlayerPrefs.Save();
 		}
-		
+
 		public void SetMasterVolume(float volume) => SetVolume(volume, "Master", audioMixer);
 		public void SetMusicVolume(float volume) => SetVolume(volume, "Music", audioMixer);
 

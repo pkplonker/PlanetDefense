@@ -6,7 +6,10 @@ using UnityEngine;
 public class SFXController : MonoBehaviour
 {
 	public static SFXController instance;
-	private AudioSource audioSource;
+	[SerializeField] private AudioSource generalSFX;
+	[SerializeField] private AudioSource projectileSFX;
+	[SerializeField] private AudioSource UISFX;
+
 	[SerializeField] private AudioClip uiClick;
 
 	private void Awake()
@@ -24,11 +27,34 @@ public class SFXController : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void Start() => audioSource = GetComponent<AudioSource>();
-	public void PlayUIClick() => Playclip(uiClick);
-	public void Playclip(AudioClip clip)
+	public void PlayUIClick() => Playclip(uiClick, SFXType.UI);
+
+	public void Playclip(AudioClip clip, SFXType type)
 	{
-		if (clip == null || audioSource == null) return;
-		audioSource.PlayOneShot(clip);
+		if (clip == null) return;
+		switch (type)
+		{
+			case SFXType.SFX:
+				generalSFX.PlayOneShot(clip);
+
+				break;
+			case SFXType.Projectile:
+				projectileSFX.PlayOneShot(clip);
+
+				break;
+			case SFXType.UI:
+				UISFX.PlayOneShot(clip);
+
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(type), type, null);
+		}
+	}
+
+	public enum SFXType
+	{
+		SFX,
+		Projectile,
+		UI
 	}
 }

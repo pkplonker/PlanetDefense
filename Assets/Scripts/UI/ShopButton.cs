@@ -72,6 +72,8 @@ namespace UI
 
 		public virtual void Buy()
 		{
+			SFXController.instance.PlayUIClick();
+
 			if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
 			{
 				//todo: show not enough money

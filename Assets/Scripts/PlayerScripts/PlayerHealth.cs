@@ -11,6 +11,8 @@ namespace PlayerScripts
 		private bool isDead;
 		private float currentHealth;
 		public event Action<float, float> onHealthChanged;
+		public event Action onTakeDamage;
+
 		public event Action<float, float> onShieldChanged;
 		public event Action<PlayerHealth> onDeath;
 		[SerializeField] private GameObject explosionPrefab;
@@ -19,7 +21,6 @@ namespace PlayerScripts
 
 		private float currentShield;
 
-		
 
 		private void Start() => SetInitialHealth();
 		public Stats GetStats() => stats;
@@ -84,6 +85,7 @@ namespace PlayerScripts
 
 		public void TakeDamage(float amount, Vector3 hitPoint)
 		{
+			if (amount > 0) onTakeDamage?.Invoke();
 			if (!stats.GetIsShieldUnlocked()) TakeHealthDamage(amount, hitPoint);
 			else
 			{

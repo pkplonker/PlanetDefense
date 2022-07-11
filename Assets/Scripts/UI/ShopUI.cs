@@ -40,7 +40,7 @@ namespace UI
 		private void Reset()
 		{
 			HideUI(0f);
-			SelectManualWeapons();
+			ShowGrid(GridTypes.ManualWeapons, false);
 			foreach (var b in cachedButtons)
 			{
 				b.gameObject.SetActive(true);
@@ -92,13 +92,14 @@ namespace UI
 			}
 		}
 
-		private void ShowGrid(GridTypes type)
+		private void ShowGrid(GridTypes type, bool withUISound = true)
 		{
 			if ((int) type >= grids.Count)
 			{
 				Debug.LogError("Not enough grids to show");
 				return;
 			}
+			if(withUISound) SFXController.instance.PlayUIClick();
 
 			foreach (var grid in grids)
 			{

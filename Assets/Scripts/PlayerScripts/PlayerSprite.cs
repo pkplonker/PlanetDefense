@@ -24,7 +24,12 @@ namespace PlayerScripts
 
 		private void HandleGameStateChange(GameState state)
 		{
-			if (state == GameState.NewGame) spriteRenderer.enabled = true;
+			spriteRenderer.enabled = state switch
+			{
+				GameState.NewGame => true,
+				GameState.Menu => false,
+				_ => spriteRenderer.enabled
+			};
 		}
 	}
 }

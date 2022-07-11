@@ -10,7 +10,7 @@ namespace UI
 		public override void UpdateUI()
 		{
 			UpdateValues();
-			titleText.text = item.GetStatName();
+			if(titleText!=null) titleText.text = item.GetStatName();
 			UpdatePriceText();
 			levelText.text = "Level: " + item.GetLevel();
 			if (CurrencyHandler.instance.CanAfford(item.GetCurrentCost()) && unlockable.GetIsUnlocked())
@@ -20,6 +20,8 @@ namespace UI
 
 		public override void Buy()
 		{
+			SFXController.instance.PlayUIClick();
+
 			if (!unlockable.GetIsUnlocked()) return;
 			if (!CurrencyHandler.instance.RemoveMoney(item.GetCurrentCost()))
 			{

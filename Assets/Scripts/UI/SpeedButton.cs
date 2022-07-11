@@ -6,7 +6,7 @@ namespace UI
 {
 	public class SpeedButton : MonoBehaviour
 	{
-		public static GameSpeed currentSpeed = GameSpeed.Normal;
+		private static GameSpeed currentSpeed = GameSpeed.Normal;
 		[SerializeField] private TextMeshProUGUI text;
 
 		private void Start()

@@ -52,14 +52,13 @@ public class Projectile : MonoBehaviour, IDestroyable
 
 	private void HandleCollision(Collider2D other)
 	{
-		Debug.Log("hit " + other.gameObject.name);
 		var stats = other.GetComponent<IGetStats>();
 		if (stats == null) return;
 		if (stats.GetStats().team != targetTeam) return;
 		var iDam = other.GetComponent<IDamageable>();
 		if (iDam == null) return;
 		other.GetComponent<IDamageable>().TakeDamage(data.GetDamage(),transform.position);
-		SFXController.instance.Playclip(impactSound);
+		SFXController.instance.Playclip(impactSound, SFXController.SFXType.Projectile);
 		DestroyEntity();
 	}
 
