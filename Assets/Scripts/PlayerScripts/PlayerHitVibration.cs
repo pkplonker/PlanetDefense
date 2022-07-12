@@ -40,19 +40,19 @@ namespace PlayerScripts
 			}
 			else
 			{
-
 				PlayerPrefs.SetInt("Vibration", 1);
 				Logger.Log("setting prefs to 1");
-
-				Handheld.Vibrate();
+				Vibrate();
 				PlayerPrefs.Save();
 			}
 		}
 
 		private static void Vibrate()
 		{
-			Handheld.Vibrate();
+#if UNITY_ANDROID
+				Handheld.Vibrate();
+#endif
 			Logger.Log("Vibrate");
-		} 
+		}
 	}
 }

@@ -1,70 +1,75 @@
 using System;
 using System.Collections;
-using Enemies;
 using UnityEngine;
 
-public class WaveSpawner : MonoBehaviour
+namespace Enemies
 {
-	[SerializeField] private WaveContainer waveContainer;
-	private int currentMobIndex;
-	[SerializeField] private Enemies.EnemySpawner enemySpawner;
-	Coroutine waveCoroutine;
-	int waveIndex = 0;
-	public static event Action<int, int> OnNewMobSpawned;
-
-	private void OnEnable()
+	public class WaveSpawner : MonoBehaviour
 	{
-		GameManager.onWaveStart += OnWaveStart;
-		GameManager.onStateChange += OnStateChange;
-		waveCoroutine = null;
-	}
+		[SerializeField] private WaveContainer waveContainer;
+		private int currentMobIndex;
+		[SerializeField] private EnemySpawner enemySpawner;
+		Coroutine waveCoroutine;
+		int waveIndex = 0;
+		public static event Action<int, int> OnNewMobSpawned;
 
-	private int GetWaveSize() => waveContainer.waves[waveIndex].GetSpawnLength();
-
-	private void OnStateChange(GameState state)
-	{
-		if (waveCoroutine == null) return;
-		if (state == GameState.Dead || state == GameState.Complete || state == GameState.Shop ||
-		    state == GameState.WaveOver)
+		private void OnEnable()
 		{
-			StopCoroutine(waveCoroutine);
-		}
-	}
-
-	private void OnWaveStart(int waveIndex)
-	{
-		this.waveIndex = waveIndex;
-		if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
-		else
-		{
-			StopCoroutine(waveCoroutine);
-			waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
+			GameManager.onWaveStart += OnWaveStart;
+			GameManager.onStateChange += OnStateChange;
+			waveCoroutine = null;
 		}
 
-		currentMobIndex = 0;
-	}
+		private int GetWaveSize() => waveContainer.waves[waveIndex].GetSpawnLength();
 
-	private void OnDisable()
-	{
-		GameManager.onWaveStart += OnWaveStart;
-		if (waveCoroutine != null)
+		private void OnStateChange(GameState state)
 		{
-			StopCoroutine(waveCoroutine);
+			if (waveCoroutine == null) return;
+			if (state == GameState.Dead || state == GameState.Complete || state == GameState.Shop ||
+			    state == GameState.WaveOver)
+			{
+				StopCoroutine(waveCoroutine);
+			}
 		}
-	}
 
-	private IEnumerator WaveCoroutine(int waveIndex)
-	{
-
-		currentMobIndex = 0;
-		OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
-
-		while (currentMobIndex != waveContainer.waves[waveIndex].GetSpawnLength())
+		private void OnWaveStart(int waveIndex)
 		{
-			yield return new WaitForSeconds(waveContainer.waves[waveIndex].spawns[currentMobIndex].nextMobDelay);
-			enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].enemyStats);
+			Logger.Log("wave spawner on wave start");
+
+			this.waveIndex = waveIndex;
+			if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
+			else
+			{
+				StopCoroutine(waveCoroutine);
+				waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
+			}
+
+			currentMobIndex = 0;
+		}
+
+		private void OnDisable()
+		{
+			GameManager.onWaveStart += OnWaveStart;
+			if (waveCoroutine != null)
+			{
+				StopCoroutine(waveCoroutine);
+			}
+		}
+
+		private IEnumerator WaveCoroutine(int waveIndex)
+		{
+			Logger.Log("starting wave cor");
+
+			currentMobIndex = 0;
 			OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
-			currentMobIndex++;
+
+			while (currentMobIndex != waveContainer.waves[waveIndex].GetSpawnLength())
+			{
+				yield return new WaitForSeconds(waveContainer.waves[waveIndex].spawns[currentMobIndex].nextMobDelay);
+				enemySpawner.SpawnEnemy(waveContainer.waves[waveIndex].spawns[currentMobIndex].enemyStats);
+				OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
+				currentMobIndex++;
+			}
 		}
 	}
 }

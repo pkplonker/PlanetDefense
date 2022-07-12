@@ -1,16 +1,25 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemies
 {
 	[CreateAssetMenu(fileName = "New Wave Container", menuName = "Waves/Wave Container")]
-
 	public class WaveContainer : ScriptableObject
 	{
 		public List<WaveData> waves;
 
-		public WaveData GetWaveByIndex(int index)=>index > waves.Count ? null : waves[index];
-    
+		private void OnValidate()
+		{
+			if (waves.Count == 0)
+			{
+				Logger.LogError("waves data missing");
+
+			}
+		}
+
+		public WaveData GetWaveByIndex(int index) => index > waves.Count ? null : waves[index];
+
 
 		public int GetIndexByWave(WaveData data)
 		{
@@ -19,8 +28,5 @@ namespace Enemies
 		}
 
 		public bool IsLastWave(int currentIndex) => currentIndex >= waves.Count;
-
-
-    
 	}
 }

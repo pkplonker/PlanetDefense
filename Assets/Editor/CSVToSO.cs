@@ -27,6 +27,8 @@ namespace Editor
 		{
 			try
 			{
+				Logger.LogError("updating wave container........");
+
 				ClearData();
 				GenerateEnemies(enemyCSVPath);
 				GenerateWaves(waveCSVPath);
@@ -39,6 +41,8 @@ namespace Editor
 			}
 
 			Debug.Log("Loaded Data".WithColor(Color.green));
+			AssetDatabase.SaveAssets();
+
 		}
 
 		private static void ClearData()
@@ -53,12 +57,15 @@ namespace Editor
 				Debug.Log(e);
 				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(e));
 			}
+			AssetDatabase.SaveAssets();
+
 		}
 
 		private static void PopulateContainer()
 		{
 			var data = ((Resources.FindObjectsOfTypeAll(typeof(WaveData)) as WaveData[]) ?? Array.Empty<WaveData>())
 				.ToList();
+			if (data.Count == 0) Logger.LogError("Populate container data count is 0");
 			for (int i = data.Count - 1; i >= 0; i--)
 			{
 				if (data[i].levelIndex == 0) data.Remove(data[i]);
@@ -74,6 +81,9 @@ namespace Editor
 				waveContainer.waves = orderedEnumerable.ToList();
 			}
 			else Debug.LogError("Wave Container missing");
+			EditorUtility.SetDirty(waveContainer);
+			AssetDatabase.SaveAssets();
+
 		}
 
 		private static void GenerateEnemies(string path)
@@ -104,6 +114,8 @@ namespace Editor
 
 				AssetDatabase.SaveAssets();
 			}
+			AssetDatabase.SaveAssets();
+
 		}
 
 		private static void GenerateWaves(string path)
@@ -138,8 +150,8 @@ namespace Editor
 
 				AssetDatabase.CreateAsset(waveData, $"Assets/Resources/SO/Waves/{waveData.name}.asset");
 			}
-
 			AssetDatabase.SaveAssets();
 		}
+		
 	}
 }

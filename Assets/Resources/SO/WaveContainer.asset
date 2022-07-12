@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e3fc48e170efd4386e084e071a83c7, type: 3}
   m_Name: WaveContainer
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - {fileID: 11400000, guid: c0b8d66e1d915624eace2e84dc623539, type: 2}
+  - {fileID: 11400000, guid: ebfc3a64292e72240b4788efb6b3d420, type: 2}
+  - {fileID: 11400000, guid: b751a195080f43a478c044abbeac9be3, type: 2}
+  - {fileID: 11400000, guid: 149acb4c5be26294e891940eae2534cb, type: 2}
+  - {fileID: 11400000, guid: 921912ffb6eaa6a418bfe95195f3bfd6, type: 2}
+  - {fileID: 11400000, guid: 005d38ebc75827e40a8a1340c3069c25, type: 2}
+  - {fileID: 11400000, guid: def569bd4d126934c9abf1f7acd53ca3, type: 2}
+  - {fileID: 11400000, guid: 2708d7f0e1a2b474392e72e3779dbf23, type: 2}
+  - {fileID: 11400000, guid: f57d133d5fb27eb4c98dbc8d3a5a8361, type: 2}
+  - {fileID: 11400000, guid: c4a2dbfb65664e84fb216358d33d512c, type: 2}

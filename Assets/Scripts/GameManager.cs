@@ -55,15 +55,19 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	{
 		if (gameState == GameState.Shop && state == GameState.WaveOver) return;
 		gameState = state;
+		Logger.Log("GM state = " + state);
+
 		onStateChange?.Invoke(gameState);
 		switch (state)
 		{
 			case GameState.NewGame:
+				Logger.LogWithColor("GM New game", Color.blue);
 
 				SetupNewGame();
 				ChangeState(GameState.NewWave);
 				break;
 			case GameState.NewWave:
+				Logger.LogWithColor("GM New Wave",Color.green);
 
 				ChangeState(GameState.InGame);
 				break;
@@ -78,14 +82,19 @@ public class GameManager : GenericUnitySingleton<GameManager>
 
 	private void IncrementWave()
 	{
+		Logger.Log("incrementing wave");
+
 		currentWave++;
 
 		if (waveContainer.IsLastWave(currentWave))
 		{
+			Logger.Log("is last wave....");
+			Logger.LogWarning(waveContainer.waves.Count.ToString());
+
 			ChangeState(GameState.Complete);
 			return;
 		}
-
+Logger.Log("Calling on wave Start");
 		onWaveStart?.Invoke(currentWave);
 	}
 

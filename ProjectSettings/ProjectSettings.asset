@@ -160,7 +160,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Energise.PlanetDefense
-    Standalone: com.UnityTechnologies.com.unity.template-starter-kit
+    Standalone: com.Energise.Planet-Defence
   buildNumber:
     Standalone: 0
     iPhone: 0
