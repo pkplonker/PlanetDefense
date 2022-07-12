@@ -9,7 +9,7 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	public static event Action<GameState> onStateChange;
 	public static event Action<int> onWaveStart;
 	[SerializeField] private WaveContainer waveContainer;
-	[SerializeField] private GameState defaultState= GameState.Menu;
+	[SerializeField] private GameState defaultState = GameState.Menu;
 	static int currentWave = -1;
 	[SerializeField] private int kills;
 
@@ -42,13 +42,10 @@ public class GameManager : GenericUnitySingleton<GameManager>
 
 	private void GameStateChange(GameState state)
 	{
-		
-		
 		if (state != GameState.NewWave) return;
 		kills = 0;
 		IncrementWave();
 	}
-
 
 
 	private void SetDefaultState() => ChangeState(defaultState);
@@ -62,17 +59,20 @@ public class GameManager : GenericUnitySingleton<GameManager>
 		switch (state)
 		{
 			case GameState.NewGame:
+				Logger.Instance.Log("new game" );
+
 				SetupNewGame();
 				ChangeState(GameState.NewWave);
 				break;
 			case GameState.NewWave:
+				Logger.Instance.Log("new wave  in game manager");
+
 				ChangeState(GameState.InGame);
 				break;
 			case GameState.WaveOver:
-				if (waveContainer.IsLastWave(currentWave+1)) ChangeState(GameState.Menu); //placeholder functionality
+				if (waveContainer.IsLastWave(currentWave + 1)) ChangeState(GameState.Menu); //placeholder functionality
 				else ChangeState(GameState.Shop);
 				break;
-				
 		}
 	}
 
@@ -81,6 +81,8 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	private void IncrementWave()
 	{
 		currentWave++;
+		Logger.Instance.Log("incrementing wave to : " + currentWave);
+
 		if (waveContainer.IsLastWave(currentWave))
 		{
 			ChangeState(GameState.Complete);

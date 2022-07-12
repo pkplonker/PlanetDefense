@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health Regen Amount
   m_EditorClassIdentifier: 
   value: 1
-  valueModifier: 1.2
+  valueModifier: 1.1
   currentCost: 50
   costMultiplier: 2
   level: 1

@@ -1,4 +1,4 @@
-using System;
+using StuartHeathTools;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -29,8 +29,6 @@ namespace PlayerScripts
 
 		private void Hit()
 		{
-//#if UNITY_ANDROID || UNITY_IOS
-	//		if (!Application.isMobilePlatform) return;
 			if (PlayerPrefs.HasKey("Vibration"))
 			{
 				if (PlayerPrefs.GetInt("Vibration") == 1) Vibrate();
@@ -38,18 +36,11 @@ namespace PlayerScripts
 			else
 			{
 				PlayerPrefs.SetInt("Vibration", 1);
-				Vibrate();
+				Handheld.Vibrate();
 				PlayerPrefs.Save();
 			}
-
-			
-//#endif
 		}
 
-		private static void Vibrate()
-		{
-			Debug.Log("Vibrate");
-			Handheld.Vibrate();
-		}
+		private static void Vibrate() => Handheld.Vibrate();
 	}
 }

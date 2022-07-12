@@ -34,6 +34,7 @@ public class WaveSpawner : MonoBehaviour
 	private void OnWaveStart(int waveIndex)
 	{
 		this.waveIndex = waveIndex;
+		Logger.Instance.Log("Wave Start");
 		if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
 		else
 		{
@@ -55,6 +56,8 @@ public class WaveSpawner : MonoBehaviour
 
 	private IEnumerator WaveCoroutine(int waveIndex)
 	{
+		Logger.Instance.Log("Started Spawn cor");
+
 		currentMobIndex = 0;
 		OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());
 

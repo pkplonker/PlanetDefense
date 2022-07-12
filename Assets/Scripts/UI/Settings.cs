@@ -52,26 +52,32 @@ namespace UI
 		{
 			ShowUI(0.5f);
 			LoadAudioValuesFromPlayerPrefs();
-			LoadTogglesFromPlayerPrefs();
 		}
 
 		private void LoadTogglesFromPlayerPrefs()
 		{
 			if (PlayerPrefs.HasKey("Vibration"))
 			{
-				vibrationToggle.isOn = PlayerPrefs.GetInt("Vibration") == 1;
+				var val = PlayerPrefs.GetInt("Vibration");
+				vibrationToggle.SetIsOnWithoutNotify(PlayerPrefs.GetInt("Vibration")==1);
 			}
 			else
 			{
-				vibrationToggle.isOn = true;
 				PlayerPrefs.SetInt("Vibration", 1);
-				PlayerPrefs.Save();
+				vibrationToggle.SetIsOnWithoutNotify(true);
 			}
 		}
 
 		public void ToggleVibration()
 		{
-			PlayerPrefs.SetInt("Vibration", PlayerPrefs.GetInt("Vibration") == 1 ? 0 : 1);
+			if (vibrationToggle.isOn)
+			{
+				PlayerPrefs.SetInt("Vibration", 0);
+			}
+			else
+			{
+				PlayerPrefs.SetInt("Vibration", 1);
+			}
 			PlayerPrefs.Save();
 		}
 
