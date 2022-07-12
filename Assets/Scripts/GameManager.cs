@@ -59,13 +59,11 @@ public class GameManager : GenericUnitySingleton<GameManager>
 		switch (state)
 		{
 			case GameState.NewGame:
-				Logger.Instance.Log("new game" );
 
 				SetupNewGame();
 				ChangeState(GameState.NewWave);
 				break;
 			case GameState.NewWave:
-				Logger.Instance.Log("new wave  in game manager");
 
 				ChangeState(GameState.InGame);
 				break;
@@ -81,7 +79,6 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	private void IncrementWave()
 	{
 		currentWave++;
-		Logger.Instance.Log("incrementing wave to : " + currentWave);
 
 		if (waveContainer.IsLastWave(currentWave))
 		{

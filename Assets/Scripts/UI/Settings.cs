@@ -64,6 +64,8 @@ namespace UI
 			else
 			{
 				PlayerPrefs.SetInt("Vibration", 1);
+				Logger.Log("Setting vibration pp to 1 in load");
+
 				vibrationToggle.SetIsOnWithoutNotify(true);
 			}
 		}
@@ -73,10 +75,14 @@ namespace UI
 			if (vibrationToggle.isOn)
 			{
 				PlayerPrefs.SetInt("Vibration", 0);
+				Logger.Log("Setting vibration pp to 0");
+
 			}
 			else
 			{
 				PlayerPrefs.SetInt("Vibration", 1);
+				Logger.Log("Setting vibration pp to 1");
+
 			}
 			PlayerPrefs.Save();
 		}

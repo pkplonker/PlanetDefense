@@ -31,16 +31,28 @@ namespace PlayerScripts
 		{
 			if (PlayerPrefs.HasKey("Vibration"))
 			{
-				if (PlayerPrefs.GetInt("Vibration") == 1) Vibrate();
+				if (PlayerPrefs.GetInt("Vibration") == 1)
+				{
+					Logger.Log("player prefs = " + PlayerPrefs.GetInt("Vibration"));
+
+					Vibrate();
+				}
 			}
 			else
 			{
+
 				PlayerPrefs.SetInt("Vibration", 1);
+				Logger.Log("setting prefs to 1");
+
 				Handheld.Vibrate();
 				PlayerPrefs.Save();
 			}
 		}
 
-		private static void Vibrate() => Handheld.Vibrate();
+		private static void Vibrate()
+		{
+			Handheld.Vibrate();
+			Logger.Log("Vibrate");
+		} 
 	}
 }

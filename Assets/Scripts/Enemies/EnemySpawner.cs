@@ -48,7 +48,6 @@ namespace Enemies
 
 		public void SpawnEnemy(EnemyStats stats)
 		{
-			Logger.Instance.Log("Spawning enemy");
 
 			var spawnPos = CalculateSpawnPosition();
 			var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
