@@ -108,10 +108,12 @@ namespace Enemies
 
 		public void DestroyEntity()
 		{
-			foreach (var p in projectiles.Where(p => p != null))
+			for (var i = projectiles.Count - 1; i >= 0; i--)
 			{
-				p.DestroyEntity();
+				if(projectiles[i]!=null) projectiles[i].DestroyEntity();
+
 			}
+			
 
 			Destroy(gameObject);
 		}

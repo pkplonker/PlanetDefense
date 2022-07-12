@@ -23,7 +23,11 @@ public class CurrencyHandler : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
+#if UNITY_EDITOR
 		stats.currency = startingCurrency;
+#else
+		stats.currency = 0;
+#endif
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
@@ -32,13 +36,13 @@ public class CurrencyHandler : MonoBehaviour
 	private void OnEnable()
 	{
 		GameManager.onStateChange += HandleGameStateChange;
-		Enemies.EnemySpawner.OnEnemyDeath += EnemyDeath;
+		EnemySpawner.OnEnemyDeath += EnemyDeath;
 	}
 
 	private void OnDisable()
 	{
 		GameManager.onStateChange -= HandleGameStateChange;
-		Enemies.EnemySpawner.OnEnemyDeath -= EnemyDeath;
+		EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
 
 	private void HandleGameStateChange(GameState state)
@@ -48,7 +52,7 @@ public class CurrencyHandler : MonoBehaviour
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 
-	public void AddMoney(long amount)
+	private void AddMoney(long amount)
 	{
 		stats.currency += amount * (long) moneyMultiplier.GetCurrentValue();
 		onCurrencyChanged?.Invoke(stats.currency);

@@ -12107,7 +12107,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1738089503}
     - target: {fileID: 6988951485295449820, guid: b92688aa19752c24aa1ad007d4298a0e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -16103,6 +16103,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1177538344}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1738089503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1317273560, guid: b92688aa19752c24aa1ad007d4298a0e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1177538344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e00a9909708c374bb1f25c3161f82dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1744905411
 GameObject:
   m_ObjectHideFlags: 0
@@ -17795,7 +17807,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1932041545}
     - target: {fileID: 6988951485295449820, guid: b92688aa19752c24aa1ad007d4298a0e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -17947,6 +17959,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1932041545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1317273560, guid: b92688aa19752c24aa1ad007d4298a0e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1932041542}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e00a9909708c374bb1f25c3161f82dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1938271828

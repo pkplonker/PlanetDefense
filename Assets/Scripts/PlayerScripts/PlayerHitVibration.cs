@@ -30,7 +30,7 @@ namespace PlayerScripts
 		private void Hit()
 		{
 //#if UNITY_ANDROID || UNITY_IOS
-			if (!Application.isMobilePlatform) return;
+	//		if (!Application.isMobilePlatform) return;
 			if (PlayerPrefs.HasKey("Vibration"))
 			{
 				if (PlayerPrefs.GetInt("Vibration") == 1) Vibrate();

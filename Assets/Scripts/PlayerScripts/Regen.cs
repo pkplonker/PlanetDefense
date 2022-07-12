@@ -15,19 +15,18 @@ namespace PlayerScripts
 	public class Regen : MonoBehaviour
 	{
 		private PlayerHealth player;
-		private Coroutine cor;
 		[SerializeField] private Stat healthRegenAmount;
 		[SerializeField] private Stat shieldRegenAmount;
 		[SerializeField] private Stat healthRegenFreq;
 		[SerializeField] private Stat shieldRegenFreq;
 		private GameState state;
-		
-		
+
+
 		private void Awake() => player = GetComponent<PlayerHealth>();
-		
-		private void Update()
+
+		private void Start()
 		{
-			if (GameManager.GetCurrentState() != GameState.InGame) return;
+			StartCoroutine(RegenCor());
 		}
 
 		private IEnumerator RegenCor()
@@ -37,20 +36,29 @@ namespace PlayerScripts
 
 			while (!player.GetIsDead())
 			{
-				if (GameManager.GetCurrentState() != GameState.InGame) yield return null;
-				timerH += healthRegenFreq.runTimeValue;
-				timerS += healthRegenFreq.runTimeValue;
-
-				if (timerH >= healthRegenFreq.runTimeValue)
+				var x = GameManager.GetCurrentState();
+				if (GameManager.GetCurrentState() == GameState.InGame)
 				{
-					player.Heal(healthRegenAmount.runTimeValue);
-				}
-				if (timerS >= shieldRegenFreq.runTimeValue)
-				{
-					player.HealShields(shieldRegenAmount.runTimeValue);
-				}
+					timerH += Time.deltaTime;
+					timerS += Time.deltaTime;
 
+					if (timerH >= healthRegenFreq.runTimeValue)
+					{
+						player.Heal(healthRegenAmount.runTimeValue);
+						Debug.Log("Healing health at " + timerH + " @ " + Time.realtimeSinceStartup);
+						timerH = 0;
+					}
+
+					if (timerS >= shieldRegenFreq.runTimeValue)
+					{
+						player.HealShields(shieldRegenAmount.runTimeValue);
+						Debug.Log("Healing Shields at " + timerS + " @ " + Time.realtimeSinceStartup);
+						timerS = 0;
+					}
+
+				}
 				yield return null;
+
 			}
 		}
 	}
