@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -1.0209045, y: 106.645874}
-  m_SizeDelta: {x: 1029.0417, y: 145.2872}
+  m_AnchoredPosition: {x: -8.5155945, y: 106.645874}
+  m_SizeDelta: {x: 1014.0524, y: 145.2872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &702373349599155225
 CanvasRenderer:
@@ -228,7 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderText: {fileID: 702373351308565371}
-  messgaeText: {fileID: 702373349599155222}
+  messageText: {fileID: 702373349599155222}
+  senderColor: {r: 0.754717, g: 0.379763, b: 0.29547882, a: 1}
 --- !u!1 &702373351308565369
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +266,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 44, y: -27}
-  m_SizeDelta: {x: 819.5869, y: 53.7975}
+  m_SizeDelta: {x: 1007, y: 53.7975}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &702373351308565370
 CanvasRenderer:

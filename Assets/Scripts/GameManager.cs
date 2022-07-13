@@ -1,6 +1,7 @@
 using System;
 using Enemies;
 using StuartHeathTools;
+using UI;
 using UnityEngine;
 
 public class GameManager : GenericUnitySingleton<GameManager>
@@ -10,15 +11,16 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	public static event Action<int> onWaveStart;
 	[SerializeField] private WaveContainer waveContainer;
 	[SerializeField] private GameState defaultState = GameState.Menu;
-	public static int currentWave = -1;
+	private static int currentWave = -1;
 	[SerializeField] private int kills;
+	[SerializeField] private StoryUI story;
+	private static bool newGame;
+	private void OnEnable() => EnemySpawner.OnEnemyDeath -= EnemyDeath;
+	private void OnDisable() => EnemySpawner.OnEnemyDeath += EnemyDeath;
+	private void SetDefaultState() => ChangeState(defaultState);
 
 
-	private void OnEnable()
-	{
-		onStateChange += GameStateChange;
-		EnemySpawner.OnEnemyDeath -= EnemyDeath;
-	}
+	public static GameState GetCurrentState() => gameState;
 
 	private void Start()
 	{
@@ -26,13 +28,11 @@ public class GameManager : GenericUnitySingleton<GameManager>
 		currentWave = 0;
 		EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
-
-	private void OnDisable()
+	private static void SetupNewGame()
 	{
-		onStateChange -= GameStateChange;
-		EnemySpawner.OnEnemyDeath += EnemyDeath;
-	}
-
+		newGame = true;
+		currentWave = -1;
+	} 
 	public void EnemyDeath(EnemyStats stats)
 	{
 		kills++;
@@ -40,64 +40,65 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	}
 
 
-	private void GameStateChange(GameState state)
-	{
-		if (state != GameState.NewWave) return;
-		kills = 0;
-		IncrementWave();
-	}
-
-
-	private void SetDefaultState() => ChangeState(defaultState);
-
-
 	public void ChangeState(GameState state)
 	{
-		Logger.Log("GM state = " + state);
 
-		if (gameState == GameState.Shop && state == GameState.WaveOver) return;
+		Logger.Log("GM state = " + state);
+		if (gameState == GameState.Shop && state == GameState.NewWave)
+		{
+			kills = 0;
+			IncrementWave();
+			ChangeState(GameState.InGame);
+			
+
+			return;
+		}
 		gameState = state;
 
 		onStateChange?.Invoke(gameState);
 		switch (state)
 		{
+			case GameState.InGame:
+				newGame = false;
+				break;
 			case GameState.NewGame:
-
 				SetupNewGame();
+				if (PlayerPrefs.GetInt("Story") == 1) story.PlayInitialStory();
+				else ChangeState(GameState.NewWave);
 				break;
 			case GameState.NewWave:
+				if (PlayerPrefs.GetInt("Story") == 1 && !newGame)
+				{
+					ChangeState(GameState.Story);
+					story.PlayLevelStory(currentWave);
+				}
+				else
+				{
+					kills = 0;
+					IncrementWave();
+					ChangeState(GameState.InGame);
+				}
 
-				ChangeState(GameState.InGame);
 				break;
 			case GameState.WaveOver:
 				if (waveContainer.IsLastWave(currentWave + 1)) ChangeState(GameState.Complete);
-				else ChangeState(GameState.Story);
+				else if (PlayerPrefs.GetInt("Story") == 1)
+				{
+					ChangeState(GameState.Story);
+					story.PlayLevelStory(currentWave);
+				}
+				else ChangeState(GameState.Shop);
 				break;
 		}
 	}
 
-	private static void SetupNewGame() => currentWave = -1;
 
 	private void IncrementWave()
 	{
-//		Logger.Log("incrementing wave");
-
 		currentWave++;
-
-		if (waveContainer.IsLastWave(currentWave))
-		{
-			//Logger.Log("is last wave....");
-			//Logger.LogWarning(waveContainer.waves.Count.ToString());
-
-			ChangeState(GameState.Complete);
-			return;
-		}
-
-//Logger.Log("Calling on wave Start");
+		if (waveContainer.IsLastWave(currentWave)) ChangeState(GameState.Complete);
 		onWaveStart?.Invoke(currentWave);
 	}
-
-	public static GameState GetCurrentState() => gameState;
 }
 
 

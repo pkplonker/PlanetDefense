@@ -18,31 +18,31 @@ namespace UI
 		private List<StoryMessageUI> activeMessages = new List<StoryMessageUI>();
 		[SerializeField] private LevelMessageContainer levelMessageContainer;
 		private bool newGame;
-		private void OnEnable() => GameManager.onStateChange += StateChange;
-		private void OnDisable() => GameManager.onStateChange -= StateChange;
+
 		private void Awake() => HideUI();
 		private void SetContinueButton(bool show) => continueButton.gameObject.SetActive(show);
+		private Coroutine cor;
+		[SerializeField] private string playerName;
 
 
-		private void StateChange(GameState state)
+		public void PlayInitialStory()
 		{
-			if (state == GameState.Story)
-			{
-				if(!CheckForStoryThisLevel()) GameManager.Instance.ChangeState(GameState.Shop);
-			}
-			else if (state == GameState.NewGame)
-			{
-				ShowUI();
-				StartCoroutine(DisplayMessages(levelMessageContainer.pregameLevelMessageData));
-			}
+			ShowUI();
+			cor = StartCoroutine(DisplayMessages(levelMessageContainer.pregameLevelMessageData));
 		}
 
-		private bool CheckForStoryThisLevel()
+		public void PlayLevelStory(int level)
 		{
-			foreach (var lmd in levelMessageContainer.levelMessageData.Where(lmd => lmd.level == GameManager.currentWave))
+			if (!CheckForStoryThisLevel(level)) GameManager.Instance.ChangeState(GameState.Shop);
+		}
+
+		private bool CheckForStoryThisLevel(int level)
+		{
+			foreach (var lmd in levelMessageContainer.levelMessageData.Where(
+				         lmd => lmd.level == level))
 			{
 				ShowUI();
-				StartCoroutine(DisplayMessages(lmd));
+				cor = StartCoroutine(DisplayMessages(lmd));
 				return true;
 			}
 
@@ -50,11 +50,11 @@ namespace UI
 		}
 
 
-		public void NewMessage(MessageData md)
+		private void NewMessage(MessageData md)
 		{
-			StoryMessageUI sm = Instantiate(storyMessagePrefab, messageContainer);
+			var sm = Instantiate(storyMessagePrefab, messageContainer);
 			activeMessages.Add(sm);
-			sm.Init(md.sender, md.message);
+			sm.Init(md.sender, md.message, playerName);
 			StartCoroutine(PushToBottom());
 		}
 
@@ -85,7 +85,9 @@ namespace UI
 				NewMessage(lmd.messageData[count]);
 				count++;
 			}
+
 			SetContinueButton(true);
+			cor = null;
 		}
 
 
@@ -93,20 +95,13 @@ namespace UI
 		{
 			HideUI();
 			DestroyAllMessages();
-			if (newGame)
-			{
-				GameManager.Instance.ChangeState(GameState.NewWave);
-
-			}
-			else
-			{
-				GameManager.Instance.ChangeState(GameState.Shop);
-
-			}
+			GameManager.Instance.ChangeState(newGame ? GameState.NewWave : GameState.Shop);
+			newGame = false;
 		}
 
 		private void DestroyAllMessages()
 		{
+			if (cor != null) StopCoroutine(cor);
 			foreach (var mess in activeMessages)
 			{
 				Destroy(mess.gameObject);

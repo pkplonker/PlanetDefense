@@ -21,7 +21,7 @@ namespace UI
 
 		private void GameManagerOnonStateChange(GameState state)
 		{
-			if (state == GameState.InGame) ShowUI(0);
+			if (state is GameState.InGame or  GameState.NewWave) ShowUI(0);
 			else HideUI(0);
 		}
 

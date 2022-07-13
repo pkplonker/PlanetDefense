@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112891025afa8e049a79afe1e396324c, type: 3}
-  m_Name: levelMessageData1
+  m_Script: {fileID: 11500000, guid: 78e755a8d9f9729458d3fce2786dd822, type: 3}
+  m_Name: messageData2-15
   m_EditorClassIdentifier: 
-  level: 0
-  messageData:
-  - {fileID: 11400000, guid: 22c41665bce142940bb58672a6dceb40, type: 2}
-  - {fileID: 11400000, guid: b631c7a5c4d308b478b5433bd7a9acde, type: 2}
+  sender: Bill M @ NASA Administrator
+  message: 20% at best

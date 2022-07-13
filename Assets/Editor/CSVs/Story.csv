@@ -1,3 +1,3 @@
-level,sender,message,,,,,,
-1,s1,m1,s2,m2,,,,
--10,Charles C @ Mid-Atlantic Observertory,!Alert! Inbound asteroid on collision course.,Charles C @ Mid-Atlantic Observertory,Impact ETA just 22 minutes!,William F @ USS Gerald R.Ford,Can confirm. We have visual on telemetry from satalites 61/65 and 103,Admiral Burke @ Pentagon,Recommendations?
+level(Minus 1),sender,message,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,s1,m1,s2,m2,,,,,,,,,,,,,,,,,,,,,,,,
+-10,Charles C @ Mid-Atlantic Observertory,!Alert! Inbound asteroid on collision course.,Charles C @ Mid-Atlantic Observertory,Impact ETA just 3 hours!,William F @ USS Gerald R.Ford,Can confirm. We have visual on telemetry from satalites 61/65 and 103,Admiral Burke @ Pentagon,Recommendations?,Charles C @ Mid-Atlantic Observertory,Go home and hug our loved ones - That's all that we can do,Bill M @ NASA Administrator,We can use a shuttle packed with the largest nuclear warheads we can get in time and hope we can disintegrate it before it arrives.,Admiral Burke @ Pentagon,Will it work? Chances of success?,Bill M @ NASA Administrator,20% at best,POTUS,Approved. I'll prepare to address the nation,POTUS,Do whatever it takes,Bill M @ NASA Administrator,Jordan - You will be in charge of navigation when we launch,Jordan,Me?,Bill M @ NASA Administrator,Yes - we need our best on this.,Jordan,Understood

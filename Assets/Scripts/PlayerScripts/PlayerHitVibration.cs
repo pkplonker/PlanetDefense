@@ -33,7 +33,6 @@ namespace PlayerScripts
 			{
 				if (PlayerPrefs.GetInt("Vibration") == 1)
 				{
-					Logger.Log("player prefs = " + PlayerPrefs.GetInt("Vibration"));
 
 					Vibrate();
 				}
@@ -41,7 +40,6 @@ namespace PlayerScripts
 			else
 			{
 				PlayerPrefs.SetInt("Vibration", 1);
-				Logger.Log("setting prefs to 1");
 				Vibrate();
 				PlayerPrefs.Save();
 			}
@@ -52,7 +50,6 @@ namespace PlayerScripts
 #if UNITY_ANDROID
 				Handheld.Vibrate();
 #endif
-			Logger.Log("Vibrate");
 		}
 	}
 }

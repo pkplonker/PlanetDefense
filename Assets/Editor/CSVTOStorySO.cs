@@ -24,6 +24,7 @@ namespace Editor
 				if (lmc == null) throw new Exception("Unable to get level message container");
 				lmc.levelMessageData.Clear();
 				ParseMessages(path);
+				Logger.LogWithColor("Loaded story data", Color.green);
 			}
 			catch (Exception e)
 			{
