@@ -6935,7 +6935,7 @@ MonoBehaviour:
   storyMessagePrefab: {fileID: 702373350692175282, guid: 7f296d62e58724c48a205ac75d7dea04,
     type: 3}
   scrollRect: {fileID: 920994282}
-  messageSpeed: 3
+  messageSpeed: 1
   continueButton: {fileID: 748922241}
   levelMessageContainer: {fileID: 11400000, guid: 76dcd2605c2105445b6cdfee9061ac7a,
     type: 2}

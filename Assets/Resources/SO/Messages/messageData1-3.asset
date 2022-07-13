@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78e755a8d9f9729458d3fce2786dd822, type: 3}
-  m_Name: PreGame1
+  m_Name: messageData1-3
   m_EditorClassIdentifier: 
-  sender: Charles C @ Mid-Atlantic Observertory
-  message: '!Alert! Inbound asteroid on collision course.'
+  sender: s2
+  message: m2
