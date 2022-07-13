@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 namespace UI
 {
 	public class SliderToggle : MonoBehaviour
@@ -12,7 +12,8 @@ namespace UI
 		[SerializeField] private Sprite sliderOn;
 		[SerializeField] private Sprite sliderOff;
 		[SerializeField] private string playerPrefsValue = "Vibration";
-
+		[SerializeField] private float slideSpeed=0.5f;
+		[SerializeField] private float slideDistance=0.2f;
 
 		private void Awake()
 		{
@@ -35,13 +36,16 @@ namespace UI
 			background.sprite = backgroundOff;
 			slider.sprite = sliderOff;
 			PlayerPrefs.SetInt(playerPrefsValue, 0);
-		//	Logger.LogWithColor("Setting " + playerPrefsValue + " off", Color.cyan);
+			slider.transform.DOLocalMoveX(slider.transform.localPosition.x-slideDistance,slideSpeed );
+			//	Logger.LogWithColor("Setting " + playerPrefsValue + " off", Color.cyan);
 		}
 
 		private void SetSliderOn()
 		{
 			background.sprite = backgroundOn;
 			slider.sprite = sliderOn;
+			slider.transform.DOLocalMoveX(slider.transform.localPosition.x+ slideDistance,slideSpeed );
+
 			PlayerPrefs.SetInt(playerPrefsValue, 1);
 //			Logger.LogWithColor("Setting " + playerPrefsValue + " on", Color.green);
 		}
