@@ -20,7 +20,7 @@ namespace UI
 			SFXController.instance.PlayUIClick();
 			currentSpeed++;
 			if ((int) currentSpeed >= Enum.GetNames(typeof(GameSpeed)).Length) currentSpeed = 0;
-			UpdateCurrentSpeed(currentSpeed);
+			UpdateCurrentSpeed();
 		}
 
 		private void OnEnable() => GameManager.onStateChange += StateChange;
@@ -30,7 +30,7 @@ namespace UI
 		{
 			if (state != GameState.NewGame) return;
 			currentSpeed = GameSpeed.Normal;
-			UpdateCurrentSpeed(GameSpeed.Normal);
+			UpdateCurrentSpeed();
 		}
 
 		public static float GetSpeedMultiplier()
@@ -45,7 +45,7 @@ namespace UI
 			};
 		}
 
-		private void UpdateCurrentSpeed(GameSpeed requestedSpeed)
+		private void UpdateCurrentSpeed()
 		{
 			UpdateTime();
 			UpdateUI();
@@ -64,8 +64,18 @@ namespace UI
 				GameSpeed.Normal => "100%",
 				GameSpeed.TwoTimes => "200%",
 				GameSpeed.FourTimes => "400%",
+#if UNITY_EDITOR
+				GameSpeed.EightTimes => "800%",
+				GameSpeed.SixteenTimes => "1600%",
+#endif
 				_ => text.text
 			};
+		}
+
+		public void SetSpeedMultiplier(GameSpeed speed)
+		{
+			currentSpeed = speed;
+			UpdateCurrentSpeed();
 		}
 	}
 
@@ -74,6 +84,10 @@ namespace UI
 		Half,
 		Normal,
 		TwoTimes,
-		FourTimes
+		FourTimes,
+#if UNITY_EDITOR
+		EightTimes,
+		SixteenTimes
+#endif
 	}
 }

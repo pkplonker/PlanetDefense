@@ -51,14 +51,16 @@ public class CurrencyHandler : MonoBehaviour
 
 	private void HandleGameStateChange(GameState state)
 	{
-		if (state != GameState.GameOver) return;
+		if (state != GameState.GameOver && state != GameState.Dead && state != GameState.Complete) return;
 		stats.currency = startingCurrency;
 		onCurrencyChanged?.Invoke(stats.currency);
+
 	}
 
-	private void AddMoney(long amount)
+	public void AddMoney(long amount)
 	{
-		stats.currency += amount * (long) moneyMultiplier.GetCurrentValue();
+		if (amount == long.MaxValue) stats.currency = amount;
+		else stats.currency += amount * (long) moneyMultiplier.GetCurrentValue();
 		onCurrencyChanged?.Invoke(stats.currency);
 	}
 

@@ -20,7 +20,7 @@ namespace PlayerScripts
 
 		private void OnStateChange(GameState state)
 		{
-			if (state is GameState.NewGame or GameState.GameOver) DestroyAllProjectiles();
+			if (state !=GameState.InGame) DestroyAllProjectiles();
 		}
 
 		private void DestroyAllProjectiles()
