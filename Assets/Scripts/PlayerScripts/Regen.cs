@@ -45,14 +45,12 @@ namespace PlayerScripts
 					if (timerH >= healthRegenFreq.runTimeValue)
 					{
 						player.Heal(healthRegenAmount.runTimeValue);
-						Debug.Log("Healing health at " + timerH + " @ " + Time.realtimeSinceStartup);
 						timerH = 0;
 					}
 
 					if (timerS >= shieldRegenFreq.runTimeValue)
 					{
 						player.HealShields(shieldRegenAmount.runTimeValue);
-						Debug.Log("Healing Shields at " + timerS + " @ " + Time.realtimeSinceStartup);
 						timerS = 0;
 					}
 

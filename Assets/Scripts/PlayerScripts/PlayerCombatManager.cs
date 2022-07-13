@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace PlayerScripts
 		private List<Projectile> projectiles = new List<Projectile>();
 		private float lastShotTime;
 		[SerializeField] private Enemies.EnemySpawner enemySpawner;
+		public static event Action<float, float> OnACoolDownUpdate; 
 		private void OnEnable() => GameManager.onStateChange += OnStateChange;
 		private void OnDisable() => GameManager.onStateChange -= OnStateChange;
 
@@ -37,10 +39,13 @@ namespace PlayerScripts
 		{
 			if (GameManager.GetCurrentState() != GameState.InGame) return;
 			if (!autoShootUnlock.GetIsUnlocked()) return;
+			OnACoolDownUpdate?.Invoke(playerAutoProjectileData.GetCooldown()-(Time.time - lastShotTime), playerAutoProjectileData.GetCooldown());
 			if (!(lastShotTime + playerAutoProjectileData.GetCooldown() < Time.time)) return;
 			var target = AcquireTarget(playerAutoProjectileData);
 			if (target != null)
 			{
+				lastShotTime = Time.time;
+
 				projectiles.Add(Shoot(transform, target.transform));
 			}
 		}
@@ -66,7 +71,6 @@ namespace PlayerScripts
 				-Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles;
 			projectileTransform.localScale = Vector3.one;
 			projectile.Init(this, projectileData, Stats.Team.Enemy, targetTransform);
-			lastShotTime = Time.time;
 			return projectile;
 		}
 
@@ -78,7 +82,6 @@ namespace PlayerScripts
 				-Quaternion.LookRotation(direction - transform.position).eulerAngles;
 			projectileTransform.localScale = Vector3.one;
 			projectile.Init(this, projectileData, Stats.Team.Enemy, direction);
-			lastShotTime = Time.time;
 			return projectile;
 		}
 

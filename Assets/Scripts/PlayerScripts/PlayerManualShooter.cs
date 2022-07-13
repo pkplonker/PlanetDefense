@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,6 +16,8 @@ namespace PlayerScripts
 		private PlayerCombatManager playerCombatManager;
 		private float shootTimer;
 		private bool inGame;
+		public static event Action<float, float> OnMCoolDownUpdate; 
+
 		private void OnEnable() => GameManager.onStateChange += StateChange;
 		private void OnDisable() => GameManager.onStateChange -= StateChange;
 		private void Start() => playerCombatManager = GetComponent<PlayerCombatManager>();
@@ -40,6 +43,7 @@ namespace PlayerScripts
 			targetReticule.gameObject.SetActive(true);
 
 			shootTimer -= Time.deltaTime;
+			OnMCoolDownUpdate?.Invoke(shootTimer, manualShootSpeed.GetCurrentValue());
 			UpdateReticulePosition();
 			if (!Input.GetMouseButtonDown(0) || !(shootTimer <= 0) || !inGame || IsClickingOnUI()) return;
 			playerCombatManager.Shoot((targetReticule.position - transform.position).normalized, projectileData);

@@ -74,13 +74,13 @@ namespace UI
 		protected override void ShowUI(float fadeTime=1f)
 		{
 			base.ShowUI(fadeTime);
-			Invoke(nameof(UpdateButtons),.05f);
+			Invoke(nameof(UpdateButtons),.1f);
 			
 		}
 
 		private void UpdateButtonsDelay()
 		{
-			Invoke(nameof(UpdateButtons),.05f);
+			Invoke(nameof(UpdateButtons),.1f);
 
 		}
 		private void UpdateButtons()
