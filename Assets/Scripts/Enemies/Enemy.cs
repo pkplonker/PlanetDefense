@@ -37,23 +37,35 @@ namespace Enemies
 		private void Update()
 		{
 			if (GameManager.GetCurrentState() == GameState.Paused) return;
-
-			if (inRange)
+			if (stats.GetProjectileData() == null)
 			{
-						if (lastShotTime + stats.GetProjectileData().GetSpeed() < Time.time) Shoot();
+				MoveTowards();
 			}
 			else
 			{
-				if (Vector3.Distance(transform.position, target.transform.position) > stats.GetProjectileData().GetRange())
+				if (inRange)
 				{
-					transform.position =
-						Vector3.MoveTowards(transform.position, target.transform.position,
-							stats.movementSpeed * Time.deltaTime);
-					transform.rotation =
-						Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
+					if (lastShotTime + stats.GetProjectileData().GetSpeed() < Time.time) Shoot();
 				}
-				else inRange = true;
+				else
+				{
+					if (Vector3.Distance(transform.position, target.transform.position) > stats.GetProjectileData().GetRange())
+					{
+						MoveTowards();
+					}
+					else inRange = true;
+				}
 			}
+			
+		}
+
+		private void MoveTowards()
+		{
+			transform.position =
+				Vector3.MoveTowards(transform.position, target.transform.position,
+					stats.movementSpeed * Time.deltaTime);
+			transform.rotation =
+				Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
 		}
 
 		private void Shoot()

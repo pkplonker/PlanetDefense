@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Wave 3
   m_EditorClassIdentifier: 
   spawns:
+  - nextMobDelay: 3.5
+    enemyStats: {fileID: 11400000, guid: 09ff8950fa4fb2b4facc3539210f7ea1, type: 2}
+  - nextMobDelay: 3.5
+    enemyStats: {fileID: 11400000, guid: 09ff8950fa4fb2b4facc3539210f7ea1, type: 2}
+  - nextMobDelay: 3.5
+    enemyStats: {fileID: 11400000, guid: 2cc189c263129344ab65dc622255f2d8, type: 2}
+  - nextMobDelay: 3.5
+    enemyStats: {fileID: 11400000, guid: 09ff8950fa4fb2b4facc3539210f7ea1, type: 2}
+  - nextMobDelay: 3.5
+    enemyStats: {fileID: 11400000, guid: 09ff8950fa4fb2b4facc3539210f7ea1, type: 2}
   - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+    enemyStats: {fileID: 11400000, guid: 09ff8950fa4fb2b4facc3539210f7ea1, type: 2}
   - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
-  - nextMobDelay: 2
-    enemyStats: {fileID: 11400000, guid: b84731ccccaf50c4b828b9ce6fc3a1be, type: 2}
+    enemyStats: {fileID: 11400000, guid: 2cc189c263129344ab65dc622255f2d8, type: 2}
   levelIndex: 3

@@ -34,7 +34,7 @@ namespace Enemies
 
 		private void OnWaveStart(int waveIndex)
 		{
-			Logger.Log("wave spawner on wave start");
+//			Logger.Log("wave spawner on wave start");
 
 			this.waveIndex = waveIndex;
 			if (waveCoroutine == null) waveCoroutine = StartCoroutine(WaveCoroutine(waveIndex));
@@ -58,7 +58,7 @@ namespace Enemies
 
 		private IEnumerator WaveCoroutine(int waveIndex)
 		{
-			Logger.Log("starting wave cor");
+//			Logger.Log("starting wave cor");
 
 			currentMobIndex = 0;
 			OnNewMobSpawned?.Invoke(currentMobIndex, GetWaveSize());

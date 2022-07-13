@@ -25,11 +25,11 @@ public class CurrencyHandler : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 #if UNITY_EDITOR
 		stats.currency = startingCurrency;
-		Logger.Log("Setting currency to starting currency");
+		//Logger.Log("Setting currency to starting currency");
 
 #else
 		stats.currency = 0;
-						Logger.Log("Setting currency to 0");
+			//			Logger.Log("Setting currency to 0");
 
 #endif
 		onCurrencyChanged?.Invoke(stats.currency);

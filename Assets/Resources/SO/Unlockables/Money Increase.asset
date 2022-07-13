@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Money Increase
   m_EditorClassIdentifier: 
   value: 1
-  valueModifier: 1.1
+  valueModifier: 1.05
   currentCost: 50
   costMultiplier: 2
   level: 1

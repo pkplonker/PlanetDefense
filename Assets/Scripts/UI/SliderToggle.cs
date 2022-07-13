@@ -35,7 +35,7 @@ namespace UI
 			background.sprite = backgroundOff;
 			slider.sprite = sliderOff;
 			PlayerPrefs.SetInt(playerPrefsValue, 0);
-			Logger.LogWithColor("Setting " + playerPrefsValue + " off", Color.cyan);
+		//	Logger.LogWithColor("Setting " + playerPrefsValue + " off", Color.cyan);
 		}
 
 		private void SetSliderOn()
@@ -43,7 +43,7 @@ namespace UI
 			background.sprite = backgroundOn;
 			slider.sprite = sliderOn;
 			PlayerPrefs.SetInt(playerPrefsValue, 1);
-			Logger.LogWithColor("Setting " + playerPrefsValue + " on", Color.green);
+//			Logger.LogWithColor("Setting " + playerPrefsValue + " on", Color.green);
 		}
 	}
 }
