@@ -8,11 +8,13 @@ namespace UI
 	{
 		private static GameSpeed currentSpeed = GameSpeed.Normal;
 		[SerializeField] private TextMeshProUGUI text;
+		private GameSpeed cachedSpeed;
 
 		private void Start()
 		{
 			UpdateTime();
 			UpdateUI();
+			cachedSpeed = currentSpeed;
 		}
 
 		public void Toggle()
@@ -28,9 +30,24 @@ namespace UI
 
 		private void StateChange(GameState state)
 		{
-			if (state != GameState.NewGame) return;
-			currentSpeed = GameSpeed.Normal;
-			UpdateCurrentSpeed();
+			if (state == GameState.NewGame)
+			{
+				SetSpeedMultiplier(GameSpeed.Normal);
+				return;
+			}
+
+			if (state == GameState.Story)
+			{
+				cachedSpeed = currentSpeed;
+				SetSpeedMultiplier(GameSpeed.Normal);
+				return;
+			}
+
+			if (state == GameState.InGame)
+			{
+				SetSpeedMultiplier(cachedSpeed);
+			}
+
 		}
 
 		public static float GetSpeedMultiplier()

@@ -13,14 +13,25 @@ namespace UI
 		[SerializeField] private Transform messageContainer;
 		[SerializeField] private StoryMessageUI storyMessagePrefab;
 		[SerializeField] private ScrollRect scrollRect;
-		[SerializeField] private float messageSpeed;
+		[SerializeField] private float messageSpeedMin;
+		[SerializeField] private float messageSpeedMax;
+		[SerializeField] private Button inc;
+		[SerializeField] private Button dec;
+
 		[SerializeField] private Button continueButton;
 		private List<StoryMessageUI> activeMessages = new List<StoryMessageUI>();
 		[SerializeField] private LevelMessageContainer levelMessageContainer;
+		[SerializeField] private AudioClip notificationSound;
 		private bool newGame;
 
 		private void Awake() => HideUI();
-		private void SetContinueButton(bool show) => continueButton.gameObject.SetActive(show);
+
+		private void SetContinueButton(bool show)
+		{
+			continueButton.gameObject.SetActive(show);
+			inc.gameObject.SetActive(show);
+			dec.gameObject.SetActive(show);
+		} 
 		private Coroutine cor;
 		[SerializeField] private string playerName;
 
@@ -56,6 +67,7 @@ namespace UI
 			activeMessages.Add(sm);
 			sm.Init(md.sender, md.message, playerName);
 			StartCoroutine(PushToBottom());
+			SFXController.instance.Playclip(notificationSound, SFXController.SFXType.SFX);
 		}
 
 		private IEnumerator PushToBottom()
@@ -73,6 +85,7 @@ namespace UI
 			if (lmd.messageData == null || lmd.messageData.Count == 0) yield break;
 			NewMessage(lmd.messageData[count]);
 			count++;
+			var messageSpeed = UnityEngine.Random.Range(messageSpeedMin, messageSpeedMax);
 			while (count < lmd.messageData.Count)
 			{
 				float timer = 0;
@@ -81,7 +94,7 @@ namespace UI
 					timer += Time.deltaTime;
 					yield return null;
 				}
-
+				messageSpeed = UnityEngine.Random.Range(messageSpeedMin, messageSpeedMax);
 				NewMessage(lmd.messageData[count]);
 				count++;
 			}

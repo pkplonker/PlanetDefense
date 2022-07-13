@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e755a8d9f9729458d3fce2786dd822, type: 3}
   m_Name: messageData2-19
   m_EditorClassIdentifier: 
-  sender: POTUS
-  message: Do whatever it takes
+  sender: Admiral Burke @ Pentagon
+  message: It is - We will use the recovered material to fund our planet defence

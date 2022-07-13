@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112891025afa8e049a79afe1e396324c, type: 3}
   m_Name: levelMessageData1
   m_EditorClassIdentifier: 
-  level: 0
+  level: -10
   messageData:
   - {fileID: 11400000, guid: 22c41665bce142940bb58672a6dceb40, type: 2}
   - {fileID: 11400000, guid: b631c7a5c4d308b478b5433bd7a9acde, type: 2}
+  - {fileID: 11400000, guid: 59d0733cd2f378949a8497a56ccbe3cc, type: 2}
+  - {fileID: 11400000, guid: 79a4448a7c484d7489e9e0fac8840cd7, type: 2}
+  - {fileID: 11400000, guid: a83db198b04d2ba419f6ab9c7c2d908f, type: 2}
+  - {fileID: 11400000, guid: bdb6f3aad2f650f43a8b0b3d196a587a, type: 2}
+  - {fileID: 11400000, guid: ea542a9965af8a84fa38d44a4a489098, type: 2}
+  - {fileID: 11400000, guid: 0bd52505d57f2404181b9c173df7d174, type: 2}
+  - {fileID: 11400000, guid: b3fa1e12639fa5542ba90b7bf2ce52b6, type: 2}
+  - {fileID: 11400000, guid: 56219539d191b6b479d9b26718dc41ed, type: 2}
+  - {fileID: 11400000, guid: 56739f6b6bd1f554fbad6d822a3a0e17, type: 2}
+  - {fileID: 11400000, guid: 73f11624b67a8bd48bfb1c961237b7ee, type: 2}
+  - {fileID: 11400000, guid: 5eaf5d9109bc2d647b57f644a6935a24, type: 2}
+  - {fileID: 11400000, guid: 676fb58aad08d334a9beb0e97edea51c, type: 2}

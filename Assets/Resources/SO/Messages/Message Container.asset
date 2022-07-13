@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d575d7be310e9c478eb603c6f115e51, type: 3}
   m_Name: Message Container
   m_EditorClassIdentifier: 
-  pregameLevelMessageData: {fileID: 11400000, guid: c01584f9a8bca69499f665de824c709c,
+  pregameLevelMessageData: {fileID: 11400000, guid: ed02b854664ee0f4596c42a6e6013de6,
     type: 2}
   levelMessageData:
-  - {fileID: 11400000, guid: ed02b854664ee0f4596c42a6e6013de6, type: 2}
+  - {fileID: 11400000, guid: c01584f9a8bca69499f665de824c709c, type: 2}
