@@ -18,6 +18,19 @@ namespace UI
 		[SerializeField] private GameObject valueComponent;
 		public static event Action OnPurchase;
 
+		private void OnEnable()
+		{
+			CurrencyHandler.onCurrencyChanged += UpdateUIFromCurrencyChange;
+		}
+
+		private void UpdateUIFromCurrencyChange(long obj)=>UpdateUI();
+		
+
+		private void OnDisable()
+		{
+			CurrencyHandler.onCurrencyChanged -= UpdateUIFromCurrencyChange;
+		}
+
 		public virtual void UpdateUI()
 		{
 			titleText.text = item.GetStatName();

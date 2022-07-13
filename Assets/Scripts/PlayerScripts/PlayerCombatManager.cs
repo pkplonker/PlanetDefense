@@ -27,7 +27,7 @@ namespace PlayerScripts
 		{
 			for (var i = 0; i < projectiles.Count; i++)
 			{
-				if (projectiles[i] != null) Destroy(projectiles[i]);
+				if (projectiles[i] != null) Destroy(projectiles[i].gameObject);
 			}
 		}
 
@@ -46,12 +46,12 @@ namespace PlayerScripts
 			{
 				lastShotTime = Time.time;
 
-				projectiles.Add(Shoot(transform, target.transform));
+				Shoot(transform, target.transform);
 			}
 		}
 
 		public void Shoot(Vector3 direction, ProjectileData projectileData) =>
-			projectiles.Add(CreateProjectileWithDirection(direction, projectileData));
+			CreateProjectileWithDirection(direction, projectileData);
 
 
 		private Projectile Shoot(Transform shooter, Transform targetTransform, ProjectileData projectileData = null)
@@ -66,6 +66,8 @@ namespace PlayerScripts
 		private Projectile CreateProjectile(Transform targetTransform, ProjectileData projectileData)
 		{
 			var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+			projectiles.Add(projectile);
+
 			Transform projectileTransform;
 			(projectileTransform = projectile.transform).localEulerAngles =
 				-Quaternion.LookRotation(targetTransform.position - transform.position).eulerAngles;
@@ -77,6 +79,7 @@ namespace PlayerScripts
 		private Projectile CreateProjectileWithDirection(Vector3 direction, ProjectileData projectileData)
 		{
 			var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
+			projectiles.Add(projectile);
 			Transform projectileTransform;
 			(projectileTransform = projectile.transform).localEulerAngles =
 				-Quaternion.LookRotation(direction - transform.position).eulerAngles;

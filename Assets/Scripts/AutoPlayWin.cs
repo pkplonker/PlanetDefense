@@ -21,12 +21,16 @@ public class AutoPlayWin : MonoBehaviour
 
 	public void AutoPlay()
 	{
+#if UNITY_EDITOR
 		autoOn = true;
 		GameManager.Instance.ChangeState(GameState.NewGame);
 		Purchase();
 		var x = FindObjectOfType<SpeedButton>();
 		x.SetSpeedMultiplier(GameSpeed.SixteenTimes);
 		SetMobDelayToZero();
+#else
+		Logger.Log("Unable to autoplay in build mode");
+#endif
 	}
 
 	private static void SetMobDelayToZero()
