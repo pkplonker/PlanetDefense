@@ -20,3 +20,4 @@ MonoBehaviour:
   currencyValue: 30
   projectileDataPath: 
   spritePath: meteor_detailedLarge
+  color: {r: 0.24, g: 0.18, b: 0.17, a: 1}

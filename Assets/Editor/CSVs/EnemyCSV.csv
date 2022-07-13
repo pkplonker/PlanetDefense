@@ -1,10 +1,10 @@
-Character Name,Max Health,Movement Speed,Impact Damage,Currency Value,ProjectileDataPath,SpritePath
-Test Enemy,3,2,3,15,SO/Projectiles/P1,SpaceShips/SpaceShips/Spaceship_01_ORANGE
-Enemy 1,3,2,3,48,SO/Projectiles/P1,SpaceShips/SpaceShips/Spaceship_01_ORANGE
-Enemy 2,25,2,10,640,SO/Projectiles/P2,SpaceShips/SpaceShips/Spaceship_03_BLUE
-Enemy 3,100,2.5,20,3500,SO/Projectiles/P3,SpaceShips/SpaceShips/Spaceship_04_YELLOW
-Enemy 4,500,3,40,15000,SO/Projectiles/P4,SpaceShips/SpaceShips/Spaceship_05_GREEN
-Enemy 5,1000,4,80,150000,SO/Projectiles/P5,SpaceShips/SpaceShips/Spaceship_06_PURPLE
-Enemy 6,4000,5,160,2000000,SO/Projectiles/P6,SpaceShips/SpaceShips/Spaceship_06_RED
-Rock 1,3,2,10,30,,meteor_detailedSmall
-Rock 2,3,2,20,30,,meteor_detailedLarge
+Character Name,Max Health,Movement Speed,Impact Damage,Currency Value,ProjectileDataPath,SpritePath,R,G,B,A
+Test Enemy,3,2,3,15,SO/Projectiles/P1,SpaceShips/SpaceShips/Spaceship_01_ORANGE,1,1,1,1
+Enemy 1,3,2,3,48,SO/Projectiles/P1,SpaceShips/SpaceShips/Spaceship_01_ORANGE,1,1,1,1
+Enemy 2,25,2,10,640,SO/Projectiles/P2,SpaceShips/SpaceShips/Spaceship_03_BLUE,1,1,1,1
+Enemy 3,100,2.5,20,3500,SO/Projectiles/P3,SpaceShips/SpaceShips/Spaceship_04_YELLOW,1,1,1,1
+Enemy 4,500,3,40,15000,SO/Projectiles/P4,SpaceShips/SpaceShips/Spaceship_05_GREEN,1,1,1,1
+Enemy 5,1000,4,80,150000,SO/Projectiles/P5,SpaceShips/SpaceShips/Spaceship_06_PURPLE,1,1,1,1
+Enemy 6,4000,5,160,2000000,SO/Projectiles/P6,SpaceShips/SpaceShips/Spaceship_06_RED,1,1,1,1
+Rock 1,3,2,10,30,,meteor_detailedSmall,0.42,0.37,0.36,1
+Rock 2,3,2,20,30,,meteor_detailedLarge,0.24,0.18,0.17,1

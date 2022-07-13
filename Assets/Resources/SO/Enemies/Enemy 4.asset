@@ -20,3 +20,4 @@ MonoBehaviour:
   currencyValue: 15000
   projectileDataPath: SO/Projectiles/P4
   spritePath: SpaceShips/SpaceShips/Spaceship_05_GREEN
+  color: {r: 1, g: 1, b: 1, a: 1}

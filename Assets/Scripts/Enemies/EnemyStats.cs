@@ -15,6 +15,7 @@ namespace Enemies
 		public string spritePath;
 		private ProjectileData projectileData;
 		private Sprite sprite;
+		public Color color;
 
 		private void OnEnable()
 		{

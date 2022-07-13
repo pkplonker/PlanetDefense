@@ -54,7 +54,9 @@ namespace Enemies
 			var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
 			enemy.Init(player, stats);
 			spawnedEnemies.Add(enemy);
-			enemy.GetComponent<SpriteRenderer>().sprite = stats.GetSprite();
+			var spr = enemy.GetComponent<SpriteRenderer>();
+			spr.sprite = stats.GetSprite();
+			spr.color = stats.color;
 			enemy.onDeath += HandleEnemyDeath;
 		}
 

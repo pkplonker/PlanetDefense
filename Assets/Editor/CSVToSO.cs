@@ -104,6 +104,15 @@ namespace Editor
 					enemy.currencyValue = uint.Parse(splitData[4]);
 					enemy.projectileDataPath = splitData[5];
 					enemy.spritePath = splitData[6];
+					if (enemy.characterName == "Rock 1")
+					{
+						Debug.Log(splitData[7]);
+						Debug.Log(float.Parse(splitData[7]));
+
+					}
+					
+					enemy.color = new Color(float.Parse(splitData[7]), float.Parse(splitData[8]), float.Parse(splitData[9]), float.Parse(splitData[10]));
+					
 					enemy.team = Stats.Team.Enemy;
 					AssetDatabase.CreateAsset(enemy, $"Assets/Resources/SO/Enemies/{enemy.characterName}.asset");
 				}
