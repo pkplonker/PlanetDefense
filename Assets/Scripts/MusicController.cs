@@ -54,6 +54,8 @@ public class MusicController : MonoBehaviour
 			case GameState.InGame:
 				PlayClip(gameAudioClip);
 				break;
+			case GameState.Story:
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(state), state, null);
 		}

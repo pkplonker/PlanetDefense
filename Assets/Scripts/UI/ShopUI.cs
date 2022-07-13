@@ -67,7 +67,14 @@ namespace UI
 		{
 			if (state == GameState.NewGame) Reset();
 			if (state == GameState.Shop) ShowUI(2f);
-			else HideUI(0f);
+			else if (state == GameState.Story)
+			{
+				
+			}
+			else
+			{
+				HideUI(0f);
+			}
 		}
 
 

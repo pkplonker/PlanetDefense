@@ -10,7 +10,7 @@ public class GameManager : GenericUnitySingleton<GameManager>
 	public static event Action<int> onWaveStart;
 	[SerializeField] private WaveContainer waveContainer;
 	[SerializeField] private GameState defaultState = GameState.Menu;
-	static int currentWave = -1;
+	public static int currentWave = -1;
 	[SerializeField] private int kills;
 
 
@@ -53,9 +53,10 @@ public class GameManager : GenericUnitySingleton<GameManager>
 
 	public void ChangeState(GameState state)
 	{
+		Logger.Log("GM state = " + state);
+
 		if (gameState == GameState.Shop && state == GameState.WaveOver) return;
 		gameState = state;
-		Logger.Log("GM state = " + state);
 
 		onStateChange?.Invoke(gameState);
 		switch (state)
@@ -63,15 +64,14 @@ public class GameManager : GenericUnitySingleton<GameManager>
 			case GameState.NewGame:
 
 				SetupNewGame();
-				ChangeState(GameState.NewWave);
 				break;
 			case GameState.NewWave:
 
 				ChangeState(GameState.InGame);
 				break;
 			case GameState.WaveOver:
-				if (waveContainer.IsLastWave(currentWave + 1)) ChangeState(GameState.Complete); //placeholder functionality
-				else ChangeState(GameState.Shop);
+				if (waveContainer.IsLastWave(currentWave + 1)) ChangeState(GameState.Complete);
+				else ChangeState(GameState.Story);
 				break;
 		}
 	}
@@ -113,4 +113,5 @@ public enum GameState
 	Shop,
 	NewWave,
 	Complete,
+	Story
 }
