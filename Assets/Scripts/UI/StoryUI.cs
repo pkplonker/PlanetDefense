@@ -86,17 +86,17 @@ namespace UI
 			if (lmd.messageData == null || lmd.messageData.Count == 0) yield break;
 			NewMessage(lmd.messageData[count]);
 			count++;
-			var messageSpeed = UnityEngine.Random.Range(messageSpeedMin, messageSpeedMax);
 			while (count < lmd.messageData.Count)
 			{
 				float timer = 0;
-				while (timer < messageSpeed)
+				var speed = PlayerPrefs.GetFloat("StorySpeed");
+				Debug.Log("Speed = " + speed);
+				while (timer < speed)
 				{
 					timer += Time.deltaTime;
 					yield return null;
 				}
 
-				messageSpeed = UnityEngine.Random.Range(messageSpeedMin, messageSpeedMax);
 				NewMessage(lmd.messageData[count]);
 				count++;
 			}
