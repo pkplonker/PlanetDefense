@@ -53,6 +53,7 @@ public class AutoPlayWin : MonoBehaviour
 		{
 			ShopUI.NextLevel();
 		}
+	
 
 		if (state == GameState.Complete || state == GameState.GameOver)
 		{
