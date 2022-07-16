@@ -1,11 +1,13 @@
 using System;
 using Enemies;
+using PlayerScripts;
 using StuartHeathTools;
 using UI;
 using UnityEngine;
 
 public class GameManager : GenericUnitySingleton<GameManager>
 {
+	[SerializeField] private PlayerHealth playerHealth;
 	private static GameState gameState = GameState.Menu;
 	public static event Action<GameState> onStateChange;
 	public static event Action<int> onWaveStart;
@@ -28,11 +30,13 @@ public class GameManager : GenericUnitySingleton<GameManager>
 		currentWave = 0;
 		EnemySpawner.OnEnemyDeath -= EnemyDeath;
 	}
+
 	private static void SetupNewGame()
 	{
 		newGame = true;
 		currentWave = -1;
-	} 
+	}
+
 	public void EnemyDeath(EnemyStats stats)
 	{
 		kills++;
@@ -42,17 +46,17 @@ public class GameManager : GenericUnitySingleton<GameManager>
 
 	public void ChangeState(GameState state)
 	{
-
 		Logger.Log("GM state = " + state);
 		if (gameState == GameState.Shop && state == GameState.NewWave)
 		{
 			kills = 0;
 			IncrementWave();
 			ChangeState(GameState.InGame);
-			
+
 
 			return;
 		}
+
 		gameState = state;
 
 		onStateChange?.Invoke(gameState);
@@ -80,14 +84,25 @@ public class GameManager : GenericUnitySingleton<GameManager>
 				}
 
 				break;
+			case GameState.Dead:
+				story.Close();
+				break;
 			case GameState.WaveOver:
 				if (waveContainer.IsLastWave(currentWave + 1)) ChangeState(GameState.Complete);
 				else if (PlayerPrefs.GetInt("Story") == 1)
 				{
-					ChangeState(GameState.Story);
-					story.PlayLevelStory(currentWave);
+					if (!playerHealth.GetIsDead())
+					{
+						ChangeState(GameState.Story);
+						story.PlayLevelStory(currentWave);
+					}
+					else
+					{
+						story.Close();
+					}
 				}
 				else ChangeState(GameState.Shop);
+
 				break;
 		}
 	}

@@ -33,6 +33,7 @@ namespace UI
 			if (state == GameState.NewGame)
 			{
 				SetSpeedMultiplier(GameSpeed.Normal);
+				cachedSpeed = GameSpeed.Normal;
 				return;
 			}
 
@@ -47,7 +48,6 @@ namespace UI
 			{
 				SetSpeedMultiplier(cachedSpeed);
 			}
-
 		}
 
 		public static float GetSpeedMultiplier()
@@ -58,6 +58,10 @@ namespace UI
 				GameSpeed.Normal => 1f,
 				GameSpeed.TwoTimes => 2f,
 				GameSpeed.FourTimes => 4f,
+#if UNITY_EDITOR
+				GameSpeed.EightTimes => 8f,
+				GameSpeed.SixteenTimes => 16f,
+#endif
 				_ => 1f
 			};
 		}

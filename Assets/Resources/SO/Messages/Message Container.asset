@@ -16,3 +16,11 @@ MonoBehaviour:
     type: 2}
   levelMessageData:
   - {fileID: 11400000, guid: c01584f9a8bca69499f665de824c709c, type: 2}
+  - {fileID: 11400000, guid: 1cb58ca49a90e434bada6550e4a58e4d, type: 2}
+  - {fileID: 11400000, guid: 714650576197e69488ab9511a7469b11, type: 2}
+  - {fileID: 11400000, guid: 939a2d29e0f64f946b92a1c25703f622, type: 2}
+  - {fileID: 11400000, guid: c3e22cc0982f7b541b589374a427333d, type: 2}
+  - {fileID: 11400000, guid: adfd9709a8476f640bc11441f5f7c4f1, type: 2}
+  - {fileID: 11400000, guid: dae70782c799c2d4989f0a3891936813, type: 2}
+  - {fileID: 11400000, guid: 6e726234f6305cb4ba176e6dac459812, type: 2}
+  - {fileID: 11400000, guid: 6173da8da069a5e43b6cff8d7ddaefbf, type: 2}

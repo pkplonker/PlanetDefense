@@ -31,7 +31,8 @@ namespace UI
 			continueButton.gameObject.SetActive(show);
 			inc.gameObject.SetActive(show);
 			dec.gameObject.SetActive(show);
-		} 
+		}
+
 		private Coroutine cor;
 		[SerializeField] private string playerName;
 
@@ -94,6 +95,7 @@ namespace UI
 					timer += Time.deltaTime;
 					yield return null;
 				}
+
 				messageSpeed = UnityEngine.Random.Range(messageSpeedMin, messageSpeedMax);
 				NewMessage(lmd.messageData[count]);
 				count++;
@@ -128,6 +130,12 @@ namespace UI
 		{
 			SetContinueButton(false);
 			base.ShowUI(fadeTime);
+		}
+
+		public void Close()
+		{
+			DestroyAllMessages();
+			HideUI();
 		}
 	}
 }
